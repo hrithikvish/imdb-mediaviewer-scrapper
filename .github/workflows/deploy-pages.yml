@@ -31,6 +31,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      GRADLE_OPTS: >
+        -Xmx3072m
+        -Dkotlin.daemon.jvm.options=-Xmx1024m
 
     steps:
       - name: Checkout Repository
@@ -41,19 +45,39 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
+
+      # Advanced Gradle caching (wrapper, dependencies, build cache)
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-home-cache-cleanup: true
 
       - name: Make Gradle Wrapper Executable
         run: chmod +x gradlew
 
-      - name: Install Playwright Chromium & System Dependencies
+      # Cache Playwright browser binaries to skip ~130MB download on every run
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('build.gradle.kts') }}
+          restore-keys: |
+            playwright-browsers-${{ runner.os }}-
+
+      - name: Install Playwright Chromium with Dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx -y playwright install --with-deps chromium
+
+      - name: Install OS Dependencies Only (Cache Hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx -y playwright install-deps chromium
 
       - name: Run Kotlin Scraper & Export Gallery
         run: |
-          TARGET_URL="${{ github.event.inputs.imdb_url || 'https://www.imdb.com/title/tt0056241/mediaviewer' }}"
+          TARGET_URL="${{ github.event.inputs.imdb_url || 'https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i' }}"
           echo "Scraping target: $TARGET_URL"
-          ./gradlew run --args="$TARGET_URL docs/gallery.json"
+          ./gradlew run --build-cache --parallel --args="$TARGET_URL docs/gallery.json"
 
       - name: Commit & Push Updated Gallery Data
         if: github.event_name == 'workflow_dispatch'
