@@ -22,12 +22,20 @@
       <div class="header-meta">
         <div class="stat-pill">Total Photos: <strong id="total-count">0</strong></div>
         <div class="stat-pill">Scraped in: <strong id="scrape-duration">--</strong></div>
+        <button id="theme-toggle" class="btn-theme-toggle" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+          <span id="theme-icon">🌙</span>
+        </button>
       </div>
     </div>
   </header>
 
   <!-- Filter & Search Controls -->
   <div class="controls-bar">
+    <div class="title-picker">
+      <span class="picker-label">🎬 Title:</span>
+      <select id="title-select" class="select-styled" title="Select Scraped IMDb Title Gallery"></select>
+    </div>
+
     <div class="search-box">
       <span class="search-icon">🔍</span>
       <input type="text" id="search-input" placeholder="Search by title, caption, or keyword...">

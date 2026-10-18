@@ -12,7 +12,6 @@ on:
       imdb_url:
         description: 'Any IMDb URL or ID (e.g. https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i or tt0038650)'
         required: true
-        default: 'https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -57,6 +56,7 @@ jobs:
 
       # Cache Playwright browser binaries to skip ~130MB download on every run
       - name: Cache Playwright Browsers
+        if: github.event_name == 'workflow_dispatch'
         id: playwright-cache
         uses: actions/cache@v4
         with:
@@ -66,16 +66,21 @@ jobs:
             playwright-browsers-${{ runner.os }}-
 
       - name: Install Playwright Chromium with Dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: github.event_name == 'workflow_dispatch' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx -y playwright install --with-deps chromium
 
       - name: Install OS Dependencies Only (Cache Hit)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: github.event_name == 'workflow_dispatch' && steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx -y playwright install-deps chromium
 
       - name: Run Kotlin Scraper & Export Gallery
+        if: github.event_name == 'workflow_dispatch'
         run: |
-          TARGET_URL="${{ github.event.inputs.imdb_url || 'https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i' }}"
+          TARGET_URL="${{ github.event.inputs.imdb_url }}"
+          if [ -z "$TARGET_URL" ]; then
+            echo "Error: imdb_url input is required!"
+            exit 1
+          fi
           echo "Scraping target: $TARGET_URL"
           ./gradlew run --build-cache --parallel --args="$TARGET_URL docs/gallery.json"
 
@@ -84,8 +89,8 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/gallery.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update gallery.json for ${{ github.event.inputs.imdb_url }}" && git push)
+          git add docs/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update gallery for ${{ github.event.inputs.imdb_url }} [skip ci]" && git push)
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5

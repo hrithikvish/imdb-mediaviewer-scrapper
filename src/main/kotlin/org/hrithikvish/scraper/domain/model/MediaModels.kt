@@ -139,3 +139,30 @@ data class ScrapeResult(
     val strategyUsed: ScraperStrategy,
     val timestamp: Long = System.currentTimeMillis()
 )
+
+/**
+ * Metadata record for a single scraped title in the titles.json master registry.
+ */
+@Serializable
+data class TitleMetadata(
+    val id: String,
+    val name: String,
+    val targetUrl: String,
+    val itemCount: Int,
+    val posterUrl: String? = null,
+    val file: String,
+    val lastUpdated: Long = System.currentTimeMillis()
+)
+
+/**
+ * Dedicated gallery payload saved per IMDb title (e.g. titles/tt0056241.json).
+ */
+@Serializable
+data class TitleGallery(
+    val id: String,
+    val name: String,
+    val targetUrl: String,
+    val items: List<MediaItem>,
+    val durationMs: Long,
+    val timestamp: Long = System.currentTimeMillis()
+)
