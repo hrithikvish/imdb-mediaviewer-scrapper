@@ -13,6 +13,11 @@ on:
         description: 'Paste any text containing IMDb URLs, movie titles, or search links'
         required: true
         type: string
+      force_rescrape:
+        description: 'Re-scrape title(s) even if already scraped'
+        required: false
+        type: boolean
+        default: false
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -78,6 +83,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         env:
           INPUT_TEXT: ${{ github.event.inputs.imdb_input || github.event.inputs.imdb_url }}
+          FORCE_RESCRAPE: ${{ github.event.inputs.force_rescrape }}
         run: |
           if [ -z "$INPUT_TEXT" ]; then
             echo "Error: imdb_input is required!"
@@ -86,7 +92,14 @@ jobs:
           mkdir -p build
           printf "%s\n" "$INPUT_TEXT" > build/input_text.txt
           echo "Processing provided input text..."
-          ./gradlew run --build-cache --parallel --args="--input build/input_text.txt docs/gallery.json"
+
+          EXTRA_ARGS=""
+          if [ "$FORCE_RESCRAPE" = "true" ]; then
+            echo "⚡ Force re-scrape active: existing titles will be re-scraped and updated."
+            EXTRA_ARGS="--force"
+          fi
+
+          ./gradlew run --build-cache --parallel --args="--input build/input_text.txt docs/gallery.json $EXTRA_ARGS"
 
       - name: Commit & Push Updated Gallery Data
         if: always() && github.event_name == 'workflow_dispatch'

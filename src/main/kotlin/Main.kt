@@ -21,21 +21,25 @@ fun main(args: Array<String>) {
 
     val outputPath = "docs/gallery.json"
     val forceReScrape = args.contains("--force") || args.contains("-f")
+    if (forceReScrape) {
+        println("⚡ [FORCE] Force re-scrape active: existing titles will be re-scraped and updated.")
+    }
 
     // Determine input source
+    val inputFlagIdx = args.indexOfFirst { it == "--input" || it == "-i" }
     val rawInput = when {
-        args.isEmpty() -> "https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i"
-        args[0] == "--input" || args[0] == "-i" -> {
-            val file = File(args.getOrNull(1) ?: error("Missing input file path"))
+        inputFlagIdx != -1 -> {
+            val file = File(args.getOrNull(inputFlagIdx + 1) ?: error("Missing input file path"))
             if (!file.exists()) error("Input file not found: ${file.absolutePath}")
             file.readText()
         }
-        File(args[0]).exists() && File(args[0]).isFile -> {
-            File(args[0]).readText()
+        args.any { File(it).exists() && File(it).isFile && !it.startsWith("-") } -> {
+            File(args.first { File(it).exists() && File(it).isFile && !it.startsWith("-") }).readText()
         }
+        args.isEmpty() -> "https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i"
         else -> {
             // Join arguments or treat as free text
-            args.filter { !it.startsWith("-") }.joinToString("\n")
+            args.filter { !it.startsWith("-") && !it.endsWith(".json") }.joinToString("\n")
         }
     }
 
@@ -64,6 +68,13 @@ fun main(args: Array<String>) {
         if (extractedTitles.size == 1) {
             // Single Title Flow
             val title = extractedTitles.first()
+            val existing = File("docs/titles/${title.id}.json")
+            if (!forceReScrape && existing.exists() && existing.length() > 500) {
+                println("⏩ [SKIP] ${title.name ?: title.id} (${title.id}) already scraped.")
+                println("💡 Pass --force (or check 'force_rescrape' in workflow) to re-scrape.")
+                exitProcess(0)
+            }
+
             val targetUrl = "https://www.imdb.com/title/${title.id}/mediaindex/"
             println("🎯 Scraping single title: ${title.name ?: title.id} ($targetUrl)")
 
