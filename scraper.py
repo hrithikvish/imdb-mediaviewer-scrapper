@@ -253,31 +253,73 @@ def scrape_single_title_gallery(
             if m:
                 raw_data = json.loads(m.group(1))
                 traverse_json_for_media(raw_data, next_data_items)
+
+                # Check for total images in __NEXT_DATA__
+                def find_total(obj):
+                    if isinstance(obj, dict):
+                        if "images" in obj and isinstance(obj["images"], dict) and "total" in obj["images"]:
+                            return obj["images"]["total"]
+                        for v in obj.values():
+                            tot = find_total(v)
+                            if tot:
+                                return tot
+                    elif isinstance(obj, list):
+                        for item in obj:
+                            tot = find_total(item)
+                            if tot:
+                                return tot
+                    return None
+
+                total_from_next = find_total(raw_data)
+                if total_from_next and not tracker["total"]:
+                    tracker["total"] = int(total_from_next)
+                    log(f"   ℹ️ Detected total photos from metadata: {tracker['total']}")
         except Exception:
             pass
 
         # 2. Smoothly scroll gallery to trigger pagination until all photos are loaded
         last_count = 0
         no_growth = 0
-        for _ in range(30):
+        max_scroll_iterations = 250
+        for iteration in range(1, max_scroll_iterations + 1):
             cur = page.evaluate("document.querySelectorAll(\"a[href*='/mediaviewer/rm'] img\").length")
+
             if tracker["total"] and cur >= tracker["total"]:
+                log(f"   ✅ All {cur}/{tracker['total']} photos loaded from gallery.")
                 break
+
             if not tracker["has_next"] and cur > 50:
+                log(f"   ✅ Reached end of gallery pagination ({cur} photos).")
                 break
 
             if cur == last_count and cur > 0:
                 no_growth += 1
-                if no_growth >= 4:
+                max_no_growth = 12 if (tracker["total"] and cur < tracker["total"]) else 7
+                if no_growth >= max_no_growth:
+                    log(f"   ℹ️ Pagination settled with {cur} photos.")
                     break
             else:
                 no_growth = 0
                 last_count = cur
+                if iteration % 5 == 0 or (tracker["total"] and cur >= tracker["total"] * 0.9):
+                    total_str = f" / {tracker['total']}" if tracker["total"] else ""
+                    log(f"   ... scrolling gallery: {cur}{total_str} photos loaded")
 
             page.evaluate("""
+                // 1. Click any "Load More" / "See more" button if present
+                const buttons = Array.from(document.querySelectorAll("button, a"));
+                const loadBtn = buttons.find(b => {
+                    const txt = (b.innerText || b.textContent || '').trim().toLowerCase();
+                    return (txt.includes('load more') || txt.includes('see more') || txt === 'more') && b.offsetParent !== null;
+                });
+                if (loadBtn) {
+                    loadBtn.click();
+                }
+
+                // 2. Scroll pagination loader or window down
                 const loader = document.querySelector('.img_gallery_pagination_loader');
-                if (loader) loader.scrollIntoView();
-                else window.scrollBy(0, window.innerHeight * 2);
+                if (loader) loader.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                else window.scrollBy(0, window.innerHeight * 3);
             """)
             page.wait_for_timeout(500)
 
@@ -325,6 +367,24 @@ def scrape_single_title_gallery(
                 "width": width,
                 "height": height,
                 "metadata": {"source": "gallery_dom"}
+            })
+
+        # Append any additional items captured via GraphQL / Next.js that weren't in DOM
+        for item in (graphql_items + next_data_items):
+            if not item.get("url"):
+                continue
+            curl = clean_imdb_image_url(item["url"])
+            if curl in seen:
+                continue
+            seen.add(curl)
+            final_items.append({
+                "url": curl,
+                "type": "IMAGE",
+                "mimeType": "image/jpeg",
+                "title": item.get("caption"),
+                "width": item.get("width"),
+                "height": item.get("height"),
+                "metadata": {"source": "graphql_intercept"}
             })
 
         return final_items
