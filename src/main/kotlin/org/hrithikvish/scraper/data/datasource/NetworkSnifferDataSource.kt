@@ -113,8 +113,8 @@ class NetworkSnifferDataSource {
 
         val isImdb = url.contains("imdb.com", ignoreCase = true)
         val validItems = if (isImdb) {
-            // Keep strictly movie media photos hosted on m.media-amazon.com/images
-            captured.filter { it.url.startsWith("https://m.media-amazon.com/images") }
+            // Keep strictly movie media photos hosted on m.media-amazon.com/images/M/ (excluding UI favicons/banners in /G/)
+            captured.filter { it.url.contains("m.media-amazon.com/images/M/") }
         } else {
             captured
         }

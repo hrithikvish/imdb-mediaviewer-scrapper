@@ -43,8 +43,8 @@ async function loadGallery() {
 
 function getFilteredItems() {
   return galleryData.filter(item => {
-    // Keep strictly movie media photos hosted on m.media-amazon.com/images
-    if (!item.url || !item.url.startsWith('https://m.media-amazon.com/images')) {
+    // Keep strictly movie media photos hosted on m.media-amazon.com/images/M/
+    if (!item.url || !item.url.includes('m.media-amazon.com/images/M/')) {
       return false;
     }
 
