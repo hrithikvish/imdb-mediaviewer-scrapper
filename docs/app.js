@@ -61,12 +61,39 @@ const lightboxImg = document.getElementById('lightbox-img');
 const lightboxCounter = document.getElementById('lightbox-counter');
 const lightboxMovieTitle = document.getElementById('lightbox-movie-title');
 const lightboxCaption = document.getElementById('lightbox-caption');
+const lightboxFullResBtn = document.getElementById('lightbox-fullres');
+const fullResBtnLabel = document.getElementById('fullres-btn-label');
 const lightboxDownload = document.getElementById('lightbox-download');
+const downloadBtnLabel = document.getElementById('download-btn-label');
 const lightboxCopy = document.getElementById('lightbox-copy');
 const copyBtnLabel = document.getElementById('copy-btn-label');
 const btnClose = document.getElementById('btn-close');
 const btnPrev = document.getElementById('btn-prev');
 const btnNext = document.getElementById('btn-next');
+let isCurrentFullRes = false;
+
+/**
+ * Returns a bandwidth-efficient, high-performance preview URL constrained to max 720p.
+ * Uses IMDb / Amazon Media CDN's on-the-fly resizing engine (_V1_QL75_UX720_ / _V1_QL75_UY720_).
+ * Original master uncompressed URL is preserved intact for downloading and full-res view.
+ */
+function getPreviewImageUrl(url, width, height, maxDim = 720) {
+  if (!url || typeof url !== 'string') return url;
+  if (!url.includes('m.media-amazon.com/images/M/')) return url;
+  if (width && height && width <= maxDim && height <= maxDim) return url;
+
+  const isPortrait = height && width && height > width;
+  const resizeParam = isPortrait ? `UY${maxDim}` : `UX${maxDim}`;
+
+  if (url.includes('._V1_')) {
+    return url.replace(/\._V1_.*(\.[a-zA-Z]+)$/, `._V1_QL75_${resizeParam}_$1`);
+  }
+  const lastDot = url.lastIndexOf('.');
+  if (lastDot > 0) {
+    return `${url.substring(0, lastDot)}._V1_QL75_${resizeParam}_${url.substring(lastDot)}`;
+  }
+  return url;
+}
 
 // ---------------------------------------------------------------------------
 // App Initialization
@@ -485,10 +512,11 @@ async function loadTitleRowPhotos(titleId, rowElement) {
 
       const badge = getResolutionBadge(item);
       const caption = item.title || (titleData.name || titleId);
+      const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 480);
 
       card.innerHTML = `
         <div class="strip-thumb-wrapper">
-          <img class="strip-thumb" src="${item.url}" alt="${escapeHtml(caption)}" loading="lazy">
+          <img class="strip-thumb" src="${previewUrl}" alt="${escapeHtml(caption)}" loading="lazy">
           <span class="strip-badge ${badge.isHigh ? 'high-res' : ''}" title="${badge.dim}">${badge.label}</span>
         </div>
       `;
@@ -805,10 +833,11 @@ function renderGrid() {
 
     const badge = getResolutionBadge(item);
     const caption = item.title || (selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo');
+    const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 720);
 
     card.innerHTML = `
       <div class="media-thumb-wrapper">
-        <img class="media-thumb" src="${item.url}" alt="${escapeHtml(caption)}" loading="lazy">
+        <img class="media-thumb" src="${previewUrl}" alt="${escapeHtml(caption)}" loading="lazy">
         <span class="card-badge ${badge.isHigh ? 'high-res' : ''}" title="${badge.dim}">${badge.label}</span>
       </div>
       <div class="card-info">
@@ -862,17 +891,97 @@ function updateLightboxContent() {
   const item = items[currentLightboxIndex];
   if (!item) return;
 
-  lightboxImg.src = item.url;
+  isCurrentFullRes = false;
+  if (lightboxFullResBtn) {
+    lightboxFullResBtn.classList.remove('active-fullres');
+  }
+  if (fullResBtnLabel) {
+    fullResBtnLabel.textContent = 'Full-Res';
+  }
+  if (downloadBtnLabel) {
+    downloadBtnLabel.textContent = 'Original';
+  }
+
+  // Load preview <= 720p by default for fast, lightweight rendering
+  const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 720);
+  lightboxImg.src = previewUrl;
+
   lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${items.length}`;
 
   const movieName = selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo';
   lightboxMovieTitle.textContent = movieName;
 
   const captionText = item.title || movieName;
-  const dims = item.width && item.height ? ` · ${item.width} × ${item.height}` : '';
+  const dims = item.width && item.height ? ` · Master: ${item.width} × ${item.height}` : '';
   lightboxCaption.textContent = `${captionText}${dims}`;
+}
 
-  lightboxDownload.href = item.url;
+function loadFullResImage() {
+  const items = currentView === 'gallery' ? getFilteredGalleryItems() : galleryData;
+  const item = items[currentLightboxIndex];
+  if (!item || !item.url) return;
+
+  if (isCurrentFullRes) return;
+  isCurrentFullRes = true;
+  if (fullResBtnLabel) fullResBtnLabel.textContent = 'Loading 4K...';
+
+  const masterImg = new Image();
+  masterImg.onload = () => {
+    if (lightbox.classList.contains('active')) {
+      lightboxImg.src = item.url;
+      if (lightboxFullResBtn) lightboxFullResBtn.classList.add('active-fullres');
+      if (fullResBtnLabel) fullResBtnLabel.textContent = 'Active 4K';
+      const dims = item.width && item.height ? ` · Active Master: ${item.width} × ${item.height}` : '';
+      const captionText = item.title || (selectedTitle ? selectedTitle.name : '');
+      lightboxCaption.textContent = `${captionText}${dims}`;
+    }
+  };
+  masterImg.onerror = () => {
+    if (fullResBtnLabel) fullResBtnLabel.textContent = 'Full-Res';
+    isCurrentFullRes = false;
+  };
+  masterImg.src = item.url;
+}
+
+async function downloadOriginalImage() {
+  const items = currentView === 'gallery' ? getFilteredGalleryItems() : galleryData;
+  const item = items[currentLightboxIndex];
+  if (!item || !item.url) return;
+
+  // Also upgrade the current viewer to the full-res master image
+  loadFullResImage();
+
+  if (downloadBtnLabel) downloadBtnLabel.textContent = 'Saving...';
+
+  try {
+    const res = await fetch(item.url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const movieSlug = (selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'imdb')
+      .replace(/[^a-zA-Z0-9]/g, '_')
+      .replace(/_+/g, '_')
+      .toLowerCase();
+    const filename = `${movieSlug}_photo_${currentLightboxIndex + 1}.jpg`;
+
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+
+    if (downloadBtnLabel) downloadBtnLabel.textContent = 'Saved!';
+    setTimeout(() => {
+      if (downloadBtnLabel) downloadBtnLabel.textContent = 'Original';
+    }, 1500);
+  } catch (err) {
+    console.warn('Direct blob download failed, falling back to window.open:', err);
+    window.open(item.url, '_blank');
+    if (downloadBtnLabel) downloadBtnLabel.textContent = 'Original';
+  }
 }
 
 async function copyImageUrl() {
@@ -979,6 +1088,14 @@ function setupEventListeners() {
   btnPrev.addEventListener('click', prevImage);
   btnNext.addEventListener('click', nextImage);
 
+  if (lightboxFullResBtn) {
+    lightboxFullResBtn.addEventListener('click', loadFullResImage);
+  }
+
+  if (lightboxDownload) {
+    lightboxDownload.addEventListener('click', downloadOriginalImage);
+  }
+
   if (lightboxCopy) {
     lightboxCopy.addEventListener('click', copyImageUrl);
   }
@@ -1020,6 +1137,12 @@ function setupEventListeners() {
     }
     if (e.key === 'c' || e.key === 'C') {
       copyImageUrl();
+    }
+    if (e.key === 'z' || e.key === 'Z' || e.key === 'f' || e.key === 'F') {
+      loadFullResImage();
+    }
+    if (e.key === 'd' || e.key === 'D') {
+      downloadOriginalImage();
     }
   });
 }

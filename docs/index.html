@@ -150,6 +150,15 @@
       </div>
 
       <div class="lightbox-actions">
+        <button class="lightbox-btn" id="lightbox-fullres" title="View Full 4K Resolution (Z)" aria-label="View Full Resolution">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"/>
+            <polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/>
+            <line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+          <span id="fullres-btn-label">Full-Res</span>
+        </button>
         <button class="lightbox-btn" id="lightbox-copy" title="Copy Image URL (C)" aria-label="Copy Image URL">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
@@ -157,14 +166,14 @@
           </svg>
           <span id="copy-btn-label">Copy URL</span>
         </button>
-        <a class="lightbox-btn" id="lightbox-download" title="Download Master Image (Original Resolution)" target="_blank" download>
+        <button class="lightbox-btn" id="lightbox-download" title="Download Master Image (Original Resolution)" aria-label="Download Master Image">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          <span>Original</span>
-        </a>
+          <span id="download-btn-label">Original</span>
+        </button>
         <button class="lightbox-btn btn-close" id="btn-close" title="Close (Esc)" aria-label="Close">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"/>

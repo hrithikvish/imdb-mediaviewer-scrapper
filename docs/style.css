@@ -1216,6 +1216,12 @@ body {
   color: #4ade80;
 }
 
+.lightbox-btn.active-fullres {
+  background: rgba(245, 197, 24, 0.2);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .lightbox-btn.btn-close {
   padding: 0;
   width: 32px;
