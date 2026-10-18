@@ -1,3 +1,7 @@
+/**
+ * IMDb MediaViewer Gallery - Application Logic
+ */
+
 let titlesRegistry = [];
 let selectedTitle = null;
 let galleryData = [];
@@ -9,18 +13,25 @@ let currentLightboxIndex = 0;
 const titleSelect = document.getElementById('title-select');
 const gridContainer = document.getElementById('gallery-grid');
 const countElement = document.getElementById('total-count');
-const durationElement = document.getElementById('scrape-duration');
+const searchWrapper = document.getElementById('search-wrapper');
 const searchInput = document.getElementById('search-input');
-const filterBtns = document.querySelectorAll('.btn-filter');
+const searchClearBtn = document.getElementById('search-clear');
+const filterBtns = document.querySelectorAll('.seg-btn');
 const themeToggleBtn = document.getElementById('theme-toggle');
-const themeIcon = document.getElementById('theme-icon');
+const themeIconMoon = document.getElementById('theme-icon-moon');
+const themeIconSun = document.getElementById('theme-icon-sun');
+const btnImdbLink = document.getElementById('btn-imdb-link');
 
 // Lightbox Elements
 const lightbox = document.getElementById('lightbox');
+const lightboxBackdrop = document.getElementById('lightbox-backdrop');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxCounter = document.getElementById('lightbox-counter');
+const lightboxMovieTitle = document.getElementById('lightbox-movie-title');
 const lightboxCaption = document.getElementById('lightbox-caption');
 const lightboxDownload = document.getElementById('lightbox-download');
+const lightboxCopy = document.getElementById('lightbox-copy');
+const copyBtnLabel = document.getElementById('copy-btn-label');
 const btnClose = document.getElementById('btn-close');
 const btnPrev = document.getElementById('btn-prev');
 const btnNext = document.getElementById('btn-next');
@@ -28,37 +39,45 @@ const btnNext = document.getElementById('btn-next');
 // Initial entry point
 async function init() {
   initTheme();
-  await loadTitlesManifest();
   setupEventListeners();
+  await loadTitlesManifest();
 }
 
-// Theme handling
+// ---------------------------------------------------------------------------
+// Theme Management
+// ---------------------------------------------------------------------------
+
 function initTheme() {
   const savedTheme = localStorage.getItem('imdb_gallery_theme');
-  const initialTheme = savedTheme || 'dark';
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (prefersDark ? 'dark' : 'dark');
   applyTheme(initialTheme);
 }
 
 function applyTheme(theme) {
   if (theme === 'light') {
     document.documentElement.setAttribute('data-theme', 'light');
-    if (themeIcon) themeIcon.textContent = '☀️';
-    if (themeToggleBtn) themeToggleBtn.title = 'Switch to Dark Theme';
+    themeIconMoon.classList.add('hidden');
+    themeIconSun.classList.remove('hidden');
+    themeToggleBtn.title = 'Switch to Dark Mode';
   } else {
     document.documentElement.removeAttribute('data-theme');
-    if (themeIcon) themeIcon.textContent = '🌙';
-    if (themeToggleBtn) themeToggleBtn.title = 'Switch to Light Theme';
+    themeIconMoon.classList.remove('hidden');
+    themeIconSun.classList.add('hidden');
+    themeToggleBtn.title = 'Switch to Light Mode';
   }
   localStorage.setItem('imdb_gallery_theme', theme);
 }
 
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-  const next = current === 'light' ? 'dark' : 'light';
-  applyTheme(next);
+  applyTheme(current === 'light' ? 'dark' : 'light');
 }
 
-// 1. Load Master titles.json
+// ---------------------------------------------------------------------------
+// Data Fetching
+// ---------------------------------------------------------------------------
+
 async function loadTitlesManifest() {
   const cacheBuster = Date.now();
   try {
@@ -70,7 +89,6 @@ async function loadTitlesManifest() {
     console.warn('Could not load titles.json:', err);
   }
 
-  // Populate title dropdown
   titleSelect.innerHTML = '';
 
   if (titlesRegistry.length > 0) {
@@ -78,11 +96,12 @@ async function loadTitlesManifest() {
       const option = document.createElement('option');
       option.value = title.file || `titles/${title.id}.json`;
       option.dataset.id = title.id;
-      option.textContent = `${title.name || title.id} (${title.itemCount || 0} photos)`;
+      option.dataset.targetUrl = title.targetUrl || `https://www.imdb.com/title/${title.id}/`;
+      option.textContent = `${title.name || title.id} (${title.itemCount || 0})`;
       titleSelect.appendChild(option);
     });
 
-    // Check URL query param: e.g. ?title=tt0056241
+    // Check query param for preselected title (e.g. ?title=tt0038650)
     const params = new URLSearchParams(window.location.search);
     const requestedId = params.get('title');
     const matchingTitle = titlesRegistry.find(t => t.id === requestedId);
@@ -93,7 +112,7 @@ async function loadTitlesManifest() {
 
     await loadTitleGallery(titleSelect.value);
   } else {
-    // Fallback directly to gallery.json if titles.json not yet generated
+    // Fallback directly to gallery.json if titles.json not yet populated
     const option = document.createElement('option');
     option.value = 'gallery.json';
     option.textContent = 'Default IMDb Gallery';
@@ -103,11 +122,10 @@ async function loadTitlesManifest() {
   }
 }
 
-// 2. Load specific title gallery (e.g. titles/tt0056241.json)
 async function loadTitleGallery(jsonPath) {
-  gridContainer.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><p>⏳ Loading gallery photos...</p></div>';
-  const cacheBuster = Date.now();
+  renderSkeleton();
 
+  const cacheBuster = Date.now();
   try {
     const res = await fetch(`${jsonPath}?v=${cacheBuster}`);
     if (!res.ok) throw new Error(`HTTP ${res.status} loading ${jsonPath}`);
@@ -116,25 +134,34 @@ async function loadTitleGallery(jsonPath) {
     selectedTitle = data;
     galleryData = data.items || [];
 
-    if (countElement) countElement.textContent = galleryData.length;
-    if (durationElement) {
-      durationElement.textContent = data.durationMs ? `${(data.durationMs / 1000).toFixed(1)}s` : '--';
+    if (countElement) {
+      countElement.textContent = galleryData.length.toLocaleString();
     }
 
-    // Update browser URL query param cleanly without reloading
+    // Update external IMDb link button
     const currentOpt = titleSelect.selectedOptions[0];
-    const currentId = currentOpt ? currentOpt.dataset.id : null;
-    if (currentId) {
+    const titleId = currentOpt ? currentOpt.dataset.id : (data.id || null);
+    if (btnImdbLink) {
+      if (titleId) {
+        btnImdbLink.href = `https://www.imdb.com/title/${titleId}/`;
+        btnImdbLink.style.display = 'flex';
+      } else {
+        btnImdbLink.style.display = 'none';
+      }
+    }
+
+    // Sync URL without reloading
+    if (titleId) {
       const url = new URL(window.location.href);
-      url.searchParams.set('title', currentId);
+      url.searchParams.set('title', titleId);
       window.history.replaceState({}, '', url.toString());
     }
   } catch (err) {
     console.error('Failed to load gallery JSON:', err);
     gridContainer.innerHTML = `
-      <div class="empty-state" style="grid-column: 1 / -1;">
-        <h3>Could not load gallery data</h3>
-        <p>${err.message}</p>
+      <div class="empty-state">
+        <h3>Could not load gallery</h3>
+        <p>${escapeHtml(err.message)}</p>
       </div>
     `;
     return;
@@ -143,65 +170,125 @@ async function loadTitleGallery(jsonPath) {
   renderGrid();
 }
 
+function renderSkeleton() {
+  gridContainer.innerHTML = `
+    <div class="skeleton-grid" style="grid-column: 1 / -1;">
+      ${Array.from({ length: 8 }).map(() => '<div class="skeleton-card"></div>').join('')}
+    </div>
+  `;
+}
+
+// ---------------------------------------------------------------------------
+// Filtering & Grid Rendering
+// ---------------------------------------------------------------------------
+
 function getFilteredItems() {
   return galleryData.filter(item => {
-    // Allow Amazon Media assets or valid image URLs
-    if (!item.url || (!item.url.includes('m.media-amazon.com/images/M/') && !item.url.includes('m.media-amazon.com/images'))) {
-      return false;
-    }
+    if (!item.url) return false;
 
     // Search query filter
-    const titleMatch = !searchQuery || (item.title && item.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchesSearch = !searchQuery || (item.title && item.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    // Resolution filter
-    let resMatch = true;
+    // High-res filter (1080p+)
+    let matchesResolution = true;
     if (currentFilter === 'high') {
-      resMatch = (item.width && item.width >= 1080) || (item.height && item.height >= 1080);
+      matchesResolution = (item.width && item.width >= 1080) || (item.height && item.height >= 1080);
     }
 
-    return titleMatch && resMatch;
+    return matchesSearch && matchesResolution;
   });
+}
+
+function getResolutionBadge(item) {
+  const w = item.width || 0;
+  const h = item.height || 0;
+  const maxDim = Math.max(w, h);
+  const dimStr = (w && h) ? `${w} × ${h} px` : 'Master Image';
+
+  if (maxDim >= 3840) return { label: '4K', isHigh: true, dim: dimStr };
+  if (maxDim >= 2560) return { label: '2K', isHigh: true, dim: dimStr };
+  if (maxDim >= 1080) return { label: '1080p', isHigh: true, dim: dimStr };
+  if (w && h) return { label: `${w}×${h}`, isHigh: false, dim: dimStr };
+  return { label: 'HQ', isHigh: false, dim: dimStr };
 }
 
 function renderGrid() {
   const filtered = getFilteredItems();
   gridContainer.innerHTML = '';
 
+  if (countElement) {
+    countElement.textContent = filtered.length.toLocaleString();
+  }
+
   if (filtered.length === 0) {
-    gridContainer.innerHTML = `
-      <div class="empty-state" style="grid-column: 1 / -1;">
-        <h3>No photos match your filter</h3>
-        <p>Try clearing your search query or resolution filter.</p>
-      </div>
-    `;
+    if (galleryData.length === 0) {
+      gridContainer.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🎬</div>
+          <h3>No photos yet</h3>
+          <p>Run the scraper workflow to populate photos for this title.</p>
+        </div>
+      `;
+    } else {
+      gridContainer.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🔍</div>
+          <h3>No photos match your filter</h3>
+          <p>Try clearing your caption search or switching to "All".</p>
+        </div>
+      `;
+    }
     return;
   }
+
+  const fragment = document.createDocumentFragment();
 
   filtered.forEach((item, index) => {
     const card = document.createElement('div');
     card.className = 'media-card';
-    card.onclick = () => openLightbox(index);
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `View photo ${index + 1}`);
 
-    const dims = item.width && item.height ? `${item.width} × ${item.height}` : 'Master Res';
-    const title = item.title || (selectedTitle ? selectedTitle.name : 'IMDb Media Asset');
+    const badge = getResolutionBadge(item);
+    const caption = item.title || (selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo');
 
     card.innerHTML = `
       <div class="media-thumb-wrapper">
-        <img class="media-thumb" src="${item.url}" alt="${escapeHtml(title)}" loading="lazy">
-        <div class="card-overlay">
-          <span class="resolution-badge">${dims}</span>
-        </div>
+        <img class="media-thumb" src="${item.url}" alt="${escapeHtml(caption)}" loading="lazy">
+        <span class="card-badge ${badge.isHigh ? 'high-res' : ''}" title="${badge.dim}">${badge.label}</span>
       </div>
       <div class="card-info">
-        <div class="card-title" title="${escapeHtml(title)}">${escapeHtml(title)}</div>
+        <div class="card-title" title="${escapeHtml(caption)}">${escapeHtml(caption)}</div>
       </div>
     `;
 
-    gridContainer.appendChild(card);
+    // Image load fade-in
+    const img = card.querySelector('.media-thumb');
+    if (img.complete) {
+      img.classList.add('loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('loaded'));
+    }
+
+    card.addEventListener('click', () => openLightbox(index));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(index);
+      }
+    });
+
+    fragment.appendChild(card);
   });
+
+  gridContainer.appendChild(fragment);
 }
 
-// Lightbox / Carousel logic
+// ---------------------------------------------------------------------------
+// Lightbox Modal
+// ---------------------------------------------------------------------------
+
 function openLightbox(index) {
   const filtered = getFilteredItems();
   if (index < 0 || index >= filtered.length) return;
@@ -225,23 +312,56 @@ function updateLightboxContent() {
 
   lightboxImg.src = item.url;
   lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${filtered.length}`;
-  lightboxCaption.textContent = item.title || (selectedTitle ? selectedTitle.name : `Asset ${currentLightboxIndex + 1}`);
+
+  const movieName = selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Gallery';
+  lightboxMovieTitle.textContent = movieName;
+
+  const captionText = item.title || movieName;
+  const dims = item.width && item.height ? ` · ${item.width} × ${item.height}` : '';
+  lightboxCaption.textContent = `${captionText}${dims}`;
+
   lightboxDownload.href = item.url;
+}
+
+async function copyImageUrl() {
+  const filtered = getFilteredItems();
+  const item = filtered[currentLightboxIndex];
+  if (!item || !item.url) return;
+
+  try {
+    await navigator.clipboard.writeText(item.url);
+    if (lightboxCopy && copyBtnLabel) {
+      lightboxCopy.classList.add('copied');
+      const originalText = copyBtnLabel.textContent;
+      copyBtnLabel.textContent = 'Copied!';
+      setTimeout(() => {
+        lightboxCopy.classList.remove('copied');
+        copyBtnLabel.textContent = originalText;
+      }, 1500);
+    }
+  } catch (err) {
+    console.warn('Clipboard write failed:', err);
+  }
 }
 
 function prevImage() {
   const filtered = getFilteredItems();
+  if (filtered.length <= 1) return;
   currentLightboxIndex = (currentLightboxIndex - 1 + filtered.length) % filtered.length;
   updateLightboxContent();
 }
 
 function nextImage() {
   const filtered = getFilteredItems();
+  if (filtered.length <= 1) return;
   currentLightboxIndex = (currentLightboxIndex + 1) % filtered.length;
   updateLightboxContent();
 }
 
-// Event Listeners setup
+// ---------------------------------------------------------------------------
+// Event Listeners
+// ---------------------------------------------------------------------------
+
 function setupEventListeners() {
   titleSelect.addEventListener('change', () => {
     loadTitleGallery(titleSelect.value);
@@ -249,8 +369,27 @@ function setupEventListeners() {
 
   searchInput.addEventListener('input', (e) => {
     searchQuery = e.target.value.trim();
+    if (searchWrapper) {
+      searchWrapper.classList.toggle('has-value', searchQuery.length > 0);
+    }
+    if (searchClearBtn) {
+      searchClearBtn.classList.toggle('visible', searchQuery.length > 0);
+    }
     renderGrid();
   });
+
+  if (searchClearBtn) {
+    searchClearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      if (searchWrapper) {
+        searchWrapper.classList.remove('has-value');
+      }
+      searchClearBtn.classList.remove('visible');
+      renderGrid();
+      searchInput.focus();
+    });
+  }
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -261,26 +400,51 @@ function setupEventListeners() {
     });
   });
 
-  btnClose.onclick = closeLightbox;
-  btnPrev.onclick = prevImage;
-  btnNext.onclick = nextImage;
+  btnClose.addEventListener('click', closeLightbox);
+  lightboxBackdrop.addEventListener('click', closeLightbox);
+  btnPrev.addEventListener('click', prevImage);
+  btnNext.addEventListener('click', nextImage);
+
+  if (lightboxCopy) {
+    lightboxCopy.addEventListener('click', copyImageUrl);
+  }
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', toggleTheme);
   }
 
-  // Keyboard navigation
+  // Keyboard Navigation
   window.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('active')) return;
+    if (!lightbox.classList.contains('active')) {
+      // Focus search shortcut with '/'
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+      return;
+    }
 
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') prevImage();
-    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      nextImage();
+    }
+    if (e.key === 'c' || e.key === 'C') {
+      copyImageUrl();
+    }
   });
 }
 
 function escapeHtml(str) {
-  return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, m => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[m]);
 }
 
 // Run

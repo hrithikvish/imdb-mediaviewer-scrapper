@@ -3,80 +3,153 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IMDb MediaViewer Gallery | High-Res Viewer</title>
+  <title>IMDb MediaViewer Gallery | Master Quality</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Top Header -->
-  <header>
-    <div class="header-content">
-      <div class="brand">
-        <span class="badge-imdb">IMDb</span>
-        <div>
-          <h1>MediaViewer Scrapper Gallery</h1>
-          <div class="subtitle">Full master-resolution assets extracted directly from IMDb</div>
+  <!-- Sleek Top Navigation Bar -->
+  <header class="app-header">
+    <div class="header-inner">
+      <!-- Brand & Title -->
+      <div class="brand-group">
+        <div class="brand-badge">IMDb</div>
+        <div class="brand-info">
+          <span class="app-title">MediaViewer</span>
+          <span class="version-tag">HQ</span>
+        </div>
+        <div class="counter-badge" id="counter-badge">
+          <span class="counter-num" id="total-count">0</span>
+          <span class="counter-label">photos</span>
         </div>
       </div>
 
-      <div class="header-meta">
-        <div class="stat-pill">Total Photos: <strong id="total-count">0</strong></div>
-        <div class="stat-pill">Scraped in: <strong id="scrape-duration">--</strong></div>
-        <button id="theme-toggle" class="btn-theme-toggle" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
-          <span id="theme-icon">🌙</span>
+      <!-- Controls & Actions -->
+      <div class="header-controls">
+        <!-- Title Selector -->
+        <div class="select-wrapper">
+          <select id="title-select" class="title-dropdown" title="Select Title Gallery"></select>
+          <svg class="select-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+
+        <!-- Search Input -->
+        <div class="search-wrapper" id="search-wrapper">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" id="search-input" placeholder="Filter captions..." spellcheck="false" autocomplete="off">
+          <kbd class="search-kbd" id="search-kbd" title="Press / to search">/</kbd>
+          <button id="search-clear" class="search-clear" title="Clear search" aria-label="Clear search">✕</button>
+        </div>
+
+        <!-- Segmented Resolution Filter -->
+        <div class="segmented-control" role="group" aria-label="Resolution Filter">
+          <button class="seg-btn active" data-filter="all">All</button>
+          <button class="seg-btn" data-filter="high">≥ 1080p</button>
+        </div>
+
+        <div class="actions-divider"></div>
+
+        <!-- External IMDb Link -->
+        <a id="btn-imdb-link" class="icon-btn" href="#" target="_blank" rel="noopener noreferrer" title="View Title on IMDb" aria-label="View Title on IMDb">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button id="theme-toggle" class="icon-btn" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg id="theme-icon-moon" class="theme-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg id="theme-icon-sun" class="theme-svg hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Filter & Search Controls -->
-  <div class="controls-bar">
-    <div class="title-picker">
-      <span class="picker-label">🎬 Title:</span>
-      <select id="title-select" class="select-styled" title="Select Scraped IMDb Title Gallery"></select>
-    </div>
-
-    <div class="search-box">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search-input" placeholder="Search by title, caption, or keyword...">
-    </div>
-
-    <div class="filter-buttons">
-      <button class="btn-filter active" data-filter="all">All Photos</button>
-      <button class="btn-filter" data-filter="high">High-Res Only (≥ 1080p)</button>
-    </div>
-  </div>
-
-  <!-- Photo Grid -->
-  <main>
+  <!-- Photo Grid Main Content -->
+  <main class="main-container">
     <div class="gallery-grid" id="gallery-grid">
       <!-- Media Cards injected by app.js -->
     </div>
   </main>
 
-  <!-- Fullscreen Carousel / Lightbox Modal -->
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox-header">
-      <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
+  <!-- Minimalist Floating Lightbox / Viewer -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image Preview">
+    <div class="lightbox-overlay" id="lightbox-backdrop"></div>
+
+    <!-- Floating Top Bar -->
+    <div class="lightbox-topbar">
+      <div class="lightbox-meta">
+        <span class="lightbox-counter" id="lightbox-counter">1 / 1</span>
+        <span class="lightbox-title-badge" id="lightbox-movie-title">Title</span>
+      </div>
+
       <div class="lightbox-actions">
-        <a class="btn-icon" id="lightbox-download" title="Download Master File" target="_blank" download>
-          💾
+        <button class="lightbox-btn" id="lightbox-copy" title="Copy Image URL (C)" aria-label="Copy Image URL">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span id="copy-btn-label">Copy URL</span>
+        </button>
+        <a class="lightbox-btn" id="lightbox-download" title="Download Master Image (Original Resolution)" target="_blank" download>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Original</span>
         </a>
-        <button class="btn-icon" id="btn-close" title="Close (Esc)">✕</button>
+        <button class="lightbox-btn btn-close" id="btn-close" title="Close (Esc)" aria-label="Close">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
     </div>
 
-    <div class="lightbox-body">
-      <button class="nav-btn nav-prev" id="btn-prev" title="Previous (Left Arrow)">❮</button>
+    <!-- Image Stage -->
+    <div class="lightbox-stage">
+      <button class="nav-arrow nav-prev" id="btn-prev" title="Previous (Left Arrow)" aria-label="Previous">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
 
-      <div class="lightbox-image-wrapper">
-        <img class="lightbox-image" id="lightbox-img" src="" alt="Full view">
+      <div class="lightbox-figure">
+        <img class="lightbox-img" id="lightbox-img" src="" alt="Full view">
       </div>
 
-      <button class="nav-btn nav-next" id="btn-next" title="Next (Right Arrow)">❯</button>
+      <button class="nav-arrow nav-next" id="btn-next" title="Next (Right Arrow)" aria-label="Next">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
     </div>
 
-    <div class="lightbox-caption" id="lightbox-caption">Caption</div>
+    <!-- Floating Caption Bar -->
+    <div class="lightbox-caption-bar" id="lightbox-caption">Caption text</div>
   </div>
 
   <script src="app.js"></script>
