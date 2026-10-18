@@ -386,7 +386,8 @@ function renderCatalogView() {
   titlesRegistry.forEach(title => {
     const titleName = title.name || title.id;
     const count = title.itemCount || 0;
-    const imdbLink = title.targetUrl || `https://www.imdb.com/title/${title.id}/`;
+    const isPerson = title.id.startsWith('nm');
+    const imdbLink = title.targetUrl || (isPerson ? `https://www.imdb.com/name/${title.id}/` : `https://www.imdb.com/title/${title.id}/`);
 
     const row = document.createElement('section');
     row.className = 'title-row';
@@ -663,7 +664,10 @@ async function switchToGalleryView(titleId, updateHistory = true) {
 
   // Update IMDb external link
   if (btnImdbLink) {
-    btnImdbLink.href = `https://www.imdb.com/title/${titleId}/`;
+    const isPerson = titleId.startsWith('nm');
+    const entityType = isPerson ? 'name' : 'title';
+    btnImdbLink.href = titleMeta && titleMeta.targetUrl ? titleMeta.targetUrl : `https://www.imdb.com/${entityType}/${titleId}/`;
+    btnImdbLink.title = `View on IMDb`;
     btnImdbLink.style.display = 'flex';
   }
 

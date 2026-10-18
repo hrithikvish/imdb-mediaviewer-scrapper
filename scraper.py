@@ -84,7 +84,7 @@ def resolve_title_from_query(query: str) -> Optional[Tuple[str, str]]:
             data = json.loads(resp.read().decode("utf-8"))
             for item in data.get("d", []):
                 item_id = item.get("id", "")
-                if item_id.startswith("tt"):
+                if item_id.startswith("tt") or item_id.startswith("nm"):
                     name = item.get("l", "")
                     year = item.get("y", "")
                     title_name = f"{name} ({year})" if year else name
@@ -96,10 +96,11 @@ def resolve_title_from_query(query: str) -> Optional[Tuple[str, str]]:
 def extract_imdb_titles_from_text(raw_text: str) -> List[Tuple[str, str]]:
     """
     Extracts all unique IMDb IDs and titles from arbitrary text, file content, or query strings.
+    Supports both movies/series (tt...) and persons/actors (nm...).
     Resolves canonical names and release years concurrently using a thread pool.
     """
-    token_pattern = re.compile(r'(https?://[^\s,"\'<>]+|\btt\d{7,8}\b)')
-    id_pattern = re.compile(r"(tt\d{7,8})")
+    token_pattern = re.compile(r'(https?://[^\s,"\'<>]+|\b(?:tt|nm)\d{7,8}\b)')
+    id_pattern = re.compile(r"((?:tt|nm)\d{7,8})")
     find_pattern = re.compile(r"find[/?].*?[?&]q=([^&\s]+)")
 
     tokens = token_pattern.findall(raw_text)
@@ -208,18 +209,21 @@ def scrape_single_title_gallery(
     title_name: str,
     timeout_ms: int = 35000
 ) -> List[Dict]:
-    """Scrapes all master images for a title using Playwright with GraphQL interception."""
-    mediaindex_url = f"https://www.imdb.com/title/{title_id}/mediaindex/"
+    """Scrapes all master images for a title or person using Playwright with GraphQL interception."""
+    entity_type = "name" if title_id.startswith("nm") else "title"
+    mediaindex_url = f"https://www.imdb.com/{entity_type}/{title_id}/mediaindex/"
     page = context.new_page()
 
     graphql_items = []
     tracker = {"total": None, "has_next": True}
 
     def on_response(res):
-        if "TitleMediaIndexPagination" in res.url:
+        if "MediaIndexPagination" in res.url or "graphql" in res.url:
             try:
                 data = res.json()
-                img_data = data.get("data", {}).get("title", {}).get("images", {})
+                data_root = data.get("data", {})
+                entity_data = data_root.get(entity_type, {}) or data_root.get("title", {}) or data_root.get("name", {})
+                img_data = entity_data.get("images", {})
                 if img_data.get("total"):
                     tracker["total"] = img_data["total"]
                 if "pageInfo" in img_data:
@@ -341,7 +345,8 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
     os.makedirs(DOCS_DIR, exist_ok=True)
 
     timestamp = int(time.time() * 1000)
-    target_url = f"https://www.imdb.com/title/{title_id}/mediaindex/"
+    entity_type = "name" if title_id.startswith("nm") else "title"
+    target_url = f"https://www.imdb.com/{entity_type}/{title_id}/mediaindex/"
 
     # 1. Save docs/titles/{title_id}.json
     title_payload = {
