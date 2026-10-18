@@ -10,6 +10,7 @@ import org.hrithikvish.scraper.data.datasource.NetworkSnifferDataSource
 import org.hrithikvish.scraper.data.repository.MediaScraperRepositoryImpl
 import org.hrithikvish.scraper.domain.repository.MediaScraperRepository
 import org.hrithikvish.scraper.domain.usecase.ExportGalleryUseCase
+import org.hrithikvish.scraper.domain.usecase.ExtractImdbIdsUseCase
 import org.hrithikvish.scraper.domain.usecase.FilterMediaUseCase
 import org.hrithikvish.scraper.domain.usecase.ScrapeMediaUseCase
 import org.hrithikvish.scraper.domain.usecase.ValidateUrlUseCase
@@ -62,7 +63,11 @@ object AppContainer {
     }
 
     val exportGalleryUseCase: ExportGalleryUseCase by lazy {
-        ExportGalleryUseCase()
+        ExportGalleryUseCase(client = okHttpClient)
+    }
+
+    val extractImdbIdsUseCase: ExtractImdbIdsUseCase by lazy {
+        ExtractImdbIdsUseCase(client = okHttpClient)
     }
 
     /**

@@ -9,9 +9,10 @@ on:
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
     inputs:
-      imdb_url:
-        description: 'Any IMDb URL or ID (e.g. https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i or tt0038650)'
+      imdb_input:
+        description: 'Paste any text containing IMDb URLs, movie titles, or search links'
         required: true
+        type: string
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -75,14 +76,17 @@ jobs:
 
       - name: Run Kotlin Scraper & Export Gallery
         if: github.event_name == 'workflow_dispatch'
+        env:
+          INPUT_TEXT: ${{ github.event.inputs.imdb_input || github.event.inputs.imdb_url }}
         run: |
-          TARGET_URL="${{ github.event.inputs.imdb_url }}"
-          if [ -z "$TARGET_URL" ]; then
-            echo "Error: imdb_url input is required!"
+          if [ -z "$INPUT_TEXT" ]; then
+            echo "Error: imdb_input is required!"
             exit 1
           fi
-          echo "Scraping target: $TARGET_URL"
-          ./gradlew run --build-cache --parallel --args="$TARGET_URL docs/gallery.json"
+          mkdir -p build
+          printf "%s\n" "$INPUT_TEXT" > build/input_text.txt
+          echo "Processing provided input text..."
+          ./gradlew run --build-cache --parallel --args="--input build/input_text.txt docs/gallery.json"
 
       - name: Commit & Push Updated Gallery Data
         if: github.event_name == 'workflow_dispatch'
@@ -90,7 +94,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update gallery for ${{ github.event.inputs.imdb_url }} [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: batch update gallery data [skip ci]" && git push)
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5

@@ -30,7 +30,11 @@ class ExportGalleryUseCase(
 
     private val idRegex = Regex("(tt\\d+|nm\\d+)")
 
-    operator fun invoke(result: ScrapeResult, targetFilePath: String = "docs/gallery.json"): File {
+    operator fun invoke(
+        result: ScrapeResult,
+        targetFilePath: String = "docs/gallery.json",
+        nameOverride: String? = null
+    ): File {
         val targetFile = File(targetFilePath)
         val docsDir = if (targetFile.name.endsWith(".json")) {
             targetFile.parentFile ?: File("docs")
@@ -45,7 +49,7 @@ class ExportGalleryUseCase(
         val titleId = idRegex.find(result.targetUrl)?.value ?: "generic_${System.currentTimeMillis()}"
 
         // 2. Discover Title Name (e.g. "The Miracle Worker (1962)")
-        val titleName = fetchTitleName(titleId) ?: titleId
+        val titleName = nameOverride ?: fetchTitleName(titleId) ?: titleId
 
         // 3. Save dedicated per-title JSON (e.g. docs/titles/tt0056241.json)
         val titleGalleryFile = File(titlesDir, "$titleId.json")

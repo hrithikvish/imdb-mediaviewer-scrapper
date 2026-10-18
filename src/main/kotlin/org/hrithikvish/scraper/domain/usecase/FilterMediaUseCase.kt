@@ -8,7 +8,7 @@ import org.hrithikvish.scraper.domain.model.MediaItem
  */
 class FilterMediaUseCase {
 
-    operator fun invoke(items: List<MediaItem>, filter: MediaFilter): List<MediaItem> {
+    operator fun invoke(items: List<MediaItem>, filter: MediaFilter = MediaFilter()): List<MediaItem> {
         return items
             .filter { filter.matches(it) }
             .distinctBy { it.url }

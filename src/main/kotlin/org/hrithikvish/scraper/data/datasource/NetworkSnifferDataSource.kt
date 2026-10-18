@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import org.hrithikvish.scraper.domain.model.MediaItem
 import org.hrithikvish.scraper.domain.model.MediaType
 import org.hrithikvish.scraper.domain.model.ScraperException
+import org.hrithikvish.scraper.domain.usecase.ExtractedTitle
 import java.util.Collections
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -133,6 +134,132 @@ class NetworkSnifferDataSource {
             }
         } else {
             url
+        }
+    }
+
+    /**
+     * Reuses a single Playwright Chromium session to batch-scrape multiple IMDb titles,
+     * maintaining cookies and clearing WAF hurdles across all navigations.
+     */
+    suspend fun extractBatchMedia(
+        titles: List<ExtractedTitle>,
+        forceReScrape: Boolean = false,
+        timeoutMs: Double = 35000.0,
+        onTitleResult: suspend (ExtractedTitle, List<MediaItem>, Long) -> Unit
+    ) {
+        val titlesToScrape = if (forceReScrape) {
+            titles
+        } else {
+            titles.filter { title ->
+                val existing = java.io.File("docs/titles/${title.id}.json")
+                if (existing.exists() && existing.length() > 500) {
+                    println("⏩ [SKIP] ${title.name ?: title.id} (${title.id}) already scraped.")
+                    false
+                } else {
+                    true
+                }
+            }
+        }
+
+        if (titlesToScrape.isEmpty()) {
+            println("✨ All titles in batch are already scraped and present in docs/titles/.")
+            return
+        }
+
+        println("🚀 Launching headless browser to batch scrape ${titlesToScrape.size} titles...")
+
+        Playwright.create().use { playwright ->
+            val browser = launchBrowser(playwright)
+            try {
+                val context = browser.newContext(
+                    Browser.NewContextOptions()
+                        .setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+                        .setViewportSize(1440, 900)
+                )
+                context.addInitScript("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+
+                for ((index, title) in titlesToScrape.withIndex()) {
+                    val mediaViewerUrl = "https://www.imdb.com/title/${title.id}/mediaviewer"
+                    println("\n🎬 [${index + 1}/${titlesToScrape.size}] Scraping ${title.name ?: title.id} (${title.id})...")
+
+                    val startTime = System.currentTimeMillis()
+                    val captured = CopyOnWriteArrayList<MediaItem>()
+                    val page = context.newPage()
+
+                    try {
+                        page.onResponse { response ->
+                            val item = parseNetworkResponse(response)
+                            if (item != null) captured.add(item)
+                        }
+
+                        page.navigate(mediaViewerUrl, Page.NavigateOptions().setTimeout(timeoutMs))
+
+                        runCatching {
+                            page.waitForSelector("img, [data-testid], main", Page.WaitForSelectorOptions().setTimeout(8000.0))
+                        }
+
+                        // Short scroll to trigger lazy photos
+                        runCatching {
+                            for (step in 1..2) {
+                                page.evaluate("window.scrollBy(0, window.innerHeight * 1.5)")
+                                page.waitForTimeout(300.0)
+                            }
+                        }
+
+                        // DOM images
+                        val domImages = page.querySelectorAll("img").mapNotNull { imgEl ->
+                            val src = imgEl.getAttribute("src") ?: imgEl.getAttribute("data-src")
+                            if (!src.isNullOrBlank() && (src.startsWith("http://") || src.startsWith("https://"))) {
+                                val width = imgEl.getAttribute("width")?.toIntOrNull()
+                                val height = imgEl.getAttribute("height")?.toIntOrNull()
+                                val alt = imgEl.getAttribute("alt")
+                                MediaItem(
+                                    url = cleanImdbImageUrl(src),
+                                    type = MediaType.IMAGE,
+                                    mimeType = "image/jpeg",
+                                    title = alt,
+                                    width = width,
+                                    height = height,
+                                    metadata = mapOf("source" to "browser_dom")
+                                )
+                            } else null
+                        }
+                        captured.addAll(domImages)
+
+                        // Next.js data
+                        runCatching {
+                            val pageContent = page.content()
+                            val imdbExtractor = ImdbJsonDataSource()
+                            val nextDataItems = imdbExtractor.extractFromHtml(pageContent, mediaViewerUrl)
+                            captured.addAll(nextDataItems)
+                        }
+
+                        val duration = System.currentTimeMillis() - startTime
+                        val validItems = captured
+                            .filter { it.url.contains("m.media-amazon.com/images/M/") }
+                            .distinctBy { cleanImdbImageUrl(it.url) }
+                            .map { it.copy(url = cleanImdbImageUrl(it.url)) }
+
+                        println("✅ [${index + 1}/${titlesToScrape.size}] Found ${validItems.size} photos for ${title.name ?: title.id} (${duration}ms)")
+                        onTitleResult(title, validItems, duration)
+                    } catch (e: Exception) {
+                        System.err.println("⚠️ [WARN] Error during scrape of ${title.id}: ${e.message}")
+                        val duration = System.currentTimeMillis() - startTime
+                        val validItems = captured
+                            .filter { it.url.contains("m.media-amazon.com/images/M/") }
+                            .distinctBy { cleanImdbImageUrl(it.url) }
+                            .map { it.copy(url = cleanImdbImageUrl(it.url)) }
+                        onTitleResult(title, validItems, duration)
+                    } finally {
+                        runCatching { page.close() }
+                    }
+
+                    // Polite delay between requests to stay under rate limits
+                    kotlinx.coroutines.delay(400)
+                }
+            } finally {
+                browser.close()
+            }
         }
     }
 

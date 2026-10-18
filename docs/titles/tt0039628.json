@@ -1,0 +1,339 @@
+{
+    "id": "tt0039628",
+    "name": "Miracle on 34th Street",
+    "targetUrl": "https://www.imdb.com/title/tt0039628/mediaviewer",
+    "items": [
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMTg1NDIzODM2NF5BMl5BanBnXkFtZTcwNjQyNzkwNA@@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 203591,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMTY1MDEyMTIwMl5BMl5BanBnXkFtZTcwNzQyNzkwNA@@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 244787,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BYzI0MTQzODYtMDI0OC00OTM2LTlhM2EtOWM1NDI3YjQ1NTBmXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 26162,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BNjY5Nzg4MzIxN15BMl5BanBnXkFtZTcwMDUyNzkwNA@@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 197880,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMTk0MjEzNzQ3MF5BMl5BanBnXkFtZTcwMTUyNzkwNA@@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 222214,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BNzZlZmExOWQtMmU1Ni00NDc0LTlhYmUtNDNhYmRiMTAyZGM5XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 27790,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BYTRkMDI4MmEtNDdhYi00Nzg0LWFkODgtNmM3OWNiZjg4M2Q5XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 240746,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BNzZiYWE3MGMtNjMzYS00NWQxLTgyMTktNTg0ZTY5ZDZkZDU0XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 106533,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BZTlhZTEzYzUtNGVhNy00N2IxLWE1ZTItYTY3YjlmMWQ3MmY5XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 123634,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BYTJhMTMzMGUtNWJhMC00NjVkLTk0NmItM2E1NjIzMmI2ZmNkXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 383558,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BM2U0NzJkMzQtNTAwYy00MmNkLWJjZmMtODI4NDY0ODI5ODFiXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 39902,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMjUyNmVlZGItNTQ5Yy00NjA2LWI1YzgtZTUyOWE5NWJkYjZiXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 25698,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BYjBlOGY2NWItNWM3ZC00YmY0LTk3YzAtYTBjYmU2MWIwM2U5XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 32609,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BODBjMDU0N2MtODEyYy00NWU0LTlmNjYtYzVkMmVkMjJjZTJiXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 185898,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BZjgwMDA1ZWYtM2I4ZC00OGUwLTllYTktMmIyZDYxMTViMmU5XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 1078762,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BM2E2YjZjMGQtZDY1Mi00YTJlLWE5YmYtY2Y3YzAyMWM2NzZhXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 92833,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BNzZiMzk3MmYtMTI4Zi00NzQ4LThjMmItMWZkZjQ3ZDg1NDI0XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 308098,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BNjFkNWU3YjItNzM2Yi00MzExLTgwMWYtMWY5MjA1NmY3ZTI0XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 505384,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BN2U3MWRlYWQtYjgxYy00NjA1LTk2NjUtNDliMGIwODM3NzM1XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 535899,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BZDBmY2NiMDgtOWU2ZC00NTFhLTllZDMtMjJkMTcxNmJlZTYyXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 415500,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BYmQzNzQ4ZWUtNzg5MS00NjBjLWFlNTAtYmYxZWI3ODIwZDA4XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 28856,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BZmU5NjNkZTUtZmQ1ZS00N2RmLTk0MzMtY2NjOTZjY2Q5NDU0XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 90332,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BYjlmZDA0NDEtNmQ4ZC00NTE0LWJjMWUtY2Y2MTA3YTYxZjA0XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 96835,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BZThmOTU4MzktNzg4Yy00NGRhLThlZjQtYjA1MjY2Zjg0N2RiXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 732366,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BYzQ5NTEzMzItYzM5Yi00MWFhLThjNDktMDY2MTcwZDIwZDA2XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 453294,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BOTZkZGM2NzUtNGQ3OS00NTc5LTllNzgtMWZmY2YzYjEwMWM5XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 24328,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BYTQ4NDIwYjgtNTFlMy00MDBkLTk1ZmYtMTVjYjg0YTBhY2FlXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 81357,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BNjk2MDM2MTAtY2FmYS00OTAzLTgwNzEtZTQxZjgwN2U1ZjhiXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 170619,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BZDk5Y2UzOTMtZDUyZS00N2M5LWIwODktODJjZmFkYmRkZGExXkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 51430,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMWNkY2QwNzQtZmExNS00NDk5LTkyZmQtN2QxY2Y2MmJjYmY0XkEyXkFqcGc@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "sizeBytes": 95922,
+            "metadata": {
+                "status": "200",
+                "resourceType": "image",
+                "sniffer": "playwright_network_tab"
+            }
+        }
+    ],
+    "durationMs": 9644,
+    "timestamp": 1792321763895
+}
