@@ -76,6 +76,7 @@ jobs:
         env:
           INPUT_TEXT: ${{ github.event.inputs.imdb_input || github.event.inputs.imdb_url }}
           FORCE_RESCRAPE: ${{ github.event.inputs.force_rescrape }}
+          PYTHONUNBUFFERED: "1"
         run: |
           if [ -z "$INPUT_TEXT" ]; then
             echo "Error: imdb_input is required!"
@@ -91,7 +92,7 @@ jobs:
             EXTRA_ARGS="--force"
           fi
 
-          python3 scraper.py --input build/input_text.txt $EXTRA_ARGS
+          python3 -u scraper.py --input build/input_text.txt $EXTRA_ARGS
 
       - name: Commit & Push Updated Gallery Data
         if: always() && github.event_name == 'workflow_dispatch'

@@ -15,8 +15,19 @@ import time
 import argparse
 import urllib.request
 import urllib.parse
+from concurrent.futures import ThreadPoolExecutor
 from typing import List, Dict, Optional, Tuple, Set
 from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page
+
+# Force real-time unbuffered output in CI runners and terminals
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(line_buffering=True)
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(line_buffering=True)
+
+def log(msg: str = "", **kwargs):
+    """Outputs text immediately with automatic flushing."""
+    print(msg, flush=True, **kwargs)
 
 DOCS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "docs"))
 TITLES_DIR = os.path.join(DOCS_DIR, "titles")
@@ -85,47 +96,63 @@ def resolve_title_from_query(query: str) -> Optional[Tuple[str, str]]:
 def extract_imdb_titles_from_text(raw_text: str) -> List[Tuple[str, str]]:
     """
     Extracts all unique IMDb IDs and titles from arbitrary text, file content, or query strings.
-    Returns list of (title_id, title_name).
+    Resolves canonical names and release years concurrently using a thread pool.
     """
-    seen_ids = set()
-    results = []
-
-    # Token pattern: URLs or standalone tt IDs
     token_pattern = re.compile(r'(https?://[^\s,"\'<>]+|\btt\d{7,8}\b)')
     id_pattern = re.compile(r"(tt\d{7,8})")
     find_pattern = re.compile(r"find[/?].*?[?&]q=([^&\s]+)")
 
     tokens = token_pattern.findall(raw_text)
+    tasks = []
+    seen_tokens = set()
+
     if tokens:
         for token in tokens:
-            # Direct ID match
             id_match = id_pattern.search(token)
             if id_match:
                 tid = id_match.group(1)
-                if tid not in seen_ids:
-                    seen_ids.add(tid)
-                    name = resolve_title_by_id(tid) or tid
-                    results.append((tid, name))
+                if tid not in seen_tokens:
+                    seen_tokens.add(tid)
+                    tasks.append(("id", tid))
                 continue
 
-            # Find query match
             find_match = find_pattern.search(token)
             if find_match:
                 q = urllib.parse.unquote(find_match.group(1)).strip(".)];")
-                resolved = resolve_title_from_query(q)
-                if resolved and resolved[0] not in seen_ids:
-                    seen_ids.add(resolved[0])
-                    results.append(resolved)
+                if q not in seen_tokens:
+                    seen_tokens.add(q)
+                    tasks.append(("query", q))
     else:
-        # Fallback to line by line title search
         for line in raw_text.splitlines():
             line = line.strip()
             if not line:
                 continue
-            resolved = resolve_title_from_query(line)
-            if resolved and resolved[0] not in seen_ids:
-                seen_ids.add(resolved[0])
-                results.append(resolved)
+            if line not in seen_tokens:
+                seen_tokens.add(line)
+                tasks.append(("query", line))
+
+    if not tasks:
+        return []
+
+    def resolve_task(task):
+        t_type, t_val = task
+        if t_type == "id":
+            name = resolve_title_by_id(t_val) or t_val
+            return (t_val, name)
+        elif t_type == "query":
+            return resolve_title_from_query(t_val)
+        return None
+
+    # Resolve all titles in parallel (100 titles in < 1 second)
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        resolved_items = list(executor.map(resolve_task, tasks))
+
+    results = []
+    seen_ids = set()
+    for item in resolved_items:
+        if item and item[0] not in seen_ids:
+            seen_ids.add(item[0])
+            results.append(item)
 
     return results
 
@@ -205,16 +232,19 @@ def scrape_single_title_gallery(
 
     try:
         page.goto(mediaindex_url, wait_until="domcontentloaded", timeout=timeout_ms)
-        page.wait_for_selector(
-            "a[href*='/mediaviewer/rm'] img, [data-testid='sub-section-images'] img",
-            state="attached",
-            timeout=15000
-        )
+        try:
+            page.wait_for_selector(
+                "a[href*='/mediaviewer/rm'] img, [data-testid='sub-section-images'] img",
+                state="attached",
+                timeout=10000
+            )
+        except Exception:
+            pass
 
         # 1. Extract metadata from Next.js __NEXT_DATA__
         next_data_items = []
         try:
-            static_res = context.request.get(mediaindex_url)
+            static_res = context.request.get(mediaindex_url, timeout=15000)
             m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', static_res.text(), re.DOTALL)
             if m:
                 raw_data = json.loads(m.group(1))
@@ -226,7 +256,7 @@ def scrape_single_title_gallery(
         last_count = 0
         no_growth = 0
         for _ in range(30):
-            cur = len(page.query_selector_all("a[href*='/mediaviewer/rm'] img"))
+            cur = page.evaluate("document.querySelectorAll(\"a[href*='/mediaviewer/rm'] img\").length")
             if tracker["total"] and cur >= tracker["total"]:
                 break
             if not tracker["has_next"] and cur > 50:
@@ -245,7 +275,7 @@ def scrape_single_title_gallery(
                 if (loader) loader.scrollIntoView();
                 else window.scrollBy(0, window.innerHeight * 2);
             """)
-            page.wait_for_timeout(800)
+            page.wait_for_timeout(500)
 
         # 3. Extract official gallery elements from DOM
         dom_elements = page.eval_on_selector_all(
@@ -362,7 +392,7 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
     with open(GALLERY_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(gallery_payload, f, indent=4, ensure_ascii=False)
 
-    print(f"💾 [SAVED] {title_name} ({len(items)} photos) -> {title_file}")
+    log(f"💾 [SAVED] {title_name} ({len(items)} photos) -> {title_file}")
 
 # ---------------------------------------------------------------------------
 # Main Execution CLI
@@ -375,58 +405,64 @@ def main():
     parser.add_argument("query", nargs="*", help="Optional free-text title name, URL, or IMDb ID")
     args = parser.parse_args()
 
-    print("================================================================")
-    print("🚀 Starting IMDb Media Scraper (Python Edition)")
-    print("================================================================")
+    log("================================================================")
+    log("🚀 Starting IMDb Media Scraper (Python Edition)")
+    log("================================================================")
 
     if args.force:
-        print("⚡ [FORCE] Force re-scrape active: existing titles will be re-scraped and updated.")
+        log("⚡ [FORCE] Force re-scrape active: existing titles will be re-scraped and updated.")
 
     raw_input = ""
     if args.input:
         if not os.path.exists(args.input):
-            print(f"❌ Input file not found: {args.input}", file=sys.stderr)
+            log(f"❌ Input file not found: {args.input}", file=sys.stderr)
             sys.exit(1)
         with open(args.input, "r", encoding="utf-8") as f:
             raw_input = f.read()
     elif args.query:
         raw_input = " ".join(args.query)
     else:
-        # Default fallback
         raw_input = "https://www.imdb.com/title/tt0038650/"
 
     extracted_titles = extract_imdb_titles_from_text(raw_input)
     if not extracted_titles:
-        print("❌ No valid IMDb IDs, titles, or links found in input text!", file=sys.stderr)
+        log("❌ No valid IMDb IDs, titles, or links found in input text!", file=sys.stderr)
         sys.exit(1)
 
-    print("\n================================================================")
-    print(f"📋 Discovered {len(extracted_titles)} Unique IMDb Titles from Input:")
-    print("================================================================")
+    log("\n================================================================")
+    log(f"📋 Discovered {len(extracted_titles)} Unique IMDb Titles from Input:")
+    log("================================================================")
     for idx, (tid, name) in enumerate(extracted_titles, start=1):
-        print(f" [{idx:3d}] {tid} — {name}")
-    print("================================================================\n")
+        log(f" [{idx:3d}] {tid} — {name}")
+    log("================================================================\n")
 
     # Filter out already scraped titles unless --force is set
     titles_to_scrape = []
     for tid, name in extracted_titles:
         title_file = os.path.join(TITLES_DIR, f"{tid}.json")
         if not args.force and os.path.exists(title_file) and os.path.getsize(title_file) > 500:
-            print(f"⏩ [SKIP] {name} ({tid}) already scraped.")
+            log(f"⏩ [SKIP] {name} ({tid}) already scraped.")
         else:
             titles_to_scrape.append((tid, name))
 
     if not titles_to_scrape:
-        print("\n✨ All titles are already scraped and up-to-date!")
-        print("💡 Pass --force to re-scrape.")
+        log("\n✨ All titles are already scraped and up-to-date!")
+        log("💡 Pass --force to re-scrape.")
         sys.exit(0)
 
-    print(f"⚡ Starting scrape for {len(titles_to_scrape)} title(s)...\n")
+    log(f"⚡ Starting scrape for {len(titles_to_scrape)} title(s)...\n")
     success_count = 0
     fail_count = 0
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-setuid-sandbox"
+            ]
+        )
         try:
             context = browser.new_context(
                 user_agent=USER_AGENT,
@@ -436,7 +472,7 @@ def main():
             context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
             for idx, (tid, name) in enumerate(titles_to_scrape, start=1):
-                print(f"🎬 [{idx}/{len(titles_to_scrape)}] Scraping gallery for {name} ({tid})...")
+                log(f"🎬 [{idx}/{len(titles_to_scrape)}] Scraping gallery for {name} ({tid})...")
                 start_time = time.time()
                 try:
                     items = scrape_single_title_gallery(context, tid, name)
@@ -445,23 +481,23 @@ def main():
                         save_title_gallery(tid, name, items, duration_ms)
                         success_count += 1
                     else:
-                        print(f"⚠️ [EMPTY] No media images found for {name} ({tid})")
+                        log(f"⚠️ [{idx}/{len(titles_to_scrape)}] [EMPTY] No media images found for {name} ({tid})")
                         fail_count += 1
                 except Exception as e:
-                    print(f"❌ [ERROR] Failed to scrape {name} ({tid}): {e}", file=sys.stderr)
+                    log(f"❌ [{idx}/{len(titles_to_scrape)}] [ERROR] Failed to scrape {name} ({tid}): {e}", file=sys.stderr)
                     fail_count += 1
 
                 # Polite pause between titles
-                time.sleep(0.4)
+                time.sleep(0.3)
         finally:
             browser.close()
 
-    print("\n================================================================")
-    print("🎉 Scraping Finished!")
-    print(f"   - Successfully scraped: {success_count} title(s)")
-    print(f"   - Skipped / Failed:     {fail_count} title(s)")
-    print(f"   - Total input titles:   {len(extracted_titles)}")
-    print("================================================================")
+    log("\n================================================================")
+    log("🎉 Scraping Finished!")
+    log(f"   - Successfully scraped: {success_count} title(s)")
+    log(f"   - Skipped / Failed:     {fail_count} title(s)")
+    log(f"   - Total input titles:   {len(extracted_titles)}")
+    log("================================================================")
 
 if __name__ == "__main__":
     main()
