@@ -20,7 +20,7 @@ import java.io.File
  * 3. docs/gallery.json for backwards compatibility.
  */
 class ExportGalleryUseCase(
-    private val client: OkHttpClient = HttpMediaDataSource.defaultOkHttpClient(),
+    private val extractImdbIdsUseCase: ExtractImdbIdsUseCase = ExtractImdbIdsUseCase(),
     private val json: Json = Json {
         prettyPrint = true
         ignoreUnknownKeys = true
@@ -49,7 +49,7 @@ class ExportGalleryUseCase(
         val titleId = idRegex.find(result.targetUrl)?.value ?: "generic_${System.currentTimeMillis()}"
 
         // 2. Discover Title Name (e.g. "The Miracle Worker (1962)")
-        val titleName = nameOverride ?: fetchTitleName(titleId) ?: titleId
+        val titleName = nameOverride ?: extractImdbIdsUseCase.fetchTitleById(titleId) ?: titleId
 
         // 3. Save dedicated per-title JSON (e.g. docs/titles/tt0056241.json)
         val titleGalleryFile = File(titlesDir, "$titleId.json")
@@ -97,29 +97,5 @@ class ExportGalleryUseCase(
         // Prepend current title and remove previous duplicates
         val updatedList = listOf(newMetadata) + existingList.filter { it.id != gallery.id }
         manifestFile.writeText(json.encodeToString(updatedList))
-    }
-
-    private fun fetchTitleName(id: String): String? {
-        val prefix = id.first().lowercase()
-        val url = "https://v3.sg.media-imdb.com/suggestion/$prefix/$id.json"
-        val request = Request.Builder()
-            .url(url)
-            .header("User-Agent", "Mozilla/5.0")
-            .build()
-
-        return try {
-            client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful) return null
-                val body = response.body?.string() ?: return null
-                val root = json.parseToJsonElement(body).jsonObject
-                val data = root["d"]?.jsonArray?.firstOrNull()?.jsonObject ?: return null
-                val title = data["l"]?.jsonPrimitive?.content ?: return null
-                val year = data["y"]?.jsonPrimitive?.content ?: ""
-
-                if (year.isNotBlank()) "$title ($year)" else title
-            }
-        } catch (_: Exception) {
-            null
-        }
     }
 }

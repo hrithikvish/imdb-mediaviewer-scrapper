@@ -62,12 +62,12 @@ object AppContainer {
         )
     }
 
-    val exportGalleryUseCase: ExportGalleryUseCase by lazy {
-        ExportGalleryUseCase(client = okHttpClient)
-    }
-
     val extractImdbIdsUseCase: ExtractImdbIdsUseCase by lazy {
         ExtractImdbIdsUseCase(client = okHttpClient)
+    }
+
+    val exportGalleryUseCase: ExportGalleryUseCase by lazy {
+        ExportGalleryUseCase(extractImdbIdsUseCase = extractImdbIdsUseCase)
     }
 
     /**

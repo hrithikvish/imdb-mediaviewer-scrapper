@@ -65,6 +65,22 @@ data class MediaItem(
 )
 
 /**
+ * Strips IMDb resize/crop URL parameters (e.g. `._V1_QL75_UX380_CR0,0,380,562_.jpg`)
+ * to recover the original uncompressed source image.
+ */
+fun cleanImdbImageUrl(url: String): String {
+    val regex = Regex("\\._V1_.*(\\.[a-zA-Z]+)$")
+    return if (regex.containsMatchIn(url)) {
+        regex.replace(url) { matchResult ->
+            val ext = matchResult.groupValues[1]
+            "._V1_$ext"
+        }
+    } else {
+        url
+    }
+}
+
+/**
  * Filter specification to query and slice extracted media assets.
  *
  * @property allowedTypes Filter by specific [MediaType]s (e.g., only IMAGE). Empty means all types.

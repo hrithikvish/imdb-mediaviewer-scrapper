@@ -7,6 +7,7 @@ import org.jsoup.Jsoup
 import org.hrithikvish.scraper.domain.model.MediaItem
 import org.hrithikvish.scraper.domain.model.MediaType
 import org.hrithikvish.scraper.domain.model.ScraperException
+import org.hrithikvish.scraper.domain.model.cleanImdbImageUrl
 import java.io.IOException
 
 /**
@@ -173,17 +174,5 @@ class ImdbJsonDataSource(
         val lower = url.lowercase()
         return lower.startsWith("https://m.media-amazon.com/images") ||
                 lower.startsWith("http://m.media-amazon.com/images")
-    }
-
-    /**
-     * IMDb image URLs often contain resize crop parameters like `._V1_QL75_UX380_CR0,0,380,562_.jpg`.
-     * Stripping the resize query/tag gives the original uncompressed source image!
-     */
-    private fun cleanImdbImageUrl(url: String): String {
-        val regex = Regex("\\._V1_.*(\\.[a-zA-Z]+)$")
-        return regex.replace(url) { matchResult ->
-            val ext = matchResult.groupValues[1]
-            "._V1_$ext"
-        }
     }
 }

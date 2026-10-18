@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import org.hrithikvish.scraper.domain.model.MediaItem
 import org.hrithikvish.scraper.domain.model.MediaType
 import org.hrithikvish.scraper.domain.model.ScraperException
+import org.hrithikvish.scraper.domain.model.cleanImdbImageUrl
 import org.hrithikvish.scraper.domain.usecase.ExtractedTitle
 import java.util.Collections
 import java.util.concurrent.CopyOnWriteArrayList
@@ -64,31 +65,7 @@ class NetworkSnifferDataSource {
                 }
 
                 println("📜 [SNIFFER] Loading complete gallery photos...")
-                // Infinite scroll on .img_gallery_pagination_loader to retrieve all photos (e.g. 240+ photos)
-                var lastPhotoCount = 0
-                var noGrowthIterations = 0
-                for (step in 1..10) {
-                    val currentCount = page.querySelectorAll("img[src*='m.media-amazon.com/images/M/']").size
-                    if (currentCount == lastPhotoCount && currentCount > 0) {
-                        noGrowthIterations++
-                        if (noGrowthIterations >= 2) break
-                    } else {
-                        noGrowthIterations = 0
-                        lastPhotoCount = currentCount
-                    }
-
-                    runCatching {
-                        page.evaluate("""
-                            const loader = document.querySelector('.img_gallery_pagination_loader');
-                            if (loader) {
-                                loader.scrollIntoView();
-                            } else {
-                                window.scrollBy(0, window.innerHeight * 2);
-                            }
-                        """)
-                        page.waitForTimeout(1000.0)
-                    }
-                }
+                scrollGallery(page)
 
                 // Wait for network requests to settle
                 runCatching {
@@ -98,36 +75,39 @@ class NetworkSnifferDataSource {
                     )
                 }
 
-                // Extract all photos directly from DOM elements
-                val domImages = page.querySelectorAll("img").mapNotNull { imgEl ->
-                    val src = imgEl.getAttribute("src") ?: imgEl.getAttribute("data-src")
-                    if (!src.isNullOrBlank() && (src.startsWith("http://") || src.startsWith("https://"))) {
-                        val width = imgEl.getAttribute("width")?.toIntOrNull()
-                        val height = imgEl.getAttribute("height")?.toIntOrNull()
-                        val alt = imgEl.getAttribute("alt")
-                        MediaItem(
-                            url = cleanImdbImageUrl(src),
-                            type = MediaType.IMAGE,
-                            mimeType = "image/jpeg",
-                            title = alt,
-                            width = width,
-                            height = height,
-                            metadata = mapOf("source" to "browser_dom")
-                        )
-                    } else null
-                }
-                captured.addAll(domImages)
+                // If this is an IMDb mediaindex page, extract exclusively from the movie gallery container
+                // to exclude unrelated images (Editorial lists, User lists, User polls, More to explore)
+                val isMediaIndex = targetUrl.contains("/mediaindex")
+                val galleryElements = if (isMediaIndex) extractGalleryImages(page) else emptyList()
 
-                // Also extract all photos from Next.js __NEXT_DATA__ rendered in the page
-                runCatching {
-                    val pageContent = page.content()
-                    val imdbExtractor = ImdbJsonDataSource()
-                    val nextDataItems = imdbExtractor.extractFromHtml(pageContent, url)
-                    println("📦 [SNIFFER] Extracted ${nextDataItems.size} photos from Next.js gallery data")
-                    captured.addAll(nextDataItems)
+                val validItems = if (galleryElements.isNotEmpty()) {
+                    println("🎯 [SNIFFER] Filtered strictly to ${galleryElements.size} official gallery images (excluded editorial/user lists/polls)")
+                    galleryElements
+                } else {
+                    // Extract all photos directly from DOM elements as fallback
+                    captured.addAll(extractDomImages(page))
+
+                    // Also extract all photos from Next.js __NEXT_DATA__ rendered in the page
+                    runCatching {
+                        val pageContent = page.content()
+                        val imdbExtractor = ImdbJsonDataSource()
+                        val nextDataItems = imdbExtractor.extractFromHtml(pageContent, url)
+                        println("📦 [SNIFFER] Extracted ${nextDataItems.size} photos from Next.js gallery data")
+                        captured.addAll(nextDataItems)
+                    }
+
+                    val isImdb = url.contains("imdb.com", ignoreCase = true)
+                    if (isImdb) {
+                        captured.filter { it.url.contains("m.media-amazon.com/images/M/") }
+                    } else {
+                        captured
+                    }
                 }
 
                 browser.close()
+                return validItems
+                    .distinctBy { cleanImdbImageUrl(it.url) }
+                    .map { it.copy(url = cleanImdbImageUrl(it.url)) }
             }
         } catch (e: Exception) {
             if (e is ScraperException) throw e
@@ -136,29 +116,75 @@ class NetworkSnifferDataSource {
                 e
             )
         }
-
-        val isImdb = url.contains("imdb.com", ignoreCase = true)
-        val validItems = if (isImdb) {
-            // Keep strictly movie media photos hosted on m.media-amazon.com/images/M/ (excluding UI favicons/banners in /G/)
-            captured.filter { it.url.contains("m.media-amazon.com/images/M/") }
-        } else {
-            captured
-        }
-
-        return validItems
-            .distinctBy { cleanImdbImageUrl(it.url) }
-            .map { it.copy(url = cleanImdbImageUrl(it.url)) }
     }
 
-    private fun cleanImdbImageUrl(url: String): String {
-        val regex = Regex("\\._V1_.*(\\.[a-zA-Z]+)$")
-        return if (regex.containsMatchIn(url)) {
-            regex.replace(url) { matchResult ->
-                val ext = matchResult.groupValues[1]
-                "._V1_$ext"
+    private fun scrollGallery(page: Page, maxIterations: Int = 15) {
+        var lastPhotoCount = 0
+        var noGrowthIterations = 0
+        for (step in 1..maxIterations) {
+            val currentCount = page.querySelectorAll("a[href*='/mediaviewer/rm'] img").size
+            if (currentCount == lastPhotoCount && currentCount > 0) {
+                noGrowthIterations++
+                if (noGrowthIterations >= 2) break
+            } else {
+                noGrowthIterations = 0
+                lastPhotoCount = currentCount
             }
-        } else {
-            url
+
+            runCatching {
+                page.evaluate("""
+                    const loader = document.querySelector('.img_gallery_pagination_loader');
+                    if (loader) {
+                        loader.scrollIntoView();
+                    } else {
+                        window.scrollBy(0, window.innerHeight * 2);
+                    }
+                """)
+                page.waitForTimeout(1000.0)
+            }
+        }
+    }
+
+    private fun extractGalleryImages(page: Page): List<MediaItem> {
+        val galleryElements = page.querySelectorAll(
+            "[data-testid='sub-section-images'] a[href*='/mediaviewer/rm'] img, [data-testid='section-images'] a[href*='/mediaviewer/rm'] img, a[href*='/mediaviewer/rm'] img"
+        )
+        return galleryElements.mapNotNull { imgEl ->
+            val src = imgEl.getAttribute("src") ?: imgEl.getAttribute("data-src")
+            if (!src.isNullOrBlank() && src.contains("m.media-amazon.com/images/M/")) {
+                val width = imgEl.getAttribute("width")?.toIntOrNull()
+                val height = imgEl.getAttribute("height")?.toIntOrNull()
+                val alt = imgEl.getAttribute("alt")
+                MediaItem(
+                    url = cleanImdbImageUrl(src),
+                    type = MediaType.IMAGE,
+                    mimeType = "image/jpeg",
+                    title = alt,
+                    width = width,
+                    height = height,
+                    metadata = mapOf("source" to "gallery_dom")
+                )
+            } else null
+        }
+    }
+
+    private fun extractDomImages(page: Page): List<MediaItem> {
+        return page.querySelectorAll("img").mapNotNull { imgEl ->
+            val src = imgEl.getAttribute("src") ?: imgEl.getAttribute("data-src")
+            if (!src.isNullOrBlank() && (src.startsWith("http://") || src.startsWith("https://"))) {
+                val width = imgEl.getAttribute("width")?.toIntOrNull()
+                val height = imgEl.getAttribute("height")?.toIntOrNull()
+                val alt = imgEl.getAttribute("alt")
+                MediaItem(
+                    url = cleanImdbImageUrl(src),
+                    type = MediaType.IMAGE,
+                    mimeType = "image/jpeg",
+                    title = alt,
+                    width = width,
+                    height = height,
+                    metadata = mapOf("source" to "browser_dom")
+                )
+            } else null
         }
     }
 
@@ -223,66 +249,20 @@ class NetworkSnifferDataSource {
                             page.waitForSelector("img, [data-testid], main", Page.WaitForSelectorOptions().setTimeout(10000.0))
                         }
 
-                        // Infinite scroll on .img_gallery_pagination_loader to retrieve all photos
-                        var lastPhotoCount = 0
-                        var noGrowthIterations = 0
-                        for (step in 1..15) {
-                            val currentCount = page.querySelectorAll("img[src*='m.media-amazon.com/images/M/']").size
-                            if (currentCount == lastPhotoCount && currentCount > 0) {
-                                noGrowthIterations++
-                                if (noGrowthIterations >= 2) break
-                            } else {
-                                noGrowthIterations = 0
-                                lastPhotoCount = currentCount
-                            }
+                        scrollGallery(page)
 
-                            runCatching {
-                                page.evaluate("""
-                                    const loader = document.querySelector('.img_gallery_pagination_loader');
-                                    if (loader) {
-                                        loader.scrollIntoView();
-                                    } else {
-                                        window.scrollBy(0, window.innerHeight * 2);
-                                    }
-                                """)
-                                page.waitForTimeout(1000.0)
-                            }
-                        }
-
-                        // DOM images
-                        val domImages = page.querySelectorAll("img").mapNotNull { imgEl ->
-                            val src = imgEl.getAttribute("src") ?: imgEl.getAttribute("data-src")
-                            if (!src.isNullOrBlank() && (src.startsWith("http://") || src.startsWith("https://"))) {
-                                val width = imgEl.getAttribute("width")?.toIntOrNull()
-                                val height = imgEl.getAttribute("height")?.toIntOrNull()
-                                val alt = imgEl.getAttribute("alt")
-                                MediaItem(
-                                    url = cleanImdbImageUrl(src),
-                                    type = MediaType.IMAGE,
-                                    mimeType = "image/jpeg",
-                                    title = alt,
-                                    width = width,
-                                    height = height,
-                                    metadata = mapOf("source" to "browser_dom")
-                                )
-                            } else null
-                        }
-                        captured.addAll(domImages)
-
-                        // Next.js data
-                        runCatching {
-                            val pageContent = page.content()
-                            val imdbExtractor = ImdbJsonDataSource()
-                            val nextDataItems = imdbExtractor.extractFromHtml(pageContent, mediaindexUrl)
-                            captured.addAll(nextDataItems)
+                        val galleryElements = extractGalleryImages(page)
+                        val validItems = if (galleryElements.isNotEmpty()) {
+                            galleryElements.distinctBy { cleanImdbImageUrl(it.url) }
+                        } else {
+                            captured.addAll(extractDomImages(page))
+                            captured
+                                .filter { it.url.contains("m.media-amazon.com/images/M/") }
+                                .distinctBy { cleanImdbImageUrl(it.url) }
+                                .map { it.copy(url = cleanImdbImageUrl(it.url)) }
                         }
 
                         val duration = System.currentTimeMillis() - startTime
-                        val validItems = captured
-                            .filter { it.url.contains("m.media-amazon.com/images/M/") }
-                            .distinctBy { cleanImdbImageUrl(it.url) }
-                            .map { it.copy(url = cleanImdbImageUrl(it.url)) }
-
                         println("✅ [${index + 1}/${titlesToScrape.size}] Found ${validItems.size} photos for ${title.name ?: title.id} (${duration}ms)")
                         onTitleResult(title, validItems, duration)
                     } catch (e: Exception) {
