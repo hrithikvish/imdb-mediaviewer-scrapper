@@ -1,5 +1,86 @@
 [
     {
+        "id": "tt11771594",
+        "name": "American Pie Presents: Girls' Rules (2020)",
+        "targetUrl": "https://www.imdb.com/title/tt11771594/mediaindex/",
+        "itemCount": 94,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BNWI4YjhlZWItNDVkMy00NTNlLTllOGEtM2EyZTVmNzAwYTVhXkEyXkFqcGc@._V1_.jpg",
+        "file": "titles/tt11771594.json",
+        "lastUpdated": 1792349148549
+    },
+    {
+        "id": "tt1407050",
+        "name": "American Pie Presents: The Book of Love (2009)",
+        "targetUrl": "https://www.imdb.com/title/tt1407050/mediaindex/",
+        "itemCount": 158,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BYzhiNzA3MzktZjM1Ny00ZGVhLTg0NTAtYmE1M2EzNGNjNWQ1XkEyXkFqcGc@._V1_.jpg",
+        "file": "titles/tt1407050.json",
+        "lastUpdated": 1792349145416
+    },
+    {
+        "id": "tt0974959",
+        "name": "American Pie Presents: Beta House (2007)",
+        "targetUrl": "https://www.imdb.com/title/tt0974959/mediaindex/",
+        "itemCount": 118,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BNTg5MGY4OGEtZWEwMy00Y2Q3LWIxMzEtNDQzZTEyOTM5Njc1XkEyXkFqcGc@._V1_.jpg",
+        "file": "titles/tt0974959.json",
+        "lastUpdated": 1792349137416
+    },
+    {
+        "id": "tt0808146",
+        "name": "American Pie Presents: The Naked Mile (2006)",
+        "targetUrl": "https://www.imdb.com/title/tt0808146/mediaindex/",
+        "itemCount": 146,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BZmM0NDZhNjUtODgzMC00ZmNmLWExZTQtZjQxNDhkZjkyYWYzXkEyXkFqcGc@._V1_.jpg",
+        "file": "titles/tt0808146.json",
+        "lastUpdated": 1792349131551
+    },
+    {
+        "id": "tt0436058",
+        "name": "American Pie Presents: Band Camp (2005)",
+        "targetUrl": "https://www.imdb.com/title/tt0436058/mediaindex/",
+        "itemCount": 50,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTQzNzE5NTI0OF5BMl5BanBnXkFtZTYwNDgzMDY3._V1_.jpg",
+        "file": "titles/tt0436058.json",
+        "lastUpdated": 1792349125076
+    },
+    {
+        "id": "tt1605630",
+        "name": "American Reunion (2012)",
+        "targetUrl": "https://www.imdb.com/title/tt1605630/mediaindex/",
+        "itemCount": 155,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTg1Mjg3NDQwNF5BMl5BanBnXkFtZTcwNTk2NDU1Nw@@._V1_.jpg",
+        "file": "titles/tt1605630.json",
+        "lastUpdated": 1792349118221
+    },
+    {
+        "id": "tt0328828",
+        "name": "American Wedding (2003)",
+        "targetUrl": "https://www.imdb.com/title/tt0328828/mediaindex/",
+        "itemCount": 272,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTYyNjI5ODc1NV5BMl5BanBnXkFtZTYwOTcyNDI3._V1_.jpg",
+        "file": "titles/tt0328828.json",
+        "lastUpdated": 1792349111022
+    },
+    {
+        "id": "tt0252866",
+        "name": "American Pie 2 (2001)",
+        "targetUrl": "https://www.imdb.com/title/tt0252866/mediaindex/",
+        "itemCount": 195,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTY2NTAyMzQxMV5BMl5BanBnXkFtZTYwMTM2Mjk2._V1_.jpg",
+        "file": "titles/tt0252866.json",
+        "lastUpdated": 1792349101162
+    },
+    {
+        "id": "tt0163651",
+        "name": "American Pie (1999)",
+        "targetUrl": "https://www.imdb.com/title/tt0163651/mediaindex/",
+        "itemCount": 290,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BOWMyNmM3ZGUtNTBlNy00ZDk4LWIxYTYtYWQyZTE1ZmU1YzcxXkEyXkFqcGc@._V1_.jpg",
+        "file": "titles/tt0163651.json",
+        "lastUpdated": 1792349093923
+    },
+    {
         "id": "tt0265208",
         "name": "The Girl Next Door (2004)",
         "targetUrl": "https://www.imdb.com/title/tt0265208/mediaindex/",
