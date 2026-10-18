@@ -1,5 +1,14 @@
 [
     {
+        "id": "tt0111161",
+        "name": "The Shawshank Redemption (1994)",
+        "targetUrl": "https://www.imdb.com/title/tt0111161/mediaindex/",
+        "itemCount": 200,
+        "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTM0NjUxMDk5MF5BMl5BanBnXkFtZTcwNDMxNDY3Mw@@._V1_.jpg",
+        "file": "titles/tt0111161.json",
+        "lastUpdated": 1792335645565
+    },
+    {
         "id": "tt0038650",
         "name": "It's a Wonderful Life (1946)",
         "targetUrl": "https://www.imdb.com/title/tt0038650/mediaindex/",
@@ -700,15 +709,6 @@
         "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTY1MjA3MzA1Nl5BMl5BanBnXkFtZTYwODAyNDM2._V1_.jpg",
         "file": "titles/tt0037120.json",
         "lastUpdated": 1792326246456
-    },
-    {
-        "id": "tt0111161",
-        "name": "The Shawshank Redemption (1994)",
-        "targetUrl": "https://www.imdb.com/title/tt0111161/mediaindex/",
-        "itemCount": 200,
-        "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTM0NjUxMDk5MF5BMl5BanBnXkFtZTcwNDMxNDY3Mw@@._V1_.jpg",
-        "file": "titles/tt0111161.json",
-        "lastUpdated": 1792326229811
     },
     {
         "id": "tt0035211",
