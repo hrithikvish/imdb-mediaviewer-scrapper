@@ -1240,6 +1240,33 @@ body {
   overflow: hidden;
 }
 
+.lightbox-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: lbSpin 0.75s linear infinite;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.lightbox-stage.is-loading .lightbox-spinner {
+  opacity: 1;
+}
+
+@keyframes lbSpin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 .lightbox-figure {
   max-width: 100%;
   max-height: 100%;
@@ -1254,11 +1281,15 @@ body {
   object-fit: contain;
   border-radius: var(--radius-sm);
   box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.9);
-  transition: opacity 0.15s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   transform: scale(0.97);
+  opacity: 0;
+  visibility: hidden;
 }
 
-.lightbox.active .lightbox-img {
+.lightbox.active .lightbox-img.loaded {
+  opacity: 1;
+  visibility: visible;
   transform: scale(1);
 }
 

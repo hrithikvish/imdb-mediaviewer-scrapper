@@ -57,6 +57,7 @@ const legacyTitleSelect = document.getElementById('title-select');
 // Lightbox Elements
 const lightbox = document.getElementById('lightbox');
 const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+const lightboxStage = document.querySelector('.lightbox-stage');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxCounter = document.getElementById('lightbox-counter');
 const lightboxMovieTitle = document.getElementById('lightbox-movie-title');
@@ -71,6 +72,7 @@ const btnClose = document.getElementById('btn-close');
 const btnPrev = document.getElementById('btn-prev');
 const btnNext = document.getElementById('btn-next');
 let isCurrentFullRes = false;
+let currentImageLoadId = 0;
 
 /**
  * Returns a bandwidth-efficient, high-performance preview URL constrained to max 720p.
@@ -875,15 +877,27 @@ function openLightbox(index) {
   if (index < 0 || index >= items.length) return;
 
   currentLightboxIndex = index;
-  updateLightboxContent();
+  lightboxImg.classList.remove('loaded');
+  if (lightboxStage) {
+    lightboxStage.classList.add('is-loading');
+  }
 
   lightbox.classList.add('active');
   document.body.style.overflow = 'hidden';
+
+  updateLightboxContent();
 }
 
 function closeLightbox() {
+  currentImageLoadId++;
   lightbox.classList.remove('active');
   document.body.style.overflow = '';
+  lightboxImg.classList.remove('loaded');
+  lightboxImg.src = '';
+  if (lightboxStage) {
+    lightboxStage.classList.remove('is-loading');
+  }
+  isCurrentFullRes = false;
 }
 
 function updateLightboxContent() {
@@ -898,9 +912,42 @@ function updateLightboxContent() {
     downloadBtnLabel.textContent = 'Original';
   }
 
+  // Instantly hide previous image and show stage spinner
+  lightboxImg.classList.remove('loaded');
+  if (lightboxStage) {
+    lightboxStage.classList.add('is-loading');
+  }
+
   // Load preview <= 720p by default for fast, lightweight rendering
   const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 720);
-  lightboxImg.src = previewUrl;
+  const loadId = ++currentImageLoadId;
+
+  const preloader = new Image();
+  preloader.onload = () => {
+    if (loadId !== currentImageLoadId) return;
+    lightboxImg.src = previewUrl;
+    lightboxImg.classList.add('loaded');
+    if (lightboxStage) {
+      lightboxStage.classList.remove('is-loading');
+    }
+  };
+  preloader.onerror = () => {
+    if (loadId !== currentImageLoadId) return;
+    lightboxImg.src = previewUrl;
+    lightboxImg.classList.add('loaded');
+    if (lightboxStage) {
+      lightboxStage.classList.remove('is-loading');
+    }
+  };
+  preloader.src = previewUrl;
+
+  if (preloader.complete && preloader.naturalWidth > 0) {
+    lightboxImg.src = previewUrl;
+    lightboxImg.classList.add('loaded');
+    if (lightboxStage) {
+      lightboxStage.classList.remove('is-loading');
+    }
+  }
 
   if (isDownscaled) {
     isCurrentFullRes = false;
@@ -948,9 +995,12 @@ function loadFullResImage() {
   if (fullResBtnLabel) fullResBtnLabel.textContent = `Loading ${targetLabel}...`;
 
   const masterImg = new Image();
+  const currentToken = currentImageLoadId;
   masterImg.onload = () => {
+    if (currentToken !== currentImageLoadId) return;
     if (lightbox.classList.contains('active')) {
       lightboxImg.src = item.url;
+      lightboxImg.classList.add('loaded');
       if (lightboxFullResBtn) {
         lightboxFullResBtn.classList.add('active-fullres');
         lightboxFullResBtn.title = `Active Full Resolution (${badge.dim})`;
@@ -962,6 +1012,7 @@ function loadFullResImage() {
     }
   };
   masterImg.onerror = () => {
+    if (currentToken !== currentImageLoadId) return;
     if (fullResBtnLabel) fullResBtnLabel.textContent = `Full-Res (${targetLabel})`;
     isCurrentFullRes = false;
   };
