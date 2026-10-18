@@ -228,7 +228,8 @@ def scrape_single_title_gallery(
                     tracker["total"] = img_data["total"]
                 if "pageInfo" in img_data:
                     tracker["has_next"] = img_data["pageInfo"].get("hasNextPage", True)
-                traverse_json_for_media(data, graphql_items)
+                if img_data:
+                    traverse_json_for_media(img_data, graphql_items)
             except Exception:
                 pass
 
@@ -245,35 +246,36 @@ def scrape_single_title_gallery(
         except Exception:
             pass
 
-        # 1. Extract metadata from Next.js __NEXT_DATA__
+        # 1. Extract metadata from Next.js __NEXT_DATA__ (scoped strictly to gallery images block)
         next_data_items = []
         try:
             static_res = context.request.get(mediaindex_url, timeout=15000)
             m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', static_res.text(), re.DOTALL)
             if m:
                 raw_data = json.loads(m.group(1))
-                traverse_json_for_media(raw_data, next_data_items)
 
-                # Check for total images in __NEXT_DATA__
-                def find_total(obj):
+                # Locate the entity's images block only (ignoring 'More Like This' / recommendations)
+                def find_images_block(obj):
                     if isinstance(obj, dict):
-                        if "images" in obj and isinstance(obj["images"], dict) and "total" in obj["images"]:
-                            return obj["images"]["total"]
+                        if "images" in obj and isinstance(obj["images"], dict) and ("edges" in obj["images"] or "total" in obj["images"]):
+                            return obj["images"]
                         for v in obj.values():
-                            tot = find_total(v)
-                            if tot:
-                                return tot
+                            found = find_images_block(v)
+                            if found:
+                                return found
                     elif isinstance(obj, list):
                         for item in obj:
-                            tot = find_total(item)
-                            if tot:
-                                return tot
+                            found = find_images_block(item)
+                            if found:
+                                return found
                     return None
 
-                total_from_next = find_total(raw_data)
-                if total_from_next and not tracker["total"]:
-                    tracker["total"] = int(total_from_next)
-                    log(f"   ℹ️ Detected total photos from metadata: {tracker['total']}")
+                images_block = find_images_block(raw_data)
+                if images_block:
+                    if images_block.get("total") and not tracker["total"]:
+                        tracker["total"] = int(images_block["total"])
+                        log(f"   ℹ️ Detected total photos from metadata: {tracker['total']}")
+                    traverse_json_for_media(images_block, next_data_items)
         except Exception:
             pass
 
