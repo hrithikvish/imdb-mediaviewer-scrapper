@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMDb MediaViewer Gallery | High-Res Viewer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="header-content">
+      <div class="brand">
+        <span class="badge-imdb">IMDb</span>
+        <div>
+          <h1>MediaViewer Scrapper Gallery</h1>
+          <div class="subtitle">Full master-resolution assets extracted directly from IMDb</div>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div class="stat-pill">Total Photos: <strong id="total-count">0</strong></div>
+        <div class="stat-pill">Scraped in: <strong id="scrape-duration">--</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filter & Search Controls -->
+  <div class="controls-bar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search by title, caption, or keyword...">
+    </div>
+
+    <div class="filter-buttons">
+      <button class="btn-filter active" data-filter="all">All Photos</button>
+      <button class="btn-filter" data-filter="high">High-Res Only (≥ 1080p)</button>
+    </div>
+  </div>
+
+  <!-- Photo Grid -->
+  <main>
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- Media Cards injected by app.js -->
+    </div>
+  </main>
+
+  <!-- Fullscreen Carousel / Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-header">
+      <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
+      <div class="lightbox-actions">
+        <a class="btn-icon" id="lightbox-download" title="Download Master File" target="_blank" download>
+          💾
+        </a>
+        <button class="btn-icon" id="btn-close" title="Close (Esc)">✕</button>
+      </div>
+    </div>
+
+    <div class="lightbox-body">
+      <button class="nav-btn nav-prev" id="btn-prev" title="Previous (Left Arrow)">❮</button>
+
+      <div class="lightbox-image-wrapper">
+        <img class="lightbox-image" id="lightbox-img" src="" alt="Full view">
+      </div>
+
+      <button class="nav-btn nav-next" id="btn-next" title="Next (Right Arrow)">❯</button>
+    </div>
+
+    <div class="lightbox-caption" id="lightbox-caption">Caption</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

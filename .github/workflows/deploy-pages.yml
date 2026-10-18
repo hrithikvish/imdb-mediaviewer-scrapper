@@ -1,0 +1,76 @@
+name: Scrape IMDb & Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+    inputs:
+      imdb_url:
+        description: 'Any IMDb URL or ID (e.g. https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i or tt0038650)'
+        required: true
+        default: 'https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i'
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  scrape-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Make Gradle Wrapper Executable
+        run: chmod +x gradlew
+
+      - name: Install Playwright Chromium & System Dependencies
+        run: npx -y playwright install --with-deps chromium
+
+      - name: Run Kotlin Scraper & Export Gallery
+        run: |
+          TARGET_URL="${{ github.event.inputs.imdb_url || 'https://www.imdb.com/title/tt0056241/mediaviewer' }}"
+          echo "Scraping target: $TARGET_URL"
+          ./gradlew run --args="$TARGET_URL docs/gallery.json"
+
+      - name: Commit & Push Updated Gallery Data
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/gallery.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update gallery.json for ${{ github.event.inputs.imdb_url }}" && git push)
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

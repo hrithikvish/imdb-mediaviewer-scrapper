@@ -1,0 +1,40 @@
+{
+  "targetUrl": "https://www.imdb.com/title/tt0056241/mediaviewer",
+  "durationMs": 750,
+  "strategyUsed": "IMDB_NEXT_DATA",
+  "timestamp": 1729245200000,
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNTQyNjllYTQtYjQyOC00MzJjLTlmYmYtMGQwYmE3ZDYwZWE2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Lawrence of Arabia (1962) - Master Key Still",
+      "width": 2048,
+      "height": 2730
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Shawshank Redemption - High Resolution Poster",
+      "width": 1200,
+      "height": 1800
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTQzODc4MTE1MF5BMl5BanBnXkFtZTcwMjYyODI1NA@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Production Scene - Desert Expedition",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZDkzNzc1ZTQtMDViMi00YWEwLWIzODctMzRjZGVlZTI1MGM3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Cinematography Still - Panavision 70mm",
+      "width": 1920,
+      "height": 1080
+    }
+  ]
+}
