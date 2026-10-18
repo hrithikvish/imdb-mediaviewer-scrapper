@@ -891,13 +891,9 @@ function updateLightboxContent() {
   const item = items[currentLightboxIndex];
   if (!item) return;
 
-  isCurrentFullRes = false;
-  if (lightboxFullResBtn) {
-    lightboxFullResBtn.classList.remove('active-fullres');
-  }
-  if (fullResBtnLabel) {
-    fullResBtnLabel.textContent = 'Full-Res';
-  }
+  const badge = getResolutionBadge(item);
+  const isDownscaled = (item.width && item.width > 720) || (item.height && item.height > 720) || (!item.width && !item.height);
+
   if (downloadBtnLabel) {
     downloadBtnLabel.textContent = 'Original';
   }
@@ -906,13 +902,35 @@ function updateLightboxContent() {
   const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 720);
   lightboxImg.src = previewUrl;
 
+  if (isDownscaled) {
+    isCurrentFullRes = false;
+    if (lightboxFullResBtn) {
+      lightboxFullResBtn.classList.remove('active-fullres');
+      lightboxFullResBtn.title = `View Full Master Resolution (${badge.dim}) [Z]`;
+    }
+    if (fullResBtnLabel) {
+      fullResBtnLabel.textContent = badge.label && badge.label !== 'HQ' ? `Full-Res (${badge.label})` : 'Full-Res';
+    }
+  } else {
+    // Already served at native uncompressed resolution because native image is <= 720p
+    isCurrentFullRes = true;
+    if (lightboxFullResBtn) {
+      lightboxFullResBtn.classList.add('active-fullres');
+      lightboxFullResBtn.title = `Already showing native full resolution (${badge.dim})`;
+    }
+    if (fullResBtnLabel) {
+      fullResBtnLabel.textContent = `Active ${badge.label}`;
+    }
+  }
+
   lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${items.length}`;
 
   const movieName = selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo';
   lightboxMovieTitle.textContent = movieName;
 
   const captionText = item.title || movieName;
-  const dims = item.width && item.height ? ` · Master: ${item.width} × ${item.height}` : '';
+  const statusPrefix = isDownscaled ? 'Master' : 'Active Master';
+  const dims = item.width && item.height ? ` · ${statusPrefix}: ${item.width} × ${item.height}` : '';
   lightboxCaption.textContent = `${captionText}${dims}`;
 }
 
@@ -923,21 +941,28 @@ function loadFullResImage() {
 
   if (isCurrentFullRes) return;
   isCurrentFullRes = true;
-  if (fullResBtnLabel) fullResBtnLabel.textContent = 'Loading 4K...';
+
+  const badge = getResolutionBadge(item);
+  const targetLabel = badge.label && badge.label !== 'HQ' ? badge.label : 'Full-Res';
+
+  if (fullResBtnLabel) fullResBtnLabel.textContent = `Loading ${targetLabel}...`;
 
   const masterImg = new Image();
   masterImg.onload = () => {
     if (lightbox.classList.contains('active')) {
       lightboxImg.src = item.url;
-      if (lightboxFullResBtn) lightboxFullResBtn.classList.add('active-fullres');
-      if (fullResBtnLabel) fullResBtnLabel.textContent = 'Active 4K';
+      if (lightboxFullResBtn) {
+        lightboxFullResBtn.classList.add('active-fullres');
+        lightboxFullResBtn.title = `Active Full Resolution (${badge.dim})`;
+      }
+      if (fullResBtnLabel) fullResBtnLabel.textContent = `Active ${targetLabel}`;
       const dims = item.width && item.height ? ` · Active Master: ${item.width} × ${item.height}` : '';
       const captionText = item.title || (selectedTitle ? selectedTitle.name : '');
       lightboxCaption.textContent = `${captionText}${dims}`;
     }
   };
   masterImg.onerror = () => {
-    if (fullResBtnLabel) fullResBtnLabel.textContent = 'Full-Res';
+    if (fullResBtnLabel) fullResBtnLabel.textContent = `Full-Res (${targetLabel})`;
     isCurrentFullRes = false;
   };
   masterImg.src = item.url;
