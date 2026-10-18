@@ -21,9 +21,11 @@ class ExtractImdbIdsUseCaseTest {
 
         assertEquals(3, results.size)
         assertEquals("tt0038650", results[0].id)
-        assertEquals("It's a Wonderful Life", results[0].name)
+        assertTrue(results[0].name?.contains("It's a Wonderful Life") == true)
         assertEquals("tt0056592", results[1].id)
+        assertTrue(results[1].name?.contains("To Kill a Mockingbird") == true)
         assertEquals("tt0108052", results[2].id)
+        assertTrue(results[2].name?.contains("Schindler's List") == true)
     }
 
     @Test
@@ -275,12 +277,25 @@ class ExtractImdbIdsUseCaseTest {
         assertEquals(100, results.size)
         assertEquals(100, results.map { it.id }.toSet().size)
         assertEquals("tt0038650", results[0].id)
-        assertEquals("It's a Wonderful Life", results[0].name)
+        assertTrue(results[0].name?.contains("It's a Wonderful Life") == true)
         assertEquals("tt0056592", results[1].id)
-        assertEquals("To Kill a Mockingbird", results[1].name)
+        assertTrue(results[1].name?.contains("To Kill a Mockingbird") == true)
         assertEquals("tt0039628", results[8].id) // Miracle on 34th Street resolved from search URL
-        assertEquals("Miracle on 34th Street", results[8].name)
+        assertTrue(results[8].name?.contains("Miracle on 34th Street") == true)
         assertEquals("tt0082158", results[99].id)
-        assertEquals("Chariots of Fire", results[99].name)
+        assertTrue(results[99].name?.contains("Chariots of Fire") == true)
+    }
+
+    @Test
+    fun `handles URLs followed by movie names with colons and spaces without misattribution`() {
+        val input = "https://www.imdb.com/title/tt0120815/: Saving Private Ryan tt0039628: Miracle on 34th Street (1947)"
+        val results = useCase(input)
+
+        assertEquals(2, results.size)
+        assertEquals("tt0120815", results[0].id)
+        assertTrue(results[0].name?.contains("Saving Private Ryan") == true)
+
+        assertEquals("tt0039628", results[1].id)
+        assertTrue(results[1].name?.contains("Miracle on 34th Street") == true)
     }
 }
