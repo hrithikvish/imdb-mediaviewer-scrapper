@@ -29,12 +29,29 @@
 
       <!-- Controls & Actions -->
       <div class="header-controls">
-        <!-- Title Selector -->
-        <div class="select-wrapper">
-          <select id="title-select" class="title-dropdown" title="Select Title Gallery"></select>
-          <svg class="select-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"/>
-          </svg>
+        <!-- Searchable Title Selector -->
+        <div class="custom-select-wrapper" id="custom-select-wrapper">
+          <button type="button" class="custom-select-trigger" id="custom-select-trigger" aria-haspopup="listbox" aria-expanded="false" title="Choose IMDb Title Gallery">
+            <span class="selected-title-text" id="selected-title-text">All Titles</span>
+            <svg class="select-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <div class="custom-select-dropdown" id="custom-select-dropdown" role="listbox">
+            <div class="dropdown-search-wrapper">
+              <svg class="dropdown-search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.3-4.3"/>
+              </svg>
+              <input type="text" id="dropdown-search-input" class="dropdown-search-input" placeholder="Search titles..." autocomplete="off" spellcheck="false">
+              <button type="button" id="dropdown-search-clear" class="dropdown-search-clear" title="Clear">✕</button>
+            </div>
+            <div class="dropdown-options-list" id="dropdown-options-list">
+              <!-- Dynamically populated options -->
+            </div>
+          </div>
+          <select id="title-select" class="title-dropdown hidden" title="Select Title Gallery"></select>
         </div>
 
         <!-- Search Input -->
@@ -49,7 +66,7 @@
         </div>
 
         <!-- Segmented Resolution Filter -->
-        <div class="segmented-control" role="group" aria-label="Resolution Filter">
+        <div class="segmented-control" id="segmented-control" role="group" aria-label="Resolution Filter">
           <button class="seg-btn active" data-filter="all">All</button>
           <button class="seg-btn" data-filter="high">≥ 1080p</button>
         </div>
@@ -86,10 +103,38 @@
     </div>
   </header>
 
-  <!-- Photo Grid Main Content -->
+  <!-- Main Content Container -->
   <main class="main-container">
-    <div class="gallery-grid" id="gallery-grid">
-      <!-- Media Cards injected by app.js -->
+    <!-- View 1: Catalog of All Titles (Horizontal Photo Rows) -->
+    <div class="catalog-view" id="catalog-view">
+      <div class="catalog-header">
+        <div class="catalog-header-text">
+          <h1 class="catalog-title">All Scraped Titles</h1>
+          <p class="catalog-subtitle" id="catalog-subtitle">Titles scraped in master quality. Click any title to browse its full gallery.</p>
+        </div>
+      </div>
+      <div class="titles-list" id="titles-list">
+        <!-- Rendered title rows with horizontal scroll strips -->
+      </div>
+    </div>
+
+    <!-- View 2: Single Title Gallery Grid -->
+    <div class="gallery-view hidden" id="gallery-view">
+      <div class="gallery-title-bar" id="gallery-title-bar">
+        <button class="back-link-btn" id="gallery-back-btn" title="Back to All Titles">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          <span>All Titles</span>
+        </button>
+        <div class="active-movie-heading">
+          <h2 id="active-movie-name">Movie Name</h2>
+          <span class="active-movie-count" id="active-movie-count">0 photos</span>
+        </div>
+      </div>
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Media Cards injected by app.js -->
+      </div>
     </div>
   </main>
 
