@@ -109,6 +109,20 @@ class ImdbJsonDataSource(
         }
     }
 
+    /**
+     * Extracts MediaItems directly from a GraphQL JSON response (e.g. TitleMediaIndexPagination).
+     */
+    fun extractFromGraphQl(graphQlJson: String): List<MediaItem> {
+        return try {
+            val rootElement = json.parseToJsonElement(graphQlJson)
+            val extractedItems = mutableListOf<MediaItem>()
+            traverseAndExtract(rootElement, extractedItems)
+            extractedItems.distinctBy { it.url }
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
     private fun fetchHtml(url: String): String {
         val request = Request.Builder()
             .url(url)
@@ -133,13 +147,27 @@ class ImdbJsonDataSource(
             is JsonObject -> {
                 // Check if this object itself represents an image node
                 val urlElement = element["url"] ?: element["src"]
+                    ?: (element["image"] as? JsonObject)?.get("url")
                 if (urlElement is JsonPrimitive && urlElement.isString) {
                     val url = urlElement.content
                     if (isMediaUrl(url)) {
+                        val imageObj = element["image"] as? JsonObject
                         val width = (element["width"] as? JsonPrimitive)?.intOrNull
+                            ?: (imageObj?.get("width") as? JsonPrimitive)?.intOrNull
                         val height = (element["height"] as? JsonPrimitive)?.intOrNull
-                        val caption = (element["caption"] as? JsonPrimitive)?.contentOrNull
-                            ?: (element["title"] as? JsonPrimitive)?.contentOrNull
+                            ?: (imageObj?.get("height") as? JsonPrimitive)?.intOrNull
+
+                        val captionObj = element["caption"] ?: imageObj?.get("caption")
+                        val rawCaption = when (captionObj) {
+                            is JsonPrimitive -> captionObj.contentOrNull
+                            is JsonObject -> (captionObj["plainText"] as? JsonPrimitive)?.contentOrNull
+                                ?: (captionObj["text"] as? JsonPrimitive)?.contentOrNull
+                            else -> null
+                        } ?: (element["title"] as? JsonPrimitive)?.contentOrNull
+
+                        val caption = rawCaption?.takeIf {
+                            it.isNotBlank() && !it.equals("View Poster", ignoreCase = true)
+                        }
 
                         results.add(
                             MediaItem(

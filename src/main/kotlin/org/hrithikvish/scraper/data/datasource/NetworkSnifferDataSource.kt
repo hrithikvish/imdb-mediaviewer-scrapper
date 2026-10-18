@@ -19,7 +19,9 @@ import java.util.concurrent.CopyOnWriteArrayList
  * Intercepts real browser network traffic using Playwright.
  * This directly replicates the Chrome DevTools Network Tab media/images filter in Kotlin.
  */
-class NetworkSnifferDataSource {
+class NetworkSnifferDataSource(
+    private val imdbJsonDataSource: ImdbJsonDataSource = ImdbJsonDataSource()
+) {
 
     /**
      * Navigates to [url] in a headless browser, waits for network idle,
@@ -41,8 +43,16 @@ class NetworkSnifferDataSource {
                 context.addInitScript("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
                 val page = context.newPage()
 
-                // DevTools Network Tab listener: intercepts all media/image responses
+                // DevTools Network Tab listener: intercepts all media/image and GraphQL responses
                 page.onResponse { response ->
+                    val resUrl = response.url()
+                    if (resUrl.contains("TitleMediaIndexPagination")) {
+                        runCatching {
+                            val body = response.text()
+                            val graphQlItems = imdbJsonDataSource.extractFromGraphQl(body)
+                            captured.addAll(graphQlItems)
+                        }
+                    }
                     val item = parseNetworkResponse(response)
                     if (item != null) {
                         captured.add(item)
@@ -64,6 +74,13 @@ class NetworkSnifferDataSource {
                     page.waitForSelector("img, [data-testid], main", Page.WaitForSelectorOptions().setTimeout(15000.0))
                 }
 
+                // Extract high-res metadata and true captions from Next.js __NEXT_DATA__
+                runCatching {
+                    val pageContent = page.content()
+                    val nextDataItems = imdbJsonDataSource.extractFromHtml(pageContent, targetUrl)
+                    captured.addAll(nextDataItems)
+                }
+
                 println("📜 [SNIFFER] Loading complete gallery photos...")
                 scrollGallery(page)
 
@@ -82,7 +99,7 @@ class NetworkSnifferDataSource {
 
                 val validItems = if (galleryElements.isNotEmpty()) {
                     println("🎯 [SNIFFER] Filtered strictly to ${galleryElements.size} official gallery images (excluded editorial/user lists/polls)")
-                    galleryElements
+                    enrichGalleryItems(galleryElements, captured)
                 } else {
                     // Extract all photos directly from DOM elements as fallback
                     captured.addAll(extractDomImages(page))
@@ -90,8 +107,7 @@ class NetworkSnifferDataSource {
                     // Also extract all photos from Next.js __NEXT_DATA__ rendered in the page
                     runCatching {
                         val pageContent = page.content()
-                        val imdbExtractor = ImdbJsonDataSource()
-                        val nextDataItems = imdbExtractor.extractFromHtml(pageContent, url)
+                        val nextDataItems = imdbJsonDataSource.extractFromHtml(pageContent, url)
                         println("📦 [SNIFFER] Extracted ${nextDataItems.size} photos from Next.js gallery data")
                         captured.addAll(nextDataItems)
                     }
@@ -154,7 +170,7 @@ class NetworkSnifferDataSource {
             if (!src.isNullOrBlank() && src.contains("m.media-amazon.com/images/M/")) {
                 val width = imgEl.getAttribute("width")?.toIntOrNull()
                 val height = imgEl.getAttribute("height")?.toIntOrNull()
-                val alt = imgEl.getAttribute("alt")
+                val alt = imgEl.getAttribute("alt")?.takeIf { !it.equals("View Poster", ignoreCase = true) }
                 MediaItem(
                     url = cleanImdbImageUrl(src),
                     type = MediaType.IMAGE,
@@ -174,7 +190,7 @@ class NetworkSnifferDataSource {
             if (!src.isNullOrBlank() && (src.startsWith("http://") || src.startsWith("https://"))) {
                 val width = imgEl.getAttribute("width")?.toIntOrNull()
                 val height = imgEl.getAttribute("height")?.toIntOrNull()
-                val alt = imgEl.getAttribute("alt")
+                val alt = imgEl.getAttribute("alt")?.takeIf { !it.equals("View Poster", ignoreCase = true) }
                 MediaItem(
                     url = cleanImdbImageUrl(src),
                     type = MediaType.IMAGE,
@@ -186,6 +202,31 @@ class NetworkSnifferDataSource {
                 )
             } else null
         }
+    }
+
+    private fun enrichGalleryItems(
+        galleryElements: List<MediaItem>,
+        capturedMetadata: List<MediaItem>
+    ): List<MediaItem> {
+        val metaMap = capturedMetadata
+            .filter { it.title != null || (it.width != null && it.width > 500) }
+            .associateBy { cleanImdbImageUrl(it.url) }
+
+        return galleryElements
+            .distinctBy { cleanImdbImageUrl(it.url) }
+            .map { domItem ->
+                val cleanUrl = cleanImdbImageUrl(domItem.url)
+                val meta = metaMap[cleanUrl]
+                if (meta != null) {
+                    domItem.copy(
+                        title = meta.title ?: domItem.title,
+                        width = meta.width ?: domItem.width,
+                        height = meta.height ?: domItem.height
+                    )
+                } else {
+                    domItem
+                }
+            }
     }
 
     /**
@@ -239,6 +280,14 @@ class NetworkSnifferDataSource {
 
                     try {
                         page.onResponse { response ->
+                            val resUrl = response.url()
+                            if (resUrl.contains("TitleMediaIndexPagination")) {
+                                runCatching {
+                                    val body = response.text()
+                                    val graphQlItems = imdbJsonDataSource.extractFromGraphQl(body)
+                                    captured.addAll(graphQlItems)
+                                }
+                            }
                             val item = parseNetworkResponse(response)
                             if (item != null) captured.add(item)
                         }
@@ -249,11 +298,18 @@ class NetworkSnifferDataSource {
                             page.waitForSelector("img, [data-testid], main", Page.WaitForSelectorOptions().setTimeout(10000.0))
                         }
 
+                        // Extract high-res metadata and true captions from Next.js __NEXT_DATA__
+                        runCatching {
+                            val pageContent = page.content()
+                            val nextDataItems = imdbJsonDataSource.extractFromHtml(pageContent, mediaindexUrl)
+                            captured.addAll(nextDataItems)
+                        }
+
                         scrollGallery(page)
 
                         val galleryElements = extractGalleryImages(page)
                         val validItems = if (galleryElements.isNotEmpty()) {
-                            galleryElements.distinctBy { cleanImdbImageUrl(it.url) }
+                            enrichGalleryItems(galleryElements, captured)
                         } else {
                             captured.addAll(extractDomImages(page))
                             captured
