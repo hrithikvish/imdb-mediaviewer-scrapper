@@ -36,50 +36,42 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    env:
-      GRADLE_OPTS: >
-        -Xmx3072m
-        -Dkotlin.daemon.jvm.options=-Xmx1024m
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v5
+      - name: Set up Python
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/setup-python@v5
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          python-version: '3.11'
+          cache: 'pip'
 
-      # Advanced Gradle caching (wrapper, dependencies, build cache)
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-home-cache-cleanup: true
-
-      - name: Make Gradle Wrapper Executable
-        run: chmod +x gradlew
-
-      # Cache Playwright browser binaries to skip ~130MB download on every run
       - name: Cache Playwright Browsers
         if: github.event_name == 'workflow_dispatch'
         id: playwright-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('build.gradle.kts') }}
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             playwright-browsers-${{ runner.os }}-
 
+      - name: Install Python Dependencies
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          pip install -r requirements.txt
+
       - name: Install Playwright Chromium with Dependencies
         if: github.event_name == 'workflow_dispatch' && steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx -y playwright install --with-deps chromium
+        run: playwright install --with-deps chromium
 
       - name: Install OS Dependencies Only (Cache Hit)
         if: github.event_name == 'workflow_dispatch' && steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx -y playwright install-deps chromium
+        run: playwright install-deps chromium
 
-      - name: Run Kotlin Scraper & Export Gallery
+      - name: Run Python Scraper & Export Gallery
         if: github.event_name == 'workflow_dispatch'
         env:
           INPUT_TEXT: ${{ github.event.inputs.imdb_input || github.event.inputs.imdb_url }}
@@ -99,7 +91,7 @@ jobs:
             EXTRA_ARGS="--force"
           fi
 
-          ./gradlew run --build-cache --parallel --args="--input build/input_text.txt docs/gallery.json $EXTRA_ARGS"
+          python3 scraper.py --input build/input_text.txt $EXTRA_ARGS
 
       - name: Commit & Push Updated Gallery Data
         if: always() && github.event_name == 'workflow_dispatch'

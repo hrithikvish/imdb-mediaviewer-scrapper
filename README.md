@@ -87,27 +87,36 @@ src/main/kotlin/
 
 ## 💻 CLI Usage
 
-### Prerequisites
-* Java 17+
-* Chromium / Google Chrome / Brave Browser (detected automatically)
-
-### Run the Scraper
+### Python Scraper (Fastest, Powers GitHub Actions)
 ```bash
+# Setup virtual environment & dependencies
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+playwright install chromium
+
 # Scrape default sample
-./gradlew run
+python3 scraper.py
 
 # Scrape any single IMDb movie/show URL or ID
-./gradlew run --args="https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i"
+python3 scraper.py "https://www.imdb.com/title/tt0038650/"
 
 # Batch scrape multiple titles from free-form text or a file
-./gradlew run --args="--input movies.txt"
+python3 scraper.py --input movies.txt
 
 # Force re-scraping of titles even if already present in docs/titles/
-./gradlew run --args="--force --input movies.txt"
+python3 scraper.py --force --input movies.txt
 ```
 
-### Run Tests
+### Kotlin Scraper
 ```bash
+# Run via Gradle
+./gradlew run --args="https://www.imdb.com/title/tt0038650/"
+
+# Batch scrape with input file
+./gradlew run --args="--input movies.txt"
+
+# Run tests
 ./gradlew test
 ```
 
