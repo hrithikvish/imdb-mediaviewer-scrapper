@@ -56,10 +56,11 @@ class MediaScraperRepositoryImpl(
 
     private suspend fun executeAutoStrategy(url: String): Pair<List<MediaItem>, ScraperStrategy> {
         val isImdb = url.contains("imdb.com", ignoreCase = true)
-        val isMediaViewer = url.contains("mediaviewer", ignoreCase = true)
+        val isImdbGallery = url.contains("mediaviewer", ignoreCase = true) || url.contains("mediaindex", ignoreCase = true)
 
-        // For media viewer galleries, prioritize the browser network sniffer to capture all photos
-        if (isMediaViewer) {
+        // For mediaindex or mediaviewer galleries, prioritize the headless browser network sniffer
+        // to bypass AWS WAF and execute infinite scroll across the entire photo catalog
+        if (isImdbGallery) {
             val snifferResult = runCatching { networkSnifferDataSource.value.extractMedia(url) }.getOrNull()
             if (!snifferResult.isNullOrEmpty()) {
                 return snifferResult to ScraperStrategy.NETWORK_SNIFFER
@@ -67,9 +68,9 @@ class MediaScraperRepositoryImpl(
         }
 
         if (isImdb) {
-            // First attempt: Fast IMDb JSON extraction
+            // Fast IMDb JSON extraction
             val jsonResult = runCatching { imdbDataSource.extractMedia(url) }.getOrNull()
-            if (!jsonResult.isNullOrEmpty()) {
+            if (!jsonResult.isNullOrEmpty() && jsonResult.size > 2) {
                 return jsonResult to ScraperStrategy.IMDB_NEXT_DATA
             }
         }

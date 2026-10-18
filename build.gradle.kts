@@ -47,4 +47,7 @@ kotlin {
 
 tasks.test {
     useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+    }
 }

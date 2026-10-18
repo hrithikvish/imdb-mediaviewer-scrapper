@@ -64,7 +64,7 @@ fun main(args: Array<String>) {
         if (extractedTitles.size == 1) {
             // Single Title Flow
             val title = extractedTitles.first()
-            val targetUrl = "https://www.imdb.com/title/${title.id}/mediaviewer"
+            val targetUrl = "https://www.imdb.com/title/${title.id}/mediaindex/"
             println("🎯 Scraping single title: ${title.name ?: title.id} ($targetUrl)")
 
             val viewJob = Job()
@@ -109,7 +109,7 @@ fun main(args: Array<String>) {
                 val filteredItems = AppContainer.filterMediaUseCase(rawItems)
                 if (filteredItems.isNotEmpty()) {
                     val scrapeResult = ScrapeResult(
-                        targetUrl = "https://www.imdb.com/title/${title.id}/mediaviewer",
+                        targetUrl = "https://www.imdb.com/title/${title.id}/mediaindex/",
                         items = filteredItems,
                         durationMs = durationMs,
                         strategyUsed = ScraperStrategy.NETWORK_SNIFFER

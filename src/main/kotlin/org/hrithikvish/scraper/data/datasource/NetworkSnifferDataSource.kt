@@ -48,20 +48,45 @@ class NetworkSnifferDataSource {
                     }
                 }
 
-                println("🌐 [SNIFFER] Loading page in browser: $url...")
-                page.navigate(url, Page.NavigateOptions().setTimeout(timeoutMs))
+                val targetUrl = if (url.contains("imdb.com") && url.contains("/title/")) {
+                    val idMatch = Regex("(tt\\d+)").find(url)
+                    if (idMatch != null) "https://www.imdb.com/title/${idMatch.value}/mediaindex/" else url
+                } else {
+                    url
+                }
+
+                println("🌐 [SNIFFER] Loading page in browser: $targetUrl...")
+                page.navigate(targetUrl, Page.NavigateOptions().setTimeout(timeoutMs))
 
                 // Wait for the gallery container or images to appear
                 runCatching {
                     page.waitForSelector("img, [data-testid], main", Page.WaitForSelectorOptions().setTimeout(15000.0))
                 }
 
-                println("📜 [SNIFFER] Scrolling page to trigger lazy-loaded photos...")
-                // Scroll progressively to trigger all lazy-loaded image network requests in the gallery
-                runCatching {
-                    for (step in 1..6) {
-                        page.evaluate("window.scrollBy(0, window.innerHeight * 1.5)")
-                        page.waitForTimeout(700.0)
+                println("📜 [SNIFFER] Loading complete gallery photos...")
+                // Infinite scroll on .img_gallery_pagination_loader to retrieve all photos (e.g. 240+ photos)
+                var lastPhotoCount = 0
+                var noGrowthIterations = 0
+                for (step in 1..10) {
+                    val currentCount = page.querySelectorAll("img[src*='m.media-amazon.com/images/M/']").size
+                    if (currentCount == lastPhotoCount && currentCount > 0) {
+                        noGrowthIterations++
+                        if (noGrowthIterations >= 2) break
+                    } else {
+                        noGrowthIterations = 0
+                        lastPhotoCount = currentCount
+                    }
+
+                    runCatching {
+                        page.evaluate("""
+                            const loader = document.querySelector('.img_gallery_pagination_loader');
+                            if (loader) {
+                                loader.scrollIntoView();
+                            } else {
+                                window.scrollBy(0, window.innerHeight * 2);
+                            }
+                        """)
+                        page.waitForTimeout(1000.0)
                     }
                 }
 
@@ -69,7 +94,7 @@ class NetworkSnifferDataSource {
                 runCatching {
                     page.waitForLoadState(
                         com.microsoft.playwright.options.LoadState.NETWORKIDLE,
-                        Page.WaitForLoadStateOptions().setTimeout(6000.0)
+                        Page.WaitForLoadStateOptions().setTimeout(4000.0)
                     )
                 }
 
@@ -179,8 +204,8 @@ class NetworkSnifferDataSource {
                 context.addInitScript("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
                 for ((index, title) in titlesToScrape.withIndex()) {
-                    val mediaViewerUrl = "https://www.imdb.com/title/${title.id}/mediaviewer"
-                    println("\n🎬 [${index + 1}/${titlesToScrape.size}] Scraping ${title.name ?: title.id} (${title.id})...")
+                    val mediaindexUrl = "https://www.imdb.com/title/${title.id}/mediaindex/"
+                    println("\n🎬 [${index + 1}/${titlesToScrape.size}] Scraping full gallery for ${title.name ?: title.id} (${title.id})...")
 
                     val startTime = System.currentTimeMillis()
                     val captured = CopyOnWriteArrayList<MediaItem>()
@@ -192,17 +217,35 @@ class NetworkSnifferDataSource {
                             if (item != null) captured.add(item)
                         }
 
-                        page.navigate(mediaViewerUrl, Page.NavigateOptions().setTimeout(timeoutMs))
+                        page.navigate(mediaindexUrl, Page.NavigateOptions().setTimeout(timeoutMs))
 
                         runCatching {
-                            page.waitForSelector("img, [data-testid], main", Page.WaitForSelectorOptions().setTimeout(8000.0))
+                            page.waitForSelector("img, [data-testid], main", Page.WaitForSelectorOptions().setTimeout(10000.0))
                         }
 
-                        // Short scroll to trigger lazy photos
-                        runCatching {
-                            for (step in 1..2) {
-                                page.evaluate("window.scrollBy(0, window.innerHeight * 1.5)")
-                                page.waitForTimeout(300.0)
+                        // Infinite scroll on .img_gallery_pagination_loader to retrieve all photos
+                        var lastPhotoCount = 0
+                        var noGrowthIterations = 0
+                        for (step in 1..8) {
+                            val currentCount = page.querySelectorAll("img[src*='m.media-amazon.com/images/M/']").size
+                            if (currentCount == lastPhotoCount && currentCount > 0) {
+                                noGrowthIterations++
+                                if (noGrowthIterations >= 2) break
+                            } else {
+                                noGrowthIterations = 0
+                                lastPhotoCount = currentCount
+                            }
+
+                            runCatching {
+                                page.evaluate("""
+                                    const loader = document.querySelector('.img_gallery_pagination_loader');
+                                    if (loader) {
+                                        loader.scrollIntoView();
+                                    } else {
+                                        window.scrollBy(0, window.innerHeight * 2);
+                                    }
+                                """)
+                                page.waitForTimeout(1000.0)
                             }
                         }
 
@@ -230,7 +273,7 @@ class NetworkSnifferDataSource {
                         runCatching {
                             val pageContent = page.content()
                             val imdbExtractor = ImdbJsonDataSource()
-                            val nextDataItems = imdbExtractor.extractFromHtml(pageContent, mediaViewerUrl)
+                            val nextDataItems = imdbExtractor.extractFromHtml(pageContent, mediaindexUrl)
                             captured.addAll(nextDataItems)
                         }
 

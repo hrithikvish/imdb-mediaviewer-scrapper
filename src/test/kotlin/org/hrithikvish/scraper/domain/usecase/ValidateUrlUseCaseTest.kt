@@ -10,24 +10,24 @@ class ValidateUrlUseCaseTest {
     private val validateUrlUseCase = ValidateUrlUseCase()
 
     @Test
-    fun `extracts title ID from any IMDb title URL and constructs mediaviewer URL`() {
+    fun `extracts title ID from any IMDb title URL and constructs mediaindex URL`() {
         val rawUrl = "https://www.imdb.com/title/tt0038650/?ref_=tttrv_ov_i"
-        val expected = "https://www.imdb.com/title/tt0038650/mediaviewer"
+        val expected = "https://www.imdb.com/title/tt0038650/mediaindex/"
         assertEquals(expected, validateUrlUseCase(rawUrl))
     }
 
     @Test
-    fun `constructs mediaviewer URL from bare title ID`() {
+    fun `constructs mediaindex URL from bare title ID`() {
         assertEquals(
-            "https://www.imdb.com/title/tt0038650/mediaviewer",
+            "https://www.imdb.com/title/tt0038650/mediaindex/",
             validateUrlUseCase("tt0038650")
         )
     }
 
     @Test
-    fun `constructs mediaviewer URL from bare person ID`() {
+    fun `constructs mediaindex URL from bare person ID`() {
         assertEquals(
-            "https://www.imdb.com/name/nm0000123/mediaviewer",
+            "https://www.imdb.com/name/nm0000123/mediaindex/",
             validateUrlUseCase("nm0000123")
         )
     }
