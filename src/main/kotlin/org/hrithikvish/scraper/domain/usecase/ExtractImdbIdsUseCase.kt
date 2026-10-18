@@ -29,8 +29,10 @@ class ExtractImdbIdsUseCase(
     private val json: Json = Json { ignoreUnknownKeys = true; isLenient = true }
 ) {
 
+    // Matches any http(s) URL or standalone tt ID
+    private val tokenRegex = Regex("""(https?://[^\s,"'<>]+|\btt\d{7,8}\b)""")
     private val idRegex = Regex("""(tt\d{7,8})""")
-    private val findQueryRegex = Regex("""find/\?q=([^&\s]+)""")
+    private val findQueryRegex = Regex("""find[/?].*?[?&]q=([^&\s]+)""")
 
     operator fun invoke(input: String): List<ExtractedTitle> {
         val rawContent = runCatching {
@@ -38,47 +40,93 @@ class ExtractImdbIdsUseCase(
             if (file.exists() && file.isFile) file.readText() else input
         }.getOrDefault(input)
 
-        val lines = rawContent.lines()
-            .map { it.trim() }
-            .filter { it.isNotBlank() }
-
         val results = mutableListOf<ExtractedTitle>()
         val seenIds = mutableSetOf<String>()
 
-        for (line in lines) {
-            // Case 1: Direct IMDb ID in the line (e.g. https://www.imdb.com/title/tt0038650/)
-            val explicitMatch = idRegex.find(line)
-            if (explicitMatch != null) {
-                val id = explicitMatch.value
-                if (seenIds.add(id)) {
-                    val titleName = parseTitleNameFromLine(line, id)
-                    results.add(ExtractedTitle(id = id, name = titleName, sourceText = line))
+        val matches = tokenRegex.findAll(rawContent).toList()
+
+        if (matches.isNotEmpty()) {
+            var lastEndIndex = 0
+
+            for (match in matches) {
+                val token = match.value
+                val textBefore = rawContent.substring(lastEndIndex, match.range.first)
+                lastEndIndex = match.range.last + 1
+
+                // If textBefore spans multiple lines, previous lines might be standalone title queries
+                val beforeLines = textBefore.lines().map { it.trim() }.filter { it.isNotBlank() }
+                if (beforeLines.size > 1) {
+                    for (line in beforeLines.dropLast(1)) {
+                        val cleaned = cleanLabel(line)
+                        if (cleaned != null && cleaned.length >= 3) {
+                            val resolved = resolveFromQuery(cleaned)
+                            if (resolved != null && seenIds.add(resolved.id)) {
+                                results.add(resolved.copy(sourceText = line))
+                            }
+                        }
+                    }
                 }
-                continue
+
+                val candidateLabel = beforeLines.lastOrNull()?.let { cleanLabel(it) }
+
+                // Check 1: Token contains a direct tt ID
+                val directIdMatch = idRegex.find(token)
+                if (directIdMatch != null) {
+                    val id = directIdMatch.value
+                    if (seenIds.add(id)) {
+                        results.add(
+                            ExtractedTitle(
+                                id = id,
+                                name = candidateLabel,
+                                sourceText = token
+                            )
+                        )
+                    }
+                    continue
+                }
+
+                // Check 2: Token is an IMDb find/search URL
+                val findMatch = findQueryRegex.find(token)
+                if (findMatch != null) {
+                    val encodedQuery = findMatch.groupValues[1]
+                    val decodedQuery = runCatching {
+                        URLDecoder.decode(encodedQuery, StandardCharsets.UTF_8.name())
+                    }.getOrDefault(encodedQuery).trimEnd('.', ')', ']', ';')
+
+                    val resolved = resolveFromQuery(decodedQuery)
+                    if (resolved != null && seenIds.add(resolved.id)) {
+                        val titleName = candidateLabel ?: resolved.name
+                        results.add(resolved.copy(name = titleName, sourceText = token))
+                    }
+                    continue
+                }
             }
 
-            // Case 2: IMDb search URL (e.g. https://www.imdb.com/find/?q=Miracle%20on%2034th%20Street%201947)
-            val findMatch = findQueryRegex.find(line)
-            if (findMatch != null) {
-                val encodedQuery = findMatch.groupValues[1]
-                val decodedQuery = runCatching {
-                    URLDecoder.decode(encodedQuery, StandardCharsets.UTF_8.name())
-                }.getOrDefault(encodedQuery)
-
-                val resolved = resolveFromQuery(decodedQuery)
-                if (resolved != null && seenIds.add(resolved.id)) {
-                    val lineTitle = parseTitleNameFromLine(line, resolved.id) ?: resolved.name
-                    results.add(resolved.copy(name = lineTitle, sourceText = line))
+            // Check trailing text after the last match
+            val trailingText = rawContent.substring(lastEndIndex)
+            val trailingLines = trailingText.lines().map { it.trim() }.filter { it.isNotBlank() }
+            for (line in trailingLines) {
+                val cleaned = cleanLabel(line)
+                if (cleaned != null && cleaned.length >= 3) {
+                    val resolved = resolveFromQuery(cleaned)
+                    if (resolved != null && seenIds.add(resolved.id)) {
+                        results.add(resolved.copy(sourceText = line))
+                    }
                 }
-                continue
             }
+        } else {
+            // No URLs or tt IDs found at all. Treat non-blank lines as title search queries.
+            val lines = rawContent.lines()
+                .map { it.trim() }
+                .filter { it.isNotBlank() }
 
-            // Case 3: Line containing a title query without a direct ID (e.g. "Miracle on 34th Street")
-            val candidateQuery = line.substringBefore("http").trim().removeSuffix(":").trim()
-            if (candidateQuery.length >= 3) {
-                val resolved = resolveFromQuery(candidateQuery)
-                if (resolved != null && seenIds.add(resolved.id)) {
-                    results.add(resolved.copy(sourceText = line))
+            for (line in lines) {
+                val cleaned = cleanLabel(line) ?: line
+                if (cleaned.length >= 3) {
+                    val resolved = resolveFromQuery(cleaned)
+                    if (resolved != null && seenIds.add(resolved.id)) {
+                        results.add(resolved.copy(sourceText = line))
+                    }
                 }
             }
         }
@@ -86,12 +134,19 @@ class ExtractImdbIdsUseCase(
         return results
     }
 
-    private fun parseTitleNameFromLine(line: String, id: String): String? {
-        val beforeUrl = line.substringBefore("http").trim().removeSuffix(":").trim()
-        if (beforeUrl.isNotBlank() && !beforeUrl.equals(id, ignoreCase = true)) {
-            return beforeUrl
-        }
-        return null
+    private fun cleanLabel(text: String): String? {
+        var cleaned = text.trim()
+        // Strip leading list numbering like "1.", "1)", "1 -", "[1]"
+        cleaned = cleaned.replace(Regex("""^(\[\d+]|\d+[\.)\-]|\s*-\s*)+"""), "").trim()
+        // Strip trailing colons, dashes, equal signs
+        cleaned = cleaned.replace(Regex("""[:\-=,\s]+$"""), "").trim()
+        // Strip leading colons, dashes
+        cleaned = cleaned.replace(Regex("""^[:\-=,\s]+"""), "").trim()
+
+        if (cleaned.isBlank()) return null
+        if (cleaned.startsWith("http://") || cleaned.startsWith("https://")) return null
+        if (cleaned.matches(Regex("""^tt\d+$"""))) return null
+        return cleaned
     }
 
     private fun resolveFromQuery(query: String): ExtractedTitle? {

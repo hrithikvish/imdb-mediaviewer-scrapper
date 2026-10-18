@@ -226,7 +226,7 @@ class NetworkSnifferDataSource {
                         // Infinite scroll on .img_gallery_pagination_loader to retrieve all photos
                         var lastPhotoCount = 0
                         var noGrowthIterations = 0
-                        for (step in 1..8) {
+                        for (step in 1..15) {
                             val currentCount = page.querySelectorAll("img[src*='m.media-amazon.com/images/M/']").size
                             if (currentCount == lastPhotoCount && currentCount > 0) {
                                 noGrowthIterations++

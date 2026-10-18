@@ -89,7 +89,7 @@ jobs:
           ./gradlew run --build-cache --parallel --args="--input build/input_text.txt docs/gallery.json"
 
       - name: Commit & Push Updated Gallery Data
-        if: github.event_name == 'workflow_dispatch'
+        if: always() && github.event_name == 'workflow_dispatch'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
