@@ -517,6 +517,14 @@ async function loadTitleRowPhotos(titleId, rowElement) {
       const caption = item.title || (titleData.name || titleId);
       const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 480);
 
+      // Staggered horizontal strip: fixed height, variable width matching image aspect ratio (no cropping)
+      const width = Number(item.width) || 0;
+      const height = Number(item.height) || 0;
+      const aspectRatio = (width > 0 && height > 0) ? (width / height) : 1.5;
+
+      card.style.setProperty('--aspect-ratio', aspectRatio.toFixed(4));
+      card.style.width = `calc(var(--strip-card-height, 130px) * ${aspectRatio.toFixed(4)})`;
+
       card.innerHTML = `
         <div class="strip-thumb-wrapper">
           <img class="strip-thumb" src="${previewUrl}" alt="${escapeHtml(caption)}" loading="lazy">
@@ -525,10 +533,24 @@ async function loadTitleRowPhotos(titleId, rowElement) {
       `;
 
       const img = card.querySelector('.strip-thumb');
-      if (img.complete) {
+      const onImgLoaded = () => {
         img.classList.add('loaded');
+        if (!width || !height) {
+          if (img.naturalWidth && img.naturalHeight) {
+            const naturalRatio = (img.naturalWidth / img.naturalHeight).toFixed(4);
+            card.style.setProperty('--aspect-ratio', naturalRatio);
+            card.style.width = `calc(var(--strip-card-height, 130px) * ${naturalRatio})`;
+          }
+        }
+      };
+
+      if (img.complete) {
+        onImgLoaded();
       } else {
-        img.addEventListener('load', () => img.classList.add('loaded'));
+        img.addEventListener('load', onImgLoaded);
+        img.addEventListener('error', () => {
+          img.classList.add('loaded');
+        });
       }
 
       // Clicking a photo in the strip opens that photo in the master lightbox
@@ -841,6 +863,14 @@ function renderGrid() {
     const caption = item.title || (selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo');
     const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 720);
 
+    // Staggered grid: fixed height, variable width matching image aspect ratio (no cropping)
+    const width = Number(item.width) || 0;
+    const height = Number(item.height) || 0;
+    const aspectRatio = (width > 0 && height > 0) ? (width / height) : 1.5;
+
+    card.style.setProperty('--aspect-ratio', aspectRatio.toFixed(4));
+    card.style.width = `calc(var(--gallery-thumb-height, 220px) * ${aspectRatio.toFixed(4)})`;
+
     card.innerHTML = `
       <div class="media-thumb-wrapper">
         <img class="media-thumb" src="${previewUrl}" alt="${escapeHtml(caption)}" loading="lazy">
@@ -852,10 +882,24 @@ function renderGrid() {
     `;
 
     const img = card.querySelector('.media-thumb');
-    if (img.complete) {
+    const onImgLoaded = () => {
       img.classList.add('loaded');
+      if (!width || !height) {
+        if (img.naturalWidth && img.naturalHeight) {
+          const naturalRatio = (img.naturalWidth / img.naturalHeight).toFixed(4);
+          card.style.setProperty('--aspect-ratio', naturalRatio);
+          card.style.width = `calc(var(--gallery-thumb-height, 220px) * ${naturalRatio})`;
+        }
+      }
+    };
+
+    if (img.complete) {
+      onImgLoaded();
     } else {
-      img.addEventListener('load', () => img.classList.add('loaded'));
+      img.addEventListener('load', onImgLoaded);
+      img.addEventListener('error', () => {
+        img.classList.add('loaded');
+      });
     }
 
     card.addEventListener('click', () => openLightbox(index));

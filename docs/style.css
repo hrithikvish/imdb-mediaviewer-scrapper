@@ -750,6 +750,7 @@ body {
 }
 
 .title-row-strip {
+  --strip-card-height: 130px;
   display: flex;
   gap: 0.75rem;
   overflow-x: auto;
@@ -827,8 +828,11 @@ body {
 
 /* Cards inside Strip */
 .strip-card {
-  flex: 0 0 170px;
-  height: 125px;
+  flex: 0 0 auto;
+  height: var(--strip-card-height, 130px);
+  width: calc(var(--strip-card-height, 130px) * var(--aspect-ratio, 1.5));
+  min-width: 75px;
+  max-width: 340px;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -856,6 +860,7 @@ body {
   object-fit: cover;
   transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0;
+  display: block;
 }
 
 .strip-thumb.loaded {
@@ -882,6 +887,7 @@ body {
   padding: 0.1rem 0.35rem;
   border-radius: var(--radius-xs);
   pointer-events: none;
+  z-index: 2;
 }
 
 .strip-badge.high-res {
@@ -891,14 +897,20 @@ body {
 
 /* Strip Skeleton Loader */
 .strip-skeleton-card {
-  flex: 0 0 170px;
-  height: 125px;
+  flex: 0 0 auto;
+  height: var(--strip-card-height, 130px);
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   position: relative;
   overflow: hidden;
 }
+
+.strip-skeleton-card:nth-child(1) { width: 195px; }
+.strip-skeleton-card:nth-child(2) { width: 100px; }
+.strip-skeleton-card:nth-child(3) { width: 175px; }
+.strip-skeleton-card:nth-child(4) { width: 230px; }
+.strip-skeleton-card:nth-child(5) { width: 105px; }
 
 .strip-skeleton-card::after {
   content: "";
@@ -910,8 +922,8 @@ body {
 
 /* Strip "See All" Card at end */
 .strip-card-more {
-  flex: 0 0 130px;
-  height: 125px;
+  flex: 0 0 110px;
+  height: var(--strip-card-height, 130px);
   background: var(--bg-surface);
   border: 1px dashed var(--border-hover);
   border-radius: var(--radius-sm);
@@ -1015,9 +1027,11 @@ body {
 }
 
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  --gallery-thumb-height: 220px;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+  align-items: flex-start;
 }
 
 .media-card {
@@ -1031,6 +1045,10 @@ body {
   position: relative;
   transition: var(--transition);
   box-shadow: var(--shadow-sm);
+  flex: 0 0 auto;
+  width: calc(var(--gallery-thumb-height, 220px) * var(--aspect-ratio, 1.5));
+  min-width: 120px;
+  max-width: 100%;
 }
 
 .media-card:hover {
@@ -1048,7 +1066,7 @@ body {
 .media-thumb-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: var(--gallery-thumb-height, 220px);
   background: var(--bg-surface);
   overflow: hidden;
 }
@@ -1059,6 +1077,7 @@ body {
   object-fit: cover;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
   opacity: 0;
+  display: block;
 }
 
 .media-thumb.loaded {
@@ -1086,6 +1105,7 @@ body {
   border-radius: var(--radius-xs);
   letter-spacing: -0.02em;
   pointer-events: none;
+  z-index: 2;
 }
 
 .card-badge.high-res {
@@ -1098,6 +1118,8 @@ body {
   padding: 0.55rem 0.75rem;
   background: var(--bg-card);
   border-top: 1px solid var(--border);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .card-title {
@@ -1373,8 +1395,8 @@ body {
 }
 
 .skeleton-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   width: 100%;
 }
@@ -1384,9 +1406,19 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
-  height: 220px;
+  height: calc(var(--gallery-thumb-height, 220px) + 38px);
   position: relative;
+  flex: 0 0 auto;
 }
+
+.skeleton-card:nth-child(1) { width: 330px; }
+.skeleton-card:nth-child(2) { width: 170px; }
+.skeleton-card:nth-child(3) { width: 290px; }
+.skeleton-card:nth-child(4) { width: 400px; }
+.skeleton-card:nth-child(5) { width: 190px; }
+.skeleton-card:nth-child(6) { width: 320px; }
+.skeleton-card:nth-child(7) { width: 220px; }
+.skeleton-card:nth-child(8) { width: 360px; }
 
 .skeleton-card::after {
   content: "";
@@ -1461,31 +1493,69 @@ body {
   .lightbox-stage {
     padding: 1rem 2.5rem;
   }
+
+  .gallery-grid {
+    --gallery-thumb-height: 190px;
+    gap: 0.75rem;
+  }
+
+  .title-row-strip {
+    --strip-card-height: 118px;
+    gap: 0.6rem;
+  }
 }
 
 @media (max-width: 520px) {
   .gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 0.65rem;
+    --gallery-thumb-height: 150px;
+    gap: 0.55rem;
+  }
+
+  .media-card {
+    min-width: 90px;
+  }
+
+  .card-info {
+    padding: 0.4rem 0.55rem;
+  }
+
+  .card-title {
+    font-size: 0.72rem;
+  }
+
+  .skeleton-grid {
+    gap: 0.55rem;
+  }
+
+  .skeleton-card {
+    max-width: 100%;
   }
 
   .title-row {
     padding: 0.75rem 0.75rem;
   }
 
+  .title-row-strip {
+    --strip-card-height: 105px;
+    gap: 0.5rem;
+  }
+
   .strip-card {
-    flex: 0 0 140px;
-    height: 105px;
+    min-width: 65px;
   }
 
   .strip-skeleton-card {
-    flex: 0 0 140px;
-    height: 105px;
+    max-width: 100%;
   }
 
+  .strip-skeleton-card:nth-child(1) { width: 145px; }
+  .strip-skeleton-card:nth-child(2) { width: 80px; }
+  .strip-skeleton-card:nth-child(3) { width: 130px; }
+  .strip-skeleton-card:nth-child(4) { width: 160px; }
+  .strip-skeleton-card:nth-child(5) { width: 85px; }
+
   .strip-card-more {
-    flex: 0 0 110px;
-    height: 105px;
+    flex: 0 0 95px;
   }
 
   .actions-divider {
