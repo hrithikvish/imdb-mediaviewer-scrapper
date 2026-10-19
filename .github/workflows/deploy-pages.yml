@@ -40,6 +40,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
 
       - name: Set up Python
         if: github.event_name == 'workflow_dispatch'
@@ -99,11 +102,48 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/
-          if ! git diff --quiet || ! git diff --staged --quiet; then
-            git commit -m "chore: batch update gallery data [skip ci]"
-            git pull --rebase origin ${{ github.ref_name }}
-            git push origin ${{ github.ref_name }}
+
+          MAX_RETRIES=5
+          PUSHED="false"
+
+          for ((i=1; i<=MAX_RETRIES; i++)); do
+            echo "Attempt $i: Syncing and committing gallery data..."
+
+            # Fetch latest remote changes
+            git fetch origin ${{ github.ref_name }}
+
+            # If rebase has conflicts on docs/titles.json or docs/gallery.json, resolve cleanly
+            if ! git pull --rebase -X theirs origin ${{ github.ref_name }}; then
+              echo "Rebase conflict detected. Resetting shared registries and rebuilding unified index..."
+              git rebase --abort || true
+              git checkout origin/${{ github.ref_name }} -- docs/titles.json docs/gallery.json 2>/dev/null || true
+            fi
+
+            # Rebuild titles.json from all docs/titles/*.json so both remote and local titles are unified
+            python3 scraper.py --rebuild-index
+
+            git add docs/
+            if git diff --quiet && git diff --staged --quiet; then
+              echo "No new gallery changes to commit."
+              PUSHED="true"
+              break
+            fi
+
+            git commit -m "chore: batch update gallery data [skip ci]" || true
+
+            if git push origin ${{ github.ref_name }}; then
+              echo "✅ Successfully pushed updated gallery data to ${{ github.ref_name }}!"
+              PUSHED="true"
+              break
+            fi
+
+            echo "Push failed on attempt $i, retrying in 3 seconds..."
+            sleep 3
+          done
+
+          if [ "$PUSHED" != "true" ]; then
+            echo "❌ Failed to push gallery data after $MAX_RETRIES attempts."
+            exit 1
           fi
 
       - name: Setup GitHub Pages
