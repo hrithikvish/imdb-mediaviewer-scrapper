@@ -10,7 +10,7 @@
 // Application State
 let titlesRegistry = [];
 const titleGalleryCache = new Map();
-let currentView = 'catalog'; // 'catalog' | 'gallery'
+let currentView = 'catalog'; // 'catalog' | 'gallery' | 'wallpaper'
 let selectedTitle = null;
 let galleryData = [];
 let currentFilter = 'all';
@@ -28,7 +28,7 @@ const searchWrapper = document.getElementById('search-wrapper');
 const searchInput = document.getElementById('search-input');
 const searchClearBtn = document.getElementById('search-clear');
 const segmentedControl = document.getElementById('segmented-control');
-const filterBtns = document.querySelectorAll('.seg-btn');
+const filterBtns = segmentedControl ? segmentedControl.querySelectorAll('.seg-btn') : [];
 const btnImdbLink = document.getElementById('btn-imdb-link');
 const themeToggleBtn = document.getElementById('theme-toggle');
 const themeIconMoon = document.getElementById('theme-icon-moon');
@@ -43,6 +43,72 @@ const galleryBackBtn = document.getElementById('gallery-back-btn');
 const activeMovieName = document.getElementById('active-movie-name');
 const activeMovieCount = document.getElementById('active-movie-count');
 const gridContainer = document.getElementById('gallery-grid');
+
+// Wallpaper View Elements & State
+const wallpaperView = document.getElementById('wallpaper-view');
+const btnNavWallpaper = document.getElementById('btn-nav-wallpaper');
+const wallpaperBackBtn = document.getElementById('wallpaper-back-btn');
+const wallpaperSubtitle = document.getElementById('wallpaper-subtitle');
+const btnWallpaperShuffle = document.getElementById('btn-wallpaper-shuffle');
+const btnWallpaperRescatter = document.getElementById('btn-wallpaper-rescatter');
+const btnWallpaperDownload = document.getElementById('btn-wallpaper-download');
+const wallpaperDownloadText = document.getElementById('wallpaper-download-text');
+const btnWallpaperFullscreen = document.getElementById('btn-wallpaper-fullscreen');
+const wallpaperResControl = document.getElementById('wallpaper-res-control');
+const wallpaperLayoutControl = document.getElementById('wallpaper-layout-control');
+const wallpaperGapControl = document.getElementById('wallpaper-gap-control');
+const wallpaperCanvasFrame = document.getElementById('wallpaper-canvas-frame');
+const wallpaperCanvas = document.getElementById('wallpaper-canvas');
+const wallpaperHoverRect = document.getElementById('wallpaper-hover-rect');
+const hoverSwapBtn = document.getElementById('hover-swap-btn');
+const wallpaperTooltip = document.getElementById('wallpaper-tooltip');
+const wallpaperTooltipTitle = document.getElementById('wallpaper-tooltip-title');
+const wallpaperTooltipCaption = document.getElementById('wallpaper-tooltip-caption');
+const wallpaperLoader = document.getElementById('wallpaper-loader');
+const wallpaperLoaderStatus = document.getElementById('wallpaper-loader-status');
+const wallpaperChips = document.getElementById('wallpaper-chips');
+
+// Wallpaper Source Picker Elements
+const btnWallpaperSource = document.getElementById('btn-wallpaper-source');
+const wallpaperSourceWrapper = document.getElementById('wallpaper-source-wrapper');
+const wallpaperSourcePopover = document.getElementById('wallpaper-source-popover');
+const wallpaperSourceBtnText = document.getElementById('wallpaper-source-btn-text');
+const wallpaperSourceSearch = document.getElementById('wallpaper-source-search');
+const wallpaperSourceList = document.getElementById('wallpaper-source-list');
+const btnSourceAll = document.getElementById('btn-source-all');
+const btnSourceClear = document.getElementById('btn-source-clear');
+const btnSourceApply = document.getElementById('btn-source-apply');
+const sourceSelectedCount = document.getElementById('source-selected-count');
+const wallpaperSelectedSources = document.getElementById('wallpaper-selected-sources');
+const selectedSourcesTags = document.getElementById('selected-sources-tags');
+const btnClearSources = document.getElementById('btn-clear-sources');
+
+function generateScatterVariations(count = 16) {
+  const variations = [];
+  for (let i = 0; i < count; i++) {
+    const rot = Number(((Math.random() * 6.4) - 3.2).toFixed(1));
+    const dx = Number(((Math.random() * 0.03) - 0.015).toFixed(3));
+    const dy = Number(((Math.random() * 0.03) - 0.015).toFixed(3));
+    variations.push({ rot, dx, dy });
+  }
+  return variations;
+}
+
+const wallpaperState = {
+  width: 1920,
+  height: 1080,
+  resName: '1080p',
+  layout: 'scattered',
+  gap: 6,
+  isLoading: false,
+  isSwappingSingle: false,
+  activeAnimId: null,
+  selectedTitleIds: [], // Empty array = all catalog movies
+  items: [], // Array of { titleMeta, item, img }
+  renderedRects: [],
+  currentHoverIndex: -1,
+  scatterVariations: generateScatterVariations(16),
+};
 
 // Custom Searchable Dropdown Elements
 const customSelectWrapper = document.getElementById('custom-select-wrapper');
@@ -177,13 +243,21 @@ async function loadTitlesManifest() {
 
   // Re-render dropdown options
   renderDropdownOptions('');
+  updateWallpaperSourceUI();
 
   // Determine initial view from URL
   const params = new URLSearchParams(window.location.search);
+  const requestedView = params.get('view');
   const requestedId = params.get('title');
   const matchingTitle = titlesRegistry.find(t => t.id === requestedId);
 
-  if (matchingTitle) {
+  if (requestedView === 'wallpaper') {
+    if (matchingTitle) {
+      wallpaperState.selectedTitleIds = [matchingTitle.id];
+      updateWallpaperSourceUI();
+    }
+    await switchToWallpaperView(false);
+  } else if (matchingTitle) {
     await switchToGalleryView(matchingTitle.id, false);
   } else {
     switchToCatalogView(false);
@@ -307,6 +381,33 @@ function renderDropdownOptions(filterText = '') {
     dropdownOptionsList.appendChild(separator);
   }
 
+  // 1b. "Wallpaper Studio" option
+  const showWallpaperMatch = !query || 'wallpaper studio collage poster 1080p 2k 4k random cinema'.includes(query);
+  if (showWallpaperMatch) {
+    const wallOpt = document.createElement('button');
+    wallOpt.type = 'button';
+    wallOpt.className = `dropdown-option ${currentView === 'wallpaper' ? 'selected' : ''}`;
+    wallOpt.setAttribute('role', 'option');
+    wallOpt.setAttribute('aria-selected', currentView === 'wallpaper');
+    wallOpt.innerHTML = `
+      <span class="dropdown-option-title">🎨 Wallpaper Studio</span>
+      <span class="dropdown-option-count">1080p / 2K</span>
+    `;
+    wallOpt.addEventListener('click', () => {
+      closeCustomDropdown();
+      if (currentView === 'wallpaper') {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      } else {
+        switchToWallpaperView(true);
+      }
+    });
+    dropdownOptionsList.appendChild(wallOpt);
+
+    const separator = document.createElement('div');
+    separator.className = 'dropdown-separator';
+    dropdownOptionsList.appendChild(separator);
+  }
+
   // 2. Filter matching titles
   const matching = titlesRegistry.filter(t => {
     if (!query) return true;
@@ -315,7 +416,7 @@ function renderDropdownOptions(filterText = '') {
     return name.includes(query) || id.includes(query);
   });
 
-  if (matching.length === 0 && !showAllMatch) {
+  if (matching.length === 0 && !showAllMatch && !showWallpaperMatch) {
     dropdownOptionsList.innerHTML = `
       <div class="dropdown-empty-state">
         No titles found matching "${escapeHtml(filterText)}"
@@ -668,8 +769,11 @@ async function switchToGalleryView(titleId, updateHistory = true) {
 
   // Toggle views
   catalogView.classList.add('hidden');
+  wallpaperView.classList.add('hidden');
   galleryView.classList.remove('hidden');
+  if (btnNavWallpaper) btnNavWallpaper.classList.remove('active');
   segmentedControl.classList.remove('hidden');
+  searchWrapper.classList.remove('hidden');
   searchInput.placeholder = 'Filter captions...';
 
   // Ensure gallery page starts right at the top
@@ -696,6 +800,7 @@ async function switchToGalleryView(titleId, updateHistory = true) {
   // Update URL history without reloading
   if (updateHistory) {
     const url = new URL(window.location.href);
+    url.searchParams.delete('view');
     url.searchParams.set('title', titleId);
     window.history.pushState({ view: 'gallery', titleId }, '', url.toString());
   }
@@ -736,8 +841,11 @@ function switchToCatalogView(updateHistory = true) {
 
   // Toggle views
   galleryView.classList.add('hidden');
+  wallpaperView.classList.add('hidden');
   catalogView.classList.remove('hidden');
+  if (btnNavWallpaper) btnNavWallpaper.classList.remove('active');
   segmentedControl.classList.add('hidden');
+  searchWrapper.classList.remove('hidden');
   searchInput.placeholder = 'Filter titles...';
 
   // Update header labels
@@ -750,6 +858,7 @@ function switchToCatalogView(updateHistory = true) {
   if (updateHistory) {
     const url = new URL(window.location.href);
     url.searchParams.delete('title');
+    url.searchParams.delete('view');
     window.history.pushState({ view: 'catalog', scrollY: catalogScrollY }, '', url.toString());
   }
 
@@ -774,6 +883,53 @@ function switchToCatalogView(updateHistory = true) {
 
   restoreScroll();
   requestAnimationFrame(restoreScroll);
+}
+
+async function switchToWallpaperView(updateHistory = true) {
+  if (currentView === 'catalog') {
+    catalogScrollY = window.scrollY;
+    if (window.history.replaceState) {
+      window.history.replaceState({ view: 'catalog', scrollY: catalogScrollY }, '', window.location.pathname + (window.location.search.includes('title=') ? '' : window.location.search));
+    }
+  }
+
+  currentView = 'wallpaper';
+
+  // Toggle views
+  catalogView.classList.add('hidden');
+  galleryView.classList.add('hidden');
+  wallpaperView.classList.remove('hidden');
+
+  if (btnNavWallpaper) btnNavWallpaper.classList.add('active');
+  segmentedControl.classList.add('hidden');
+  searchWrapper.classList.add('hidden');
+  selectedTitleText.textContent = 'Wallpaper Studio';
+
+  if (btnImdbLink) {
+    btnImdbLink.style.display = 'none';
+  }
+
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+  // Update URL history
+  if (updateHistory) {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('title');
+    url.searchParams.set('view', 'wallpaper');
+    window.history.pushState({ view: 'wallpaper' }, '', url.toString());
+  }
+
+  if (totalCountEl) {
+    totalCountEl.textContent = wallpaperState.items.length.toString();
+  }
+  if (counterLabelEl) {
+    counterLabelEl.textContent = 'photos';
+  }
+
+  // If no wallpaper has been generated yet, generate one automatically
+  if (wallpaperState.items.length === 0) {
+    await generateWallpaper(true);
+  }
 }
 
 function renderGallerySkeleton() {
@@ -1020,7 +1176,9 @@ function updateLightboxContent() {
 
   lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${items.length}`;
 
-  const movieName = selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo';
+  const movieName = (item && item._wallpaperTitleMeta)
+    ? (item._wallpaperTitleMeta.name || item._wallpaperTitleMeta.id)
+    : (selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo');
   lightboxMovieTitle.textContent = movieName;
 
   const captionText = item.title || movieName;
@@ -1055,8 +1213,9 @@ function loadFullResImage() {
       }
       if (fullResBtnLabel) fullResBtnLabel.textContent = `Active ${targetLabel}`;
       const dims = item.width && item.height ? ` · Active Master: ${item.width} × ${item.height}` : '';
-      const captionText = item.title || (selectedTitle ? selectedTitle.name : '');
-      lightboxCaption.textContent = `${captionText}${dims}`;
+      const titleObj = (item && item._wallpaperTitleMeta) ? item._wallpaperTitleMeta : selectedTitle;
+      const cap = item.title || (titleObj ? (titleObj.name || titleObj.id) : '');
+      lightboxCaption.textContent = `${cap}${dims}`;
     }
   };
   masterImg.onerror = () => {
@@ -1083,7 +1242,8 @@ async function downloadOriginalImage() {
     const blob = await res.blob();
     const blobUrl = URL.createObjectURL(blob);
 
-    const movieSlug = (selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'imdb')
+    const titleObj = (item && item._wallpaperTitleMeta) ? item._wallpaperTitleMeta : selectedTitle;
+    const movieSlug = (titleObj ? (titleObj.name || titleObj.id) : 'imdb')
       .replace(/[^a-zA-Z0-9]/g, '_')
       .replace(/_+/g, '_')
       .toLowerCase();
@@ -1144,6 +1304,1334 @@ function nextImage() {
 }
 
 // ---------------------------------------------------------------------------
+// Wallpaper Studio: Random Cinema Collage Generator
+// ---------------------------------------------------------------------------
+
+function getRequiredSlotCount(layout) {
+  switch (layout) {
+    case 'scattered': return 16;
+    case 'staggered': return 10;
+    case 'strips': return 7;
+    default:
+      return 16;
+  }
+}
+
+function getWallpaperLayoutRects(layout, W, H, gap, items = []) {
+  const rects = [];
+  const g = Math.max(0, gap);
+
+  if (layout === 'scattered') {
+    // Scattered / Overlapping Tabletop Layout (16 uncropped photos, organic tilts & shadows on dark backdrop)
+    // Covers the canvas comprehensively from edge to edge with minimal overlap (~5-12%)
+    const anchors = [
+      // Row 0 (Top tier - 4 photos)
+      { cx: 0.125, cy: 0.130, rot: -2.2 },
+      { cx: 0.375, cy: 0.122, rot:  1.8 },
+      { cx: 0.625, cy: 0.135, rot: -2.5 },
+      { cx: 0.875, cy: 0.125, rot:  2.0 },
+
+      // Row 1 (Upper-middle tier - 4 photos)
+      { cx: 0.135, cy: 0.380, rot:  2.6 },
+      { cx: 0.380, cy: 0.372, rot: -1.8 },
+      { cx: 0.620, cy: 0.385, rot:  2.2 },
+      { cx: 0.865, cy: 0.375, rot: -2.8 },
+
+      // Row 2 (Lower-middle tier - 4 photos)
+      { cx: 0.120, cy: 0.630, rot: -2.4 },
+      { cx: 0.370, cy: 0.638, rot:  2.5 },
+      { cx: 0.630, cy: 0.622, rot: -2.0 },
+      { cx: 0.880, cy: 0.632, rot:  2.2 },
+
+      // Row 3 (Bottom tier - 4 photos)
+      { cx: 0.130, cy: 0.880, rot:  2.0 },
+      { cx: 0.380, cy: 0.872, rot: -2.6 },
+      { cx: 0.620, cy: 0.885, rot:  2.4 },
+      { cx: 0.870, cy: 0.875, rot: -2.0 },
+    ];
+
+    anchors.forEach((anc, i) => {
+      const entry = items[i];
+      let ratio = 1.6;
+      if (entry && entry.img && entry.img.naturalWidth && entry.img.naturalHeight) {
+        ratio = entry.img.naturalWidth / entry.img.naturalHeight;
+      } else if (entry && entry.item && entry.item.width && entry.item.height) {
+        ratio = Number(entry.item.width) / Number(entry.item.height);
+      }
+      ratio = Math.max(0.55, Math.min(2.8, ratio));
+
+      // Sizing preserves true master uncropped aspect ratio while covering cell bounds with minimal overlap
+      let w, h;
+      if (ratio >= 1.7) {
+        // Widescreen cinema stills (1.7 to 2.4+)
+        w = Math.round(W * 0.285);
+        h = Math.round(w / ratio);
+        if (h < H * 0.235) {
+          h = Math.round(H * 0.235);
+          w = Math.round(h * ratio);
+        }
+      } else if (ratio >= 1.2) {
+        // Standard landscape (4:3, 3:2, 1.2 to 1.7)
+        h = Math.round(H * 0.288);
+        w = Math.round(h * ratio);
+        if (w < W * 0.26) {
+          w = Math.round(W * 0.26);
+          h = Math.round(w / ratio);
+        }
+      } else {
+        // Square or portrait stills/posters (< 1.2)
+        h = Math.round(H * 0.32);
+        w = Math.round(h * ratio);
+        if (w < W * 0.19) {
+          w = Math.round(W * 0.19);
+          h = Math.round(w / ratio);
+        }
+      }
+
+      const v = (wallpaperState.scatterVariations && wallpaperState.scatterVariations[i])
+        ? wallpaperState.scatterVariations[i]
+        : { rot: anc.rot, dx: 0, dy: 0 };
+
+      const rot = v.rot !== undefined ? v.rot : anc.rot;
+      const cx = Math.round(W * Math.max(0.08, Math.min(0.92, anc.cx + (v.dx || 0))));
+      const cy = Math.round(H * Math.max(0.08, Math.min(0.92, anc.cy + (v.dy || 0))));
+
+      rects.push({
+        x: cx - Math.round(w / 2),
+        y: cy - Math.round(h / 2),
+        w,
+        h,
+        cx,
+        cy,
+        rot,
+        isRotated: true,
+        uncropped: true,
+      });
+    });
+  } else if (layout === 'staggered') {
+    // 2D Staggered Masonry: Neither heights nor widths are fixed!
+    // 4 vertical columns with alternating 2 and 3 items (10 stills total)
+    // Both column widths and item heights vary dynamically and are staggered across columns
+    const firstEntry = items[0];
+    let firstRatio = 1.5;
+    if (firstEntry && firstEntry.img && firstEntry.img.naturalWidth && firstEntry.img.naturalHeight) {
+      firstRatio = firstEntry.img.naturalWidth / firstEntry.img.naturalHeight;
+    } else if (firstEntry && firstEntry.item && firstEntry.item.width && firstEntry.item.height) {
+      firstRatio = Number(firstEntry.item.width) / Number(firstEntry.item.height);
+    }
+
+    const startWithTwo = firstRatio < 1.35;
+    const colCounts = startWithTwo ? [2, 3, 2, 3] : [3, 2, 3, 2];
+    const widthRatios = startWithTwo ? [0.22, 0.28, 0.23, 0.27] : [0.27, 0.23, 0.28, 0.22];
+
+    const availW = W - g * (colCounts.length + 1);
+    let curX = g;
+    let allocatedW = 0;
+    let itemIdx = 0;
+
+    colCounts.forEach((count, c) => {
+      let colW = Math.round(availW * widthRatios[c]);
+      if (c === colCounts.length - 1) {
+        colW = availW - allocatedW;
+      }
+
+      const availH = H - g * (count + 1);
+
+      // Collect inverse aspect ratios (height ~ 1 / ratio) for items in this column
+      const invRatios = [];
+      for (let i = 0; i < count; i++) {
+        const entry = items[itemIdx + i];
+        let ratio = 1.5;
+        if (entry && entry.img && entry.img.naturalWidth && entry.img.naturalHeight) {
+          ratio = entry.img.naturalWidth / entry.img.naturalHeight;
+        } else if (entry && entry.item && entry.item.width && entry.item.height) {
+          ratio = Number(entry.item.width) / Number(entry.item.height);
+        } else {
+          // Fallback staggered height variations
+          const fallbackPresets = (count === 2)
+            ? (c % 2 === 0 ? [1.3, 0.85] : [0.85, 1.3])
+            : [1.4, 1.0, 1.5];
+          ratio = fallbackPresets[i] || 1.4;
+        }
+
+        const clampedRatio = Math.min(2.8, Math.max(0.65, ratio));
+        invRatios.push(1 / clampedRatio);
+      }
+
+      const totalInv = invRatios.reduce((sum, v) => sum + v, 0);
+
+      let curY = g;
+      let allocatedH = 0;
+      for (let i = 0; i < count; i++) {
+        let h = Math.round(availH * (invRatios[i] / totalInv));
+        if (i === count - 1) {
+          h = availH - allocatedH;
+        }
+
+        rects.push({ x: curX, y: curY, w: colW, h });
+        curY += h + g;
+        allocatedH += h;
+        itemIdx++;
+      }
+
+      curX += colW + g;
+      allocatedW += colW;
+    });
+  } else {
+    // 'strips' (Cinema Strips - 7 items, 3 horizontal cinematic rows)
+    const rowH = Math.floor((H - g * 4) / 3);
+
+    // Row 0 (top 2)
+    const y0 = g;
+    const h0 = rowH;
+    const w0 = Math.floor((W - g * 3) / 2);
+    rects.push({ x: g, y: y0, w: w0, h: h0 });
+    rects.push({ x: g + w0 + g, y: y0, w: W - g - (g + w0 + g), h: h0 });
+
+    // Row 1 (mid 3)
+    const y1 = g + rowH + g;
+    const h1 = rowH;
+    const w1 = Math.floor((W - g * 4) / 3);
+    rects.push({ x: g, y: y1, w: w1, h: h1 });
+    rects.push({ x: g + w1 + g, y: y1, w: w1, h: h1 });
+    rects.push({ x: g + (w1 + g) * 2, y: y1, w: W - g - (g + (w1 + g) * 2), h: h1 });
+
+    // Row 2 (bot 2)
+    const y2 = y1 + rowH + g;
+    const h2 = H - g - y2;
+    rects.push({ x: g, y: y2, w: w0, h: h2 });
+    rects.push({ x: g + w0 + g, y: y2, w: W - g - (g + w0 + g), h: h2 });
+  }
+
+  return rects;
+}
+
+function drawImageCover(ctx, img, x, y, w, h) {
+  if (!img || !img.naturalWidth || !img.naturalHeight) {
+    ctx.fillStyle = '#141722';
+    ctx.fillRect(x, y, w, h);
+    return;
+  }
+
+  const nw = img.naturalWidth;
+  const nh = img.naturalHeight;
+  const targetAspect = w / h;
+  const imageAspect = nw / nh;
+
+  let sx = 0, sy = 0, sw = nw, sh = nh;
+
+  if (imageAspect > targetAspect) {
+    // Image is wider than slot: crop horizontal sides
+    sw = Math.round(nh * targetAspect);
+    sx = Math.round((nw - sw) / 2);
+  } else {
+    // Image is taller than slot: crop vertical sides
+    sh = Math.round(nw / targetAspect);
+    sy = Math.round((nh - sh) / 2);
+  }
+
+  ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+}
+
+function drawWallpaperScene(rects, lift = 0) {
+  if (!wallpaperCanvas) return;
+  const ctx = wallpaperCanvas.getContext('2d');
+  if (!ctx) return;
+
+  const W = wallpaperState.width;
+  const H = wallpaperState.height;
+  wallpaperCanvas.width = W;
+  wallpaperCanvas.height = H;
+
+  // Background fill (deep cinema black)
+  ctx.fillStyle = '#090a0f';
+  ctx.fillRect(0, 0, W, H);
+
+  // Scaled gap based on 1080p reference
+  const scale = W / 1920;
+  const scaledGap = Math.round(wallpaperState.gap * scale);
+  const items = wallpaperState.items;
+
+  rects.forEach((rect, i) => {
+    const entry = items[i];
+    if (entry && entry.img) {
+      if (rect.isRotated) {
+        ctx.save();
+        ctx.translate(rect.cx, rect.cy);
+        ctx.rotate((rect.rot * Math.PI) / 180);
+
+        const shadowScale = W / 1920;
+        const liftScale = 1 + lift * 0.035;
+        const curW = rect.w * liftScale;
+        const curH = rect.h * liftScale;
+
+        // Rich realistic drop shadow (expands dynamically when lifted during flight)
+        const baseBlur = 24 + lift * 24;
+        const baseOffsetY = 8 + lift * 14;
+        ctx.shadowColor = `rgba(0, 0, 0, ${0.72 + lift * 0.15})`;
+        ctx.shadowBlur = Math.round(baseBlur * shadowScale);
+        ctx.shadowOffsetX = Math.round(3 * shadowScale);
+        ctx.shadowOffsetY = Math.round(baseOffsetY * shadowScale);
+
+        // Frame border according to user's gap setting:
+        // gap 0: pure uncropped photo casting shadow on black canvas
+        // gap 6: 3px crisp white studio border
+        // gap 14: 8px photo print frame
+        if (scaledGap > 0) {
+          const borderThick = (wallpaperState.gap >= 14) ? Math.round(8 * shadowScale) : Math.round(3 * shadowScale);
+          ctx.fillStyle = '#f8f8f6';
+          ctx.fillRect(-curW / 2 - borderThick, -curH / 2 - borderThick, curW + borderThick * 2, curH + borderThick * 2);
+
+          // Clear shadow to draw clean crisp uncropped image
+          ctx.shadowColor = 'transparent';
+          ctx.drawImage(entry.img, 0, 0, entry.img.naturalWidth, entry.img.naturalHeight, -curW / 2, -curH / 2, curW, curH);
+        } else {
+          ctx.drawImage(entry.img, 0, 0, entry.img.naturalWidth, entry.img.naturalHeight, -curW / 2, -curH / 2, curW, curH);
+          ctx.shadowColor = 'transparent';
+        }
+
+        ctx.restore();
+      } else {
+        drawImageCover(ctx, entry.img, rect.x, rect.y, rect.w, rect.h);
+      }
+    } else {
+      ctx.fillStyle = '#161922';
+      ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
+    }
+  });
+}
+
+function renderWallpaperCanvas() {
+  if (wallpaperState.activeAnimId) {
+    cancelAnimationFrame(wallpaperState.activeAnimId);
+    wallpaperState.activeAnimId = null;
+  }
+
+  const W = wallpaperState.width;
+  const H = wallpaperState.height;
+  const scale = W / 1920;
+  const scaledGap = Math.round(wallpaperState.gap * scale);
+  const items = wallpaperState.items;
+  const rects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, items);
+  wallpaperState.renderedRects = rects;
+  hideWallpaperHover();
+
+  drawWallpaperScene(rects, 0);
+  renderWallpaperChips();
+}
+
+function renderWallpaperChips() {
+  if (!wallpaperChips) return;
+  wallpaperChips.innerHTML = '';
+
+  const activeCount = wallpaperState.renderedRects && wallpaperState.renderedRects.length > 0
+    ? Math.min(wallpaperState.renderedRects.length, wallpaperState.items.length)
+    : wallpaperState.items.length;
+  const activeEntries = wallpaperState.items.slice(0, activeCount);
+
+  const movieMap = new Map();
+  activeEntries.forEach(entry => {
+    if (entry && entry.titleMeta && !movieMap.has(entry.titleMeta.id)) {
+      movieMap.set(entry.titleMeta.id, entry.titleMeta);
+    }
+  });
+
+  if (movieMap.size === 0) {
+    wallpaperChips.innerHTML = '<span style="color:var(--text-muted);font-size:0.75rem;">No movies loaded yet</span>';
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  movieMap.forEach((meta) => {
+    const chip = document.createElement('a');
+    chip.className = 'movie-chip';
+    chip.href = `?title=${encodeURIComponent(meta.id)}`;
+    chip.title = `Open full gallery for ${meta.name || meta.id}`;
+
+    const posterUrl = meta.posterUrl ? getPreviewImageUrl(meta.posterUrl, 60, 60, 100) : '';
+    const imgHtml = posterUrl
+      ? `<img class="movie-chip-thumb" src="${posterUrl}" alt="" loading="lazy">`
+      : `<span class="movie-chip-thumb" style="display:flex;align-items:center;justify-content:center;font-size:10px;">🎬</span>`;
+
+    chip.innerHTML = `
+      ${imgHtml}
+      <span class="movie-chip-name">${escapeHtml(meta.name || meta.id)}</span>
+      <span class="movie-chip-arrow">↗</span>
+    `;
+
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchToGalleryView(meta.id, true);
+    });
+
+    fragment.appendChild(chip);
+  });
+
+  wallpaperChips.appendChild(fragment);
+
+  if (wallpaperSubtitle) {
+    if (wallpaperState.selectedTitleIds && wallpaperState.selectedTitleIds.length === 1) {
+      const meta = titlesRegistry.find(t => t.id === wallpaperState.selectedTitleIds[0]);
+      const titleName = meta ? (meta.name || meta.id) : 'Selected Title';
+      wallpaperSubtitle.textContent = `${activeCount} stills from "${titleName}" (${wallpaperState.resName.toUpperCase()})`;
+    } else if (wallpaperState.selectedTitleIds && wallpaperState.selectedTitleIds.length > 1) {
+      wallpaperSubtitle.textContent = `${activeCount} stills from ${wallpaperState.selectedTitleIds.length} selected titles (${wallpaperState.resName.toUpperCase()})`;
+    } else {
+      wallpaperSubtitle.textContent = `${activeCount} stills from ${movieMap.size} titles (${wallpaperState.resName.toUpperCase()})`;
+    }
+  }
+}
+
+function preloadImage(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = url;
+  });
+}
+
+async function fetchRandomWallpaperItems(count) {
+  if (!titlesRegistry || !titlesRegistry.length) return [];
+
+  // Check if specific titles are selected by user
+  if (wallpaperState.selectedTitleIds && wallpaperState.selectedTitleIds.length > 0) {
+    const selectedMetas = wallpaperState.selectedTitleIds
+      .map(id => titlesRegistry.find(t => t.id === id))
+      .filter(Boolean);
+
+    if (selectedMetas.length > 0) {
+      // Load gallery data for all selected titles
+      const loadedGalleries = await Promise.all(
+        selectedMetas.map(async (titleMeta) => {
+          try {
+            let data = titleGalleryCache.get(titleMeta.id);
+            if (!data) {
+              const jsonPath = titleMeta.file || `titles/${titleMeta.id}.json`;
+              const res = await fetch(`${jsonPath}?v=${Date.now()}`);
+              if (res.ok) {
+                data = await res.json();
+                titleGalleryCache.set(titleMeta.id, data);
+              }
+            }
+
+            if (data && data.items && data.items.length > 0) {
+              const validItems = data.items.filter(it => it && it.url && it.type === 'IMAGE');
+              const itemsToUse = validItems.length > 0 ? validItems : data.items.filter(it => it && it.url);
+              return { titleMeta, items: itemsToUse };
+            }
+          } catch (e) {
+            console.warn('Error fetching selected title items for wallpaper:', titleMeta.id, e);
+          }
+          return { titleMeta, items: [] };
+        })
+      );
+
+      const activePools = loadedGalleries.filter(g => g.items.length > 0);
+      if (activePools.length > 0) {
+        // Create shuffled copies of each title's items
+        const pools = activePools.map(p => {
+          const shuffled = [...p.items];
+          for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
+          return { titleMeta: p.titleMeta, items: shuffled, cursor: 0 };
+        });
+
+        // Round-robin pick distinct photos distributed across selected titles
+        const results = [];
+        let pIdx = 0;
+        while (results.length < count && pools.some(p => p.items.length > 0)) {
+          const pool = pools[pIdx % pools.length];
+          if (pool.items.length > 0) {
+            const item = pool.items[pool.cursor % pool.items.length];
+            pool.cursor++;
+            results.push({
+              titleMeta: pool.titleMeta,
+              item,
+            });
+          }
+          pIdx++;
+          if (pIdx > count * 8) break;
+        }
+
+        return results.slice(0, count);
+      }
+    }
+  }
+
+  // Default: Shuffle and select random titles across the full catalog
+  const pool = [...titlesRegistry];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  const selectedTitles = pool.slice(0, Math.min(count, pool.length));
+  while (selectedTitles.length < count) {
+    selectedTitles.push(titlesRegistry[Math.floor(Math.random() * titlesRegistry.length)]);
+  }
+
+  const results = [];
+  await Promise.all(
+    selectedTitles.map(async (titleMeta) => {
+      try {
+        let data = titleGalleryCache.get(titleMeta.id);
+        if (!data) {
+          const jsonPath = titleMeta.file || `titles/${titleMeta.id}.json`;
+          const res = await fetch(`${jsonPath}?v=${Date.now()}`);
+          if (res.ok) {
+            data = await res.json();
+            titleGalleryCache.set(titleMeta.id, data);
+          }
+        }
+
+        if (data && data.items && data.items.length > 0) {
+          const validItems = data.items.filter(it => it && it.url && it.type === 'IMAGE');
+          const itemsToUse = validItems.length > 0 ? validItems : data.items.filter(it => it && it.url);
+          if (itemsToUse.length > 0) {
+            const randItem = itemsToUse[Math.floor(Math.random() * itemsToUse.length)];
+            results.push({
+              titleMeta,
+              item: randItem,
+            });
+          }
+        }
+      } catch (e) {
+        console.warn('Error fetching title items for wallpaper:', titleMeta.id, e);
+      }
+    })
+  );
+
+  return results.slice(0, count);
+}
+
+async function generateWallpaper(forceNew = true) {
+  if (wallpaperState.isLoading) return;
+  wallpaperState.isLoading = true;
+
+  if (btnWallpaperShuffle) {
+    btnWallpaperShuffle.classList.add('shuffling');
+  }
+
+  if (wallpaperLoader) {
+    wallpaperLoader.classList.add('active');
+    if (wallpaperLoaderStatus) {
+      wallpaperLoaderStatus.textContent = 'Selecting random cinema titles...';
+    }
+  }
+
+  const neededSlots = getRequiredSlotCount(wallpaperState.layout);
+
+  try {
+    if (!forceNew && wallpaperState.items.length >= neededSlots) {
+      renderWallpaperCanvas();
+      if (wallpaperLoader) wallpaperLoader.classList.remove('active');
+      wallpaperState.isLoading = false;
+      if (btnWallpaperShuffle) btnWallpaperShuffle.classList.remove('shuffling');
+      return;
+    }
+
+    if (wallpaperLoaderStatus) {
+      wallpaperLoaderStatus.textContent = `Gathering stills for ${neededSlots} collage slots...`;
+    }
+
+    const fetchedItems = await fetchRandomWallpaperItems(neededSlots);
+
+    if (wallpaperLoaderStatus) {
+      wallpaperLoaderStatus.textContent = `Loading high-resolution images...`;
+    }
+
+    const previewDim = Math.max(1200, Math.round(wallpaperState.width * 0.6));
+
+    const loadedEntries = await Promise.all(
+      fetchedItems.map(async (entry) => {
+        const item = entry.item;
+        const targetUrl = getPreviewImageUrl(item.url, item.width, item.height, previewDim);
+        const img = await preloadImage(targetUrl);
+        return {
+          titleMeta: entry.titleMeta,
+          item: entry.item,
+          img: img,
+        };
+      })
+    );
+
+    wallpaperState.items = loadedEntries.filter(e => e.img !== null);
+    wallpaperState.scatterVariations = generateScatterVariations(16);
+
+    renderWallpaperCanvas();
+
+    if (totalCountEl && currentView === 'wallpaper') {
+      totalCountEl.textContent = wallpaperState.items.length.toString();
+    }
+  } catch (err) {
+    console.error('Failed to generate wallpaper:', err);
+  } finally {
+    if (wallpaperLoader) {
+      wallpaperLoader.classList.remove('active');
+    }
+    if (btnWallpaperShuffle) {
+      setTimeout(() => btnWallpaperShuffle.classList.remove('shuffling'), 600);
+    }
+    wallpaperState.isLoading = false;
+  }
+}
+
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function rescatterWallpaper() {
+  if (wallpaperState.isLoading || !wallpaperState.items.length) return;
+
+  if (btnWallpaperRescatter) {
+    btnWallpaperRescatter.classList.add('rescattering');
+    setTimeout(() => btnWallpaperRescatter.classList.remove('rescattering'), 450);
+  }
+
+  // Cancel any running animation
+  if (wallpaperState.activeAnimId) {
+    cancelAnimationFrame(wallpaperState.activeAnimId);
+    wallpaperState.activeAnimId = null;
+  }
+
+  // 1. Snapshot start rects for each item currently rendered
+  const prevRectMap = new Map();
+  wallpaperState.items.forEach((entry, i) => {
+    if (wallpaperState.renderedRects && wallpaperState.renderedRects[i]) {
+      prevRectMap.set(entry, { ...wallpaperState.renderedRects[i] });
+    }
+  });
+
+  // 2. Shuffle current items array (Fisher-Yates)
+  for (let i = wallpaperState.items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [wallpaperState.items[i], wallpaperState.items[j]] = [wallpaperState.items[j], wallpaperState.items[i]];
+  }
+
+  // 3. Generate new organic tilt & positional shifts for scattered layout
+  wallpaperState.scatterVariations = generateScatterVariations(16);
+
+  // 4. Calculate target rects for the new arrangement
+  const W = wallpaperState.width;
+  const H = wallpaperState.height;
+  const scale = W / 1920;
+  const scaledGap = Math.round(wallpaperState.gap * scale);
+  const targetRects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, wallpaperState.items);
+
+  // 5. Build animation pairs (start -> end for each item)
+  const animPairs = wallpaperState.items.map((entry, i) => {
+    const end = targetRects[i];
+    const start = prevRectMap.get(entry) || end;
+    return { start, end };
+  });
+
+  hideWallpaperHover();
+
+  const duration = 460; // ms
+  const startTime = performance.now();
+
+  function animate(now) {
+    const elapsed = now - startTime;
+    const rawProgress = Math.min(1, elapsed / duration);
+    const progress = easeOutCubic(rawProgress);
+
+    // Physical lift curve: peaks at mid-flight, settles at landing
+    const lift = Math.sin(rawProgress * Math.PI);
+
+    // Interpolate every photo rect
+    const currentRects = animPairs.map(({ start, end }) => {
+      const isRotated = end.isRotated || start.isRotated;
+      const rect = {
+        ...end,
+        x: start.x + (end.x - start.x) * progress,
+        y: start.y + (end.y - start.y) * progress,
+        w: start.w + (end.w - start.w) * progress,
+        h: start.h + (end.h - start.h) * progress,
+        isRotated,
+      };
+
+      if (isRotated) {
+        const startCx = start.cx !== undefined ? start.cx : (start.x + start.w / 2);
+        const endCx = end.cx !== undefined ? end.cx : (end.x + end.w / 2);
+        const startCy = start.cy !== undefined ? start.cy : (start.y + start.h / 2);
+        const endCy = end.cy !== undefined ? end.cy : (end.y + end.h / 2);
+        const startRot = start.rot || 0;
+        const endRot = end.rot || 0;
+
+        rect.cx = startCx + (endCx - startCx) * progress;
+        rect.cy = startCy + (endCy - startCy) * progress;
+        rect.rot = startRot + (endRot - startRot) * progress;
+      }
+
+      return rect;
+    });
+
+    wallpaperState.renderedRects = currentRects;
+    drawWallpaperScene(currentRects, lift);
+
+    if (rawProgress < 1) {
+      wallpaperState.activeAnimId = requestAnimationFrame(animate);
+    } else {
+      wallpaperState.activeAnimId = null;
+      wallpaperState.renderedRects = targetRects;
+      drawWallpaperScene(targetRects, 0);
+      renderWallpaperChips();
+    }
+  }
+
+  wallpaperState.activeAnimId = requestAnimationFrame(animate);
+}
+
+function downloadWallpaper() {
+  if (!wallpaperCanvas) return;
+  if (wallpaperState.activeAnimId) {
+    cancelAnimationFrame(wallpaperState.activeAnimId);
+    wallpaperState.activeAnimId = null;
+    drawWallpaperScene(wallpaperState.renderedRects, 0);
+  }
+  const resLabel = wallpaperState.resName.toUpperCase();
+  const filename = `IMDb_Wallpaper_${resLabel}_${Date.now()}.jpg`;
+
+  wallpaperCanvas.toBlob((blob) => {
+    if (!blob) {
+      console.error('Failed to create wallpaper blob');
+      return;
+    }
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+    }, 200);
+  }, 'image/jpeg', 0.95);
+}
+
+function toggleWallpaperFullscreen() {
+  if (!wallpaperCanvasFrame) return;
+  if (!document.fullscreenElement) {
+    if (wallpaperCanvasFrame.requestFullscreen) {
+      wallpaperCanvasFrame.requestFullscreen();
+    } else if (wallpaperCanvasFrame.webkitRequestFullscreen) {
+      wallpaperCanvasFrame.webkitRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
+function openWallpaperLightbox(index) {
+  if (index < 0 || index >= wallpaperState.items.length) return;
+  const entry = wallpaperState.items[index];
+  if (!entry) return;
+
+  selectedTitle = entry.titleMeta;
+  galleryData = wallpaperState.items.map(e => ({
+    ...e.item,
+    _wallpaperTitleMeta: e.titleMeta,
+  }));
+
+  currentLightboxIndex = index;
+  lightboxImg.classList.remove('loaded');
+  if (lightboxStage) {
+    lightboxStage.classList.add('is-loading');
+  }
+
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  updateLightboxContent();
+}
+
+function pointInRotatedRect(px, py, r) {
+  if (!r.isRotated || !r.rot) {
+    return px >= r.x && px <= r.x + r.w && py >= r.y && py <= r.y + r.h;
+  }
+  const rad = (r.rot * Math.PI) / 180;
+  const cos = Math.cos(rad);
+  const sin = Math.sin(rad);
+  const dx = px - r.cx;
+  const dy = py - r.cy;
+  const rx = dx * cos + dy * sin;
+  const ry = -dx * sin + dy * cos;
+  return Math.abs(rx) <= r.w / 2 && Math.abs(ry) <= r.h / 2;
+}
+
+function updateHoverRectForIndex(index) {
+  if (index < 0 || index >= wallpaperState.items.length) {
+    hideWallpaperHover();
+    return;
+  }
+  const rects = wallpaperState.renderedRects;
+  if (!rects || !rects[index]) return;
+
+  const entry = wallpaperState.items[index];
+  const r = rects[index];
+  wallpaperState.currentHoverIndex = index;
+  if (wallpaperCanvasFrame) wallpaperCanvasFrame.style.cursor = 'pointer';
+
+  const W = wallpaperCanvas.width;
+  const H = wallpaperCanvas.height;
+
+  // Position hover frame box in %
+  if (wallpaperHoverRect) {
+    if (r.isRotated) {
+      const leftPct = (r.cx / W) * 100;
+      const topPct = (r.cy / H) * 100;
+      const widthPct = (r.w / W) * 100;
+      const heightPct = (r.h / H) * 100;
+
+      wallpaperHoverRect.style.left = `${leftPct}%`;
+      wallpaperHoverRect.style.top = `${topPct}%`;
+      wallpaperHoverRect.style.width = `${widthPct}%`;
+      wallpaperHoverRect.style.height = `${heightPct}%`;
+      wallpaperHoverRect.style.transform = `translate(-50%, -50%) rotate(${r.rot}deg)`;
+      wallpaperHoverRect.classList.add('visible');
+    } else {
+      const leftPct = (r.x / W) * 100;
+      const topPct = (r.y / H) * 100;
+      const widthPct = (r.w / W) * 100;
+      const heightPct = (r.h / H) * 100;
+
+      wallpaperHoverRect.style.left = `${leftPct}%`;
+      wallpaperHoverRect.style.top = `${topPct}%`;
+      wallpaperHoverRect.style.width = `${widthPct}%`;
+      wallpaperHoverRect.style.height = `${heightPct}%`;
+      wallpaperHoverRect.style.transform = 'none';
+      wallpaperHoverRect.classList.add('visible');
+    }
+  }
+
+  // Position Swap Button at Top-Right of photo, guaranteed strictly inside the canvas frame
+  if (hoverSwapBtn) {
+    let cornerTR_X, cornerTR_Y;
+    if (r.isRotated) {
+      const rad = ((r.rot || 0) * Math.PI) / 180;
+      const cos = Math.cos(rad);
+      const sin = Math.sin(rad);
+      const hw = r.w / 2;
+      const hh = r.h / 2;
+
+      // Top-right corner of rotated rect in canvas coordinates
+      cornerTR_X = r.cx + (hw * cos + hh * sin);
+      cornerTR_Y = r.cy + (hw * sin - hh * cos);
+    } else {
+      cornerTR_X = r.x + r.w;
+      cornerTR_Y = r.y;
+    }
+
+    const scale = W / 1920;
+    const inset = 14 * scale;
+    const btnW = 86 * scale;
+    const btnH = 34 * scale;
+    const margin = 12 * scale;
+
+    const targetX = cornerTR_X - inset;
+    const targetY = cornerTR_Y + inset;
+
+    // Clamp target coordinates so the button is guaranteed to be completely inside canvas frame
+    const clampedX = Math.max(btnW + margin, Math.min(W - margin, targetX));
+    const clampedY = Math.max(margin, Math.min(H - btnH - margin, targetY));
+
+    const btnLeftPct = (clampedX / W) * 100;
+    const btnTopPct = (clampedY / H) * 100;
+
+    hoverSwapBtn.style.left = `${btnLeftPct.toFixed(2)}%`;
+    hoverSwapBtn.style.top = `${btnTopPct.toFixed(2)}%`;
+    hoverSwapBtn.classList.add('visible');
+  }
+
+  // Update floating tooltip content
+  if (wallpaperTooltip && wallpaperTooltipTitle) {
+    const titleName = entry.titleMeta ? (entry.titleMeta.name || entry.titleMeta.id) : 'IMDb Title';
+    wallpaperTooltipTitle.textContent = titleName;
+
+    const caption = entry.item && entry.item.title ? entry.item.title.trim() : '';
+    if (wallpaperTooltipCaption) {
+      if (caption && caption.toLowerCase() !== titleName.toLowerCase()) {
+        wallpaperTooltipCaption.textContent = caption;
+        wallpaperTooltipCaption.style.display = '-webkit-box';
+      } else {
+        wallpaperTooltipCaption.textContent = '';
+        wallpaperTooltipCaption.style.display = 'none';
+      }
+    }
+  }
+}
+
+function onWallpaperMouseMove(e) {
+  if (wallpaperState.isLoading || wallpaperState.activeAnimId || !wallpaperCanvas || !wallpaperCanvasFrame) return;
+
+  // If hovering directly over the Swap button, preserve the current active photo hover
+  if (e.target === hoverSwapBtn || (hoverSwapBtn && hoverSwapBtn.contains(e.target))) {
+    return;
+  }
+
+  const rects = wallpaperState.renderedRects;
+  if (!rects || !rects.length || !wallpaperState.items.length) {
+    hideWallpaperHover();
+    return;
+  }
+
+  const canvasRect = wallpaperCanvas.getBoundingClientRect();
+  const frameRect = wallpaperCanvasFrame.getBoundingClientRect();
+
+  const scaleX = wallpaperCanvas.width / canvasRect.width;
+  const scaleY = wallpaperCanvas.height / canvasRect.height;
+  const mouseCanvasX = (e.clientX - canvasRect.left) * scaleX;
+  const mouseCanvasY = (e.clientY - canvasRect.top) * scaleY;
+
+  // Search in reverse so top overlapping photos receive hover first
+  let hitIdx = -1;
+  for (let i = rects.length - 1; i >= 0; i--) {
+    if (pointInRotatedRect(mouseCanvasX, mouseCanvasY, rects[i])) {
+      hitIdx = i;
+      break;
+    }
+  }
+
+  if (hitIdx !== -1 && hitIdx < wallpaperState.items.length) {
+    updateHoverRectForIndex(hitIdx);
+
+    // Position floating tooltip
+    if (wallpaperTooltip) {
+      const frameX = e.clientX - frameRect.left;
+      const frameY = e.clientY - frameRect.top;
+
+      const clampedX = Math.max(140, Math.min(frameRect.width - 140, frameX));
+      const isTopOverflow = frameY < 90;
+
+      wallpaperTooltip.style.left = `${clampedX}px`;
+      wallpaperTooltip.style.top = `${frameY}px`;
+      wallpaperTooltip.classList.toggle('flip-bottom', isTopOverflow);
+      wallpaperTooltip.classList.add('visible');
+    }
+  } else {
+    hideWallpaperHover();
+  }
+}
+
+function hideWallpaperHover() {
+  wallpaperState.currentHoverIndex = -1;
+  if (wallpaperCanvasFrame) wallpaperCanvasFrame.style.cursor = '';
+  if (wallpaperHoverRect) {
+    wallpaperHoverRect.classList.remove('visible');
+    wallpaperHoverRect.classList.remove('swapping-flash');
+    wallpaperHoverRect.style.transform = 'none';
+  }
+  if (hoverSwapBtn) {
+    hoverSwapBtn.classList.remove('visible');
+  }
+  if (wallpaperTooltip) wallpaperTooltip.classList.remove('visible');
+}
+
+function onWallpaperClick(e) {
+  if (wallpaperState.isLoading || wallpaperState.activeAnimId || wallpaperState.isSwappingSingle) return;
+  if (wallpaperState.currentHoverIndex !== -1) {
+    openWallpaperLightbox(wallpaperState.currentHoverIndex);
+  }
+}
+
+async function swapSingleWallpaperItem(index) {
+  if (wallpaperState.isLoading || wallpaperState.isSwappingSingle || wallpaperState.activeAnimId) return;
+  if (index < 0 || index >= wallpaperState.items.length) return;
+
+  wallpaperState.isSwappingSingle = true;
+  if (hoverSwapBtn) {
+    hoverSwapBtn.classList.add('swapping');
+  }
+
+  try {
+    const currentEntry = wallpaperState.items[index];
+    const currentUrls = new Set(wallpaperState.items.map(e => e && e.item && e.item.url).filter(Boolean));
+    const currentItemUrl = currentEntry?.item?.url;
+
+    let chosenTitleMeta = null;
+    let chosenItem = null;
+
+    const getGallery = async (meta) => {
+      if (!meta) return null;
+      let data = titleGalleryCache.get(meta.id);
+      if (!data) {
+        try {
+          const jsonPath = meta.file || `titles/${meta.id}.json`;
+          const res = await fetch(`${jsonPath}?v=${Date.now()}`);
+          if (res.ok) {
+            data = await res.json();
+            titleGalleryCache.set(meta.id, data);
+          }
+        } catch (e) {
+          console.warn('Error fetching gallery for single swap:', meta.id, e);
+          return null;
+        }
+      }
+      return data;
+    };
+
+    // Mode A: User has selected specific source titles
+    if (wallpaperState.selectedTitleIds && wallpaperState.selectedTitleIds.length > 0) {
+      const selectedMetas = wallpaperState.selectedTitleIds
+        .map(id => titlesRegistry.find(t => t.id === id))
+        .filter(Boolean);
+
+      if (selectedMetas.length > 0) {
+        const shuffled = [...selectedMetas].sort(() => Math.random() - 0.5);
+        for (const meta of shuffled) {
+          const gallery = await getGallery(meta);
+          if (gallery && gallery.items && gallery.items.length > 0) {
+            const valid = gallery.items.filter(it => it && it.url && it.type === 'IMAGE');
+            const pool = valid.length > 0 ? valid : gallery.items.filter(it => it && it.url);
+
+            let candidates = pool.filter(it => !currentUrls.has(it.url));
+            if (candidates.length === 0) {
+              candidates = pool.filter(it => it.url !== currentItemUrl);
+            }
+            if (candidates.length > 0) {
+              chosenTitleMeta = meta;
+              chosenItem = candidates[Math.floor(Math.random() * candidates.length)];
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    // Mode B: All catalog random titles
+    if (!chosenItem && titlesRegistry && titlesRegistry.length > 0) {
+      const shuffled = [...titlesRegistry].sort(() => Math.random() - 0.5);
+      for (const meta of shuffled.slice(0, 10)) {
+        const gallery = await getGallery(meta);
+        if (gallery && gallery.items && gallery.items.length > 0) {
+          const valid = gallery.items.filter(it => it && it.url && it.type === 'IMAGE');
+          const pool = valid.length > 0 ? valid : gallery.items.filter(it => it && it.url);
+
+          let candidates = pool.filter(it => !currentUrls.has(it.url));
+          if (candidates.length === 0) {
+            candidates = pool.filter(it => it.url !== currentItemUrl);
+          }
+          if (candidates.length > 0) {
+            chosenTitleMeta = meta;
+            chosenItem = candidates[Math.floor(Math.random() * candidates.length)];
+            break;
+          }
+        }
+      }
+    }
+
+    if (!chosenItem || !chosenTitleMeta) {
+      console.warn('Unable to find alternative photo for swap');
+      return;
+    }
+
+    // Preload replacement image preview
+    const previewDim = Math.max(1200, Math.round(wallpaperState.width * 0.6));
+    const targetUrl = getPreviewImageUrl(chosenItem.url, chosenItem.width, chosenItem.height, previewDim);
+    const newImg = await preloadImage(targetUrl);
+
+    if (!newImg) {
+      console.warn('Replacement image failed to load');
+      return;
+    }
+
+    // Update only the single target slot
+    wallpaperState.items[index] = {
+      titleMeta: chosenTitleMeta,
+      item: chosenItem,
+      img: newImg,
+    };
+
+    // Recalculate layout rects with updated aspect ratio
+    const W = wallpaperState.width;
+    const H = wallpaperState.height;
+    const scale = W / 1920;
+    const scaledGap = Math.round(wallpaperState.gap * scale);
+    const rects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, wallpaperState.items);
+    wallpaperState.renderedRects = rects;
+
+    // Redraw canvas with the swapped photo
+    drawWallpaperScene(rects, 0);
+    renderWallpaperChips();
+
+    // Pulse/flash highlight on hover rect to indicate swap completed
+    if (wallpaperHoverRect) {
+      wallpaperHoverRect.classList.remove('swapping-flash');
+      void wallpaperHoverRect.offsetWidth;
+      wallpaperHoverRect.classList.add('swapping-flash');
+      setTimeout(() => {
+        if (wallpaperHoverRect) wallpaperHoverRect.classList.remove('swapping-flash');
+      }, 500);
+    }
+
+    // Update hover frame and tooltip for the newly swapped image
+    if (wallpaperState.currentHoverIndex === index) {
+      updateHoverRectForIndex(index);
+    }
+  } catch (err) {
+    console.error('Error swapping single wallpaper image:', err);
+  } finally {
+    wallpaperState.isSwappingSingle = false;
+    if (hoverSwapBtn) {
+      hoverSwapBtn.classList.remove('swapping');
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Wallpaper Source Title Selector
+// ---------------------------------------------------------------------------
+
+let workingSourceSet = new Set();
+
+function updateWallpaperSourceUI() {
+  if (!wallpaperSourceBtnText) return;
+
+  const count = wallpaperState.selectedTitleIds ? wallpaperState.selectedTitleIds.length : 0;
+  if (count === 0) {
+    wallpaperSourceBtnText.textContent = `All Catalog (${titlesRegistry.length})`;
+    if (btnWallpaperSource) btnWallpaperSource.classList.remove('has-selection');
+    if (wallpaperSelectedSources) wallpaperSelectedSources.classList.add('hidden');
+    if (selectedSourcesTags) selectedSourcesTags.innerHTML = '';
+  } else if (count === 1) {
+    const meta = titlesRegistry.find(t => t.id === wallpaperState.selectedTitleIds[0]);
+    const name = meta ? (meta.name || meta.id) : '1 Title';
+    wallpaperSourceBtnText.textContent = name;
+    if (btnWallpaperSource) btnWallpaperSource.classList.add('has-selection');
+    renderSourceTags();
+  } else {
+    wallpaperSourceBtnText.textContent = `${count} Titles Selected`;
+    if (btnWallpaperSource) btnWallpaperSource.classList.add('has-selection');
+    renderSourceTags();
+  }
+}
+
+function renderSourceTags() {
+  if (!wallpaperSelectedSources || !selectedSourcesTags) return;
+
+  const count = wallpaperState.selectedTitleIds.length;
+  if (count === 0) {
+    wallpaperSelectedSources.classList.add('hidden');
+    selectedSourcesTags.innerHTML = '';
+    return;
+  }
+
+  wallpaperSelectedSources.classList.remove('hidden');
+  selectedSourcesTags.innerHTML = '';
+
+  const fragment = document.createDocumentFragment();
+  wallpaperState.selectedTitleIds.forEach(id => {
+    const meta = titlesRegistry.find(t => t.id === id);
+    if (!meta) return;
+
+    const tag = document.createElement('span');
+    tag.className = 'source-tag';
+
+    const posterUrl = meta.posterUrl ? getPreviewImageUrl(meta.posterUrl, 40, 40, 60) : '';
+    const imgHtml = posterUrl
+      ? `<img class="source-tag-thumb" src="${posterUrl}" alt="" loading="lazy">`
+      : `<span>🎬</span>`;
+
+    tag.innerHTML = `
+      ${imgHtml}
+      <span>${escapeHtml(meta.name || meta.id)}</span>
+      <button type="button" class="source-tag-remove" data-id="${meta.id}" title="Remove title">✕</button>
+    `;
+
+    tag.querySelector('.source-tag-remove').addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeSelectedSourceTitle(meta.id);
+    });
+
+    fragment.appendChild(tag);
+  });
+
+  selectedSourcesTags.appendChild(fragment);
+}
+
+function removeSelectedSourceTitle(id) {
+  wallpaperState.selectedTitleIds = wallpaperState.selectedTitleIds.filter(tId => tId !== id);
+  workingSourceSet = new Set(wallpaperState.selectedTitleIds);
+  updateWallpaperSourceUI();
+  updateSourcePopoverList();
+  generateWallpaper(true);
+}
+
+function initWallpaperSourceSelector() {
+  if (!btnWallpaperSource || !wallpaperSourcePopover) return;
+
+  // Toggle popover
+  btnWallpaperSource.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isClosed = wallpaperSourcePopover.classList.contains('hidden');
+    if (isClosed) {
+      openSourcePopover();
+    } else {
+      closeSourcePopover();
+    }
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (wallpaperSourcePopover && !wallpaperSourcePopover.classList.contains('hidden')) {
+      if (wallpaperSourceWrapper && !wallpaperSourceWrapper.contains(e.target)) {
+        closeSourcePopover();
+      }
+    }
+  });
+
+  // Filter input
+  if (wallpaperSourceSearch) {
+    wallpaperSourceSearch.addEventListener('input', () => {
+      renderSourcePopoverOptions(wallpaperSourceSearch.value.trim().toLowerCase());
+    });
+  }
+
+  // All Catalog link
+  if (btnSourceAll) {
+    btnSourceAll.addEventListener('click', () => {
+      workingSourceSet.clear();
+      updateSourcePopoverSelectionCount();
+      renderSourcePopoverOptions(wallpaperSourceSearch ? wallpaperSourceSearch.value.trim().toLowerCase() : '');
+    });
+  }
+
+  // Clear link
+  if (btnSourceClear) {
+    btnSourceClear.addEventListener('click', () => {
+      workingSourceSet.clear();
+      updateSourcePopoverSelectionCount();
+      renderSourcePopoverOptions(wallpaperSourceSearch ? wallpaperSourceSearch.value.trim().toLowerCase() : '');
+    });
+  }
+
+  // Apply & Generate button
+  if (btnSourceApply) {
+    btnSourceApply.addEventListener('click', () => {
+      wallpaperState.selectedTitleIds = Array.from(workingSourceSet);
+      closeSourcePopover();
+      updateWallpaperSourceUI();
+      generateWallpaper(true);
+    });
+  }
+
+  // Reset to All button in tag strip
+  if (btnClearSources) {
+    btnClearSources.addEventListener('click', () => {
+      wallpaperState.selectedTitleIds = [];
+      workingSourceSet.clear();
+      updateWallpaperSourceUI();
+      updateSourcePopoverList();
+      generateWallpaper(true);
+    });
+  }
+
+  updateWallpaperSourceUI();
+}
+
+function openSourcePopover() {
+  workingSourceSet = new Set(wallpaperState.selectedTitleIds || []);
+  if (wallpaperSourceSearch) wallpaperSourceSearch.value = '';
+  renderSourcePopoverOptions('');
+  updateSourcePopoverSelectionCount();
+  if (wallpaperSourcePopover) wallpaperSourcePopover.classList.remove('hidden');
+  if (btnWallpaperSource) btnWallpaperSource.classList.add('open');
+  if (wallpaperSourceSearch) {
+    setTimeout(() => wallpaperSourceSearch.focus(), 50);
+  }
+}
+
+function closeSourcePopover() {
+  if (wallpaperSourcePopover) wallpaperSourcePopover.classList.add('hidden');
+  if (btnWallpaperSource) btnWallpaperSource.classList.remove('open');
+}
+
+function updateSourcePopoverSelectionCount() {
+  if (!sourceSelectedCount) return;
+  const count = workingSourceSet.size;
+  if (count === 0) {
+    sourceSelectedCount.textContent = 'All catalog selected';
+  } else if (count === 1) {
+    sourceSelectedCount.textContent = '1 title selected';
+  } else {
+    sourceSelectedCount.textContent = `${count} titles selected`;
+  }
+}
+
+function updateSourcePopoverList() {
+  const query = wallpaperSourceSearch ? wallpaperSourceSearch.value.trim().toLowerCase() : '';
+  renderSourcePopoverOptions(query);
+}
+
+function renderSourcePopoverOptions(filterQuery = '') {
+  if (!wallpaperSourceList || !titlesRegistry) return;
+  wallpaperSourceList.innerHTML = '';
+
+  const filteredTitles = titlesRegistry.filter(title => {
+    if (!filterQuery) return true;
+    const name = (title.name || '').toLowerCase();
+    const id = (title.id || '').toLowerCase();
+    return name.includes(filterQuery) || id.includes(filterQuery);
+  });
+
+  if (filteredTitles.length === 0) {
+    wallpaperSourceList.innerHTML = `
+      <div style="padding: 1.5rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.75rem;">
+        No movies match "${escapeHtml(filterQuery)}"
+      </div>
+    `;
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  filteredTitles.forEach(title => {
+    const isSelected = workingSourceSet.has(title.id);
+    const itemEl = document.createElement('div');
+    itemEl.className = `source-option-item ${isSelected ? 'selected' : ''}`;
+    itemEl.dataset.id = title.id;
+
+    const posterUrl = title.posterUrl ? getPreviewImageUrl(title.posterUrl, 60, 60, 100) : '';
+    const imgHtml = posterUrl
+      ? `<img class="source-thumb" src="${posterUrl}" alt="" loading="lazy">`
+      : `<span class="source-thumb" style="display:flex;align-items:center;justify-content:center;font-size:12px;">🎬</span>`;
+
+    itemEl.innerHTML = `
+      <input type="checkbox" class="source-checkbox" ${isSelected ? 'checked' : ''} tabindex="-1">
+      ${imgHtml}
+      <div class="source-info">
+        <span class="source-name" title="${escapeHtml(title.name || title.id)}">${escapeHtml(title.name || title.id)}</span>
+        <span class="source-meta">${title.itemCount || 0} photos</span>
+      </div>
+    `;
+
+    itemEl.addEventListener('click', (e) => {
+      if (workingSourceSet.has(title.id)) {
+        workingSourceSet.delete(title.id);
+      } else {
+        workingSourceSet.add(title.id);
+      }
+      updateSourcePopoverSelectionCount();
+      const checkbox = itemEl.querySelector('.source-checkbox');
+      if (checkbox) checkbox.checked = workingSourceSet.has(title.id);
+      itemEl.classList.toggle('selected', workingSourceSet.has(title.id));
+    });
+
+    fragment.appendChild(itemEl);
+  });
+
+  wallpaperSourceList.appendChild(fragment);
+}
+
+// ---------------------------------------------------------------------------
 // Event Listeners
 // ---------------------------------------------------------------------------
 
@@ -1156,6 +2644,119 @@ function setupEventListeners() {
   // Gallery Back Button -> Return to Catalog View
   if (galleryBackBtn) {
     galleryBackBtn.addEventListener('click', () => switchToCatalogView(true));
+  }
+
+  // Wallpaper Source Title Selector
+  initWallpaperSourceSelector();
+
+  // Wallpaper Navigation & Controls
+  if (btnNavWallpaper) {
+    btnNavWallpaper.addEventListener('click', async () => {
+      if (currentView === 'wallpaper') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const fromGallery = currentView === 'gallery' && selectedTitle && selectedTitle.id;
+        if (fromGallery) {
+          wallpaperState.selectedTitleIds = [selectedTitle.id];
+          updateWallpaperSourceUI();
+        }
+        await switchToWallpaperView(true);
+        if (fromGallery) {
+          await generateWallpaper(true);
+        }
+      }
+    });
+  }
+
+  if (wallpaperBackBtn) {
+    wallpaperBackBtn.addEventListener('click', () => switchToCatalogView(true));
+  }
+
+  if (btnWallpaperShuffle) {
+    btnWallpaperShuffle.addEventListener('click', () => generateWallpaper(true));
+  }
+
+  if (btnWallpaperRescatter) {
+    btnWallpaperRescatter.addEventListener('click', rescatterWallpaper);
+  }
+
+  if (btnWallpaperDownload) {
+    btnWallpaperDownload.addEventListener('click', downloadWallpaper);
+  }
+
+  if (btnWallpaperFullscreen) {
+    btnWallpaperFullscreen.addEventListener('click', toggleWallpaperFullscreen);
+  }
+
+  // Wallpaper Canvas Hover & Lightbox Click
+  if (wallpaperCanvasFrame) {
+    wallpaperCanvasFrame.addEventListener('mousemove', onWallpaperMouseMove);
+    wallpaperCanvasFrame.addEventListener('mouseleave', hideWallpaperHover);
+    wallpaperCanvasFrame.addEventListener('click', onWallpaperClick);
+  }
+
+  // Hover Swap Single Image Button
+  if (hoverSwapBtn) {
+    hoverSwapBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (wallpaperState.currentHoverIndex !== -1) {
+        swapSingleWallpaperItem(wallpaperState.currentHoverIndex);
+      }
+    });
+
+    hoverSwapBtn.addEventListener('mouseenter', () => {
+      if (wallpaperTooltip) {
+        wallpaperTooltip.classList.remove('visible');
+      }
+    });
+  }
+
+  // Wallpaper Resolution Buttons
+  if (wallpaperResControl) {
+    wallpaperResControl.querySelectorAll('.seg-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        wallpaperResControl.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        wallpaperState.width = parseInt(btn.dataset.w, 10);
+        wallpaperState.height = parseInt(btn.dataset.h, 10);
+        wallpaperState.resName = btn.dataset.res;
+        if (wallpaperDownloadText) {
+          wallpaperDownloadText.textContent = `Download ${btn.textContent.trim()}`;
+        }
+        renderWallpaperCanvas();
+      });
+    });
+  }
+
+  // Wallpaper Layout Buttons
+  if (wallpaperLayoutControl) {
+    wallpaperLayoutControl.querySelectorAll('.seg-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        wallpaperLayoutControl.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const newLayout = btn.dataset.layout;
+        wallpaperState.layout = newLayout;
+        const needed = getRequiredSlotCount(newLayout);
+        if (wallpaperState.items.length < needed) {
+          await generateWallpaper(false);
+        } else {
+          renderWallpaperCanvas();
+        }
+      });
+    });
+  }
+
+  // Wallpaper Gap Buttons
+  if (wallpaperGapControl) {
+    wallpaperGapControl.querySelectorAll('.seg-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        wallpaperGapControl.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        wallpaperState.gap = parseInt(btn.dataset.gap, 10);
+        renderWallpaperCanvas();
+      });
+    });
   }
 
   // Main Header Search Input
@@ -1231,8 +2832,11 @@ function setupEventListeners() {
   // Browser Navigation (Back / Forward)
   window.addEventListener('popstate', (e) => {
     const params = new URLSearchParams(window.location.search);
+    const view = params.get('view');
     const titleId = params.get('title');
-    if (titleId) {
+    if (view === 'wallpaper') {
+      switchToWallpaperView(false);
+    } else if (titleId) {
       switchToGalleryView(titleId, false);
     } else {
       if (e.state && typeof e.state.scrollY === 'number') {
@@ -1244,29 +2848,61 @@ function setupEventListeners() {
 
   // Global Keyboard Shortcuts
   window.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('active')) {
-      // Focus search shortcut with '/'
-      if (e.key === '/' && document.activeElement !== searchInput && document.activeElement !== dropdownSearchInput) {
-        e.preventDefault();
-        searchInput.focus();
+    // If user is currently typing in an input or textarea, never trigger any shortcut
+    const isInput = e.target && (
+      e.target.tagName === 'INPUT' ||
+      e.target.tagName === 'TEXTAREA' ||
+      e.target.isContentEditable
+    );
+    if (isInput) {
+      if (e.key === 'Escape') {
+        e.target.blur();
+        if (wallpaperSourcePopover && !wallpaperSourcePopover.classList.contains('hidden')) {
+          wallpaperSourcePopover.classList.add('hidden');
+        }
       }
       return;
     }
 
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') prevImage();
-    if (e.key === 'ArrowRight' || e.key === ' ') {
+    if (lightbox.classList.contains('active')) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        closeLightbox();
+        return;
+      }
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextImage();
+      }
+      if (e.key === 'c' || e.key === 'C') {
+        copyImageUrl();
+      }
+      if (e.key === 'z' || e.key === 'Z' || e.key === 'f' || e.key === 'F') {
+        loadFullResImage();
+      }
+      if (e.key === 'd' || e.key === 'D') {
+        downloadOriginalImage();
+      }
+      return;
+    }
+
+    // When in Wallpaper Studio
+    if (currentView === 'wallpaper') {
+      if (e.key === 'Escape') {
+        if (wallpaperSourcePopover && !wallpaperSourcePopover.classList.contains('hidden')) {
+          e.preventDefault();
+          wallpaperSourcePopover.classList.add('hidden');
+        }
+      }
+      return;
+    }
+
+    // Focus search shortcut with '/'
+    if (e.key === '/' && document.activeElement !== searchInput && document.activeElement !== dropdownSearchInput) {
       e.preventDefault();
-      nextImage();
-    }
-    if (e.key === 'c' || e.key === 'C') {
-      copyImageUrl();
-    }
-    if (e.key === 'z' || e.key === 'Z' || e.key === 'f' || e.key === 'F') {
-      loadFullResImage();
-    }
-    if (e.key === 'd' || e.key === 'D') {
-      downloadOriginalImage();
+      searchInput.focus();
     }
   });
 }

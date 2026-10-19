@@ -1434,6 +1434,745 @@ body {
 }
 
 /* ==========================================================================
+   Wallpaper Studio View & Generator
+   ========================================================================== */
+
+/* Nav Header Pill Button */
+.nav-pill-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  height: 30px;
+  padding: 0 0.75rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.nav-pill-btn:hover {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.nav-pill-btn.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+/* Wallpaper View Container */
+.wallpaper-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.wallpaper-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.wallpaper-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.wallpaper-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: var(--transition);
+}
+
+.action-btn:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-hover);
+}
+
+.action-btn.primary {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+.action-btn.primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.action-btn.shuffling .shuffle-icon {
+  animation: spin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-btn.rescattering .rescatter-icon {
+  animation: spin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Controls Strip */
+.wallpaper-controls-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+}
+
+.control-unit {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.control-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Source Movie Selector */
+.wallpaper-source-wrapper {
+  position: relative;
+}
+
+.source-picker-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: var(--transition);
+  max-width: 220px;
+  white-space: nowrap;
+}
+
+.source-picker-btn:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-hover);
+}
+
+.source-picker-btn.has-selection {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(245, 197, 24, 0.08);
+}
+
+.source-picker-btn .chevron-down {
+  opacity: 0.6;
+  transition: transform 0.2s ease;
+}
+
+.source-picker-btn.open .chevron-down {
+  transform: rotate(180deg);
+}
+
+.wallpaper-source-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 320px;
+  max-height: 420px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg), 0 0 24px rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.wallpaper-source-popover.hidden {
+  display: none;
+}
+
+.source-popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+
+.source-popover-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.source-popover-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.source-action-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.source-action-link:hover {
+  text-decoration: underline;
+}
+
+.source-search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.source-search-box input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.78rem;
+  width: 100%;
+  outline: none;
+}
+
+.source-search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.source-options-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 250px;
+  padding: 0.25rem 0;
+}
+
+.source-option-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  user-select: none;
+}
+
+.source-option-item:hover {
+  background: var(--bg-surface-hover);
+}
+
+.source-option-item.selected {
+  background: rgba(245, 197, 24, 0.1);
+}
+
+.source-checkbox {
+  accent-color: var(--accent);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.source-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--bg-surface);
+  flex-shrink: 0;
+}
+
+.source-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.source-name {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.source-meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.source-popover-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.85rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+
+#source-selected-count {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.source-apply-btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.source-apply-btn:hover {
+  background: var(--accent-hover);
+}
+
+/* Selected Source Titles Strip */
+.wallpaper-selected-sources {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background: rgba(245, 197, 24, 0.05);
+  border: 1px solid rgba(245, 197, 24, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.75rem;
+}
+
+.wallpaper-selected-sources.hidden {
+  display: none;
+}
+
+.selected-sources-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.selected-sources-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.source-tag {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 0.15rem 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.73rem;
+  color: var(--text-primary);
+}
+
+.source-tag-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.source-tag-remove {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.source-tag-remove:hover {
+  color: var(--accent);
+}
+
+.clear-sources-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0.15rem 0.35rem;
+}
+
+.clear-sources-btn:hover {
+  color: var(--accent);
+}
+
+/* Canvas Stage */
+.wallpaper-stage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wallpaper-canvas-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1360px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--border);
+  transition: box-shadow 0.3s ease;
+}
+
+.wallpaper-canvas-frame:fullscreen,
+.wallpaper-canvas-frame:-webkit-full-screen {
+  max-width: 100vw;
+  max-height: 100vh;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+#wallpaper-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Interactive Hover Highlight & Tooltip */
+.wallpaper-hover-rect {
+  position: absolute;
+  pointer-events: none;
+  border: 2px solid var(--accent);
+  box-shadow: inset 0 0 24px rgba(245, 197, 24, 0.22), 0 0 16px rgba(0, 0, 0, 0.7);
+  background: rgba(245, 197, 24, 0.06);
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 0.15s ease, left 0.1s ease-out, top 0.1s ease-out, width 0.1s ease-out, height 0.1s ease-out;
+}
+
+.wallpaper-hover-rect.visible {
+  opacity: 1;
+}
+
+/* Hover Swap Single Image Button */
+.hover-swap-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-100%, 0);
+  opacity: 0;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(14, 16, 24, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(245, 197, 24, 0.55);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  user-select: none;
+  z-index: 7;
+}
+
+.hover-swap-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hover-swap-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  transform: translate(-100%, 0) scale(1.05);
+}
+
+.hover-swap-btn:active {
+  transform: translate(-100%, 0) scale(0.96);
+}
+
+.hover-swap-btn.swapping {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.hover-swap-btn.swapping .swap-btn-icon {
+  animation: swap-spin 0.65s linear infinite;
+}
+
+@keyframes swap-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.wallpaper-hover-rect.swapping-flash {
+  animation: swap-rect-pulse 0.45s ease-out;
+}
+
+@keyframes swap-rect-pulse {
+  0% {
+    box-shadow: 0 0 0 3px var(--accent), inset 0 0 28px rgba(245, 197, 24, 0.4);
+  }
+  100% {
+    box-shadow: inset 0 0 24px rgba(245, 197, 24, 0.22), 0 0 16px rgba(0, 0, 0, 0.7);
+  }
+}
+
+.wallpaper-tooltip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 8;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  background: rgba(14, 16, 24, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(245, 197, 24, 0.45);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.9rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  max-width: 380px;
+  transform: translate(-50%, -125%) scale(0.94);
+  transform-origin: bottom center;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+  white-space: normal;
+}
+
+.wallpaper-tooltip.visible {
+  opacity: 1;
+  transform: translate(-50%, -125%) scale(1);
+}
+
+.wallpaper-tooltip.flip-bottom {
+  transform: translate(-50%, 25px) scale(0.94);
+  transform-origin: top center;
+}
+
+.wallpaper-tooltip.visible.flip-bottom {
+  transform: translate(-50%, 25px) scale(1);
+}
+
+.wallpaper-tooltip-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.wallpaper-tooltip-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  max-width: 320px;
+}
+
+.wallpaper-tooltip-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.wallpaper-tooltip-caption {
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+/* Loader Overlay */
+.wallpaper-loader {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 10, 15, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  z-index: 10;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.wallpaper-loader.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wallpaper-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(245, 197, 24, 0.2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Featured Movies Footer */
+.wallpaper-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.wallpaper-footer-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.footer-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.wallpaper-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.movie-chip {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.75rem 0.25rem 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.movie-chip-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-card);
+}
+
+.movie-chip:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
    Responsive Breakpoints
    ========================================================================== */
 
@@ -1503,6 +2242,10 @@ body {
     --strip-card-height: 118px;
     gap: 0.6rem;
   }
+
+  .wallpaper-controls-bar {
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 520px) {
@@ -1558,11 +2301,53 @@ body {
     flex: 0 0 95px;
   }
 
+  .wallpaper-controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .control-unit {
+    justify-content: space-between;
+  }
+
+  .control-unit .segmented-control {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .control-unit .seg-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.25rem 0.35rem;
+    font-size: 0.7rem;
+  }
+
+  .wallpaper-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .wallpaper-actions {
+    width: 100%;
+  }
+
+  .wallpaper-actions .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
   .actions-divider {
     display: none;
   }
 
   .lightbox-title-badge {
     display: none;
+  }
+
+  .wallpaper-source-popover {
+    width: 290px;
+    right: 0;
+    left: auto;
   }
 }

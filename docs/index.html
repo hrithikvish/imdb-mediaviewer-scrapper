@@ -71,6 +71,16 @@
           <button class="seg-btn" data-filter="high">≥ 1080p</button>
         </div>
 
+        <!-- Wallpaper Studio Nav Button -->
+        <button id="btn-nav-wallpaper" class="nav-pill-btn" type="button" title="Open Wallpaper Studio (1080p & 2K Random Collage)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="18" x="3" y="3" rx="2"/>
+            <circle cx="9" cy="9" r="2"/>
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+          </svg>
+          <span>Wallpaper</span>
+        </button>
+
         <div class="actions-divider"></div>
 
         <!-- External IMDb Link -->
@@ -134,6 +144,176 @@
       </div>
       <div class="gallery-grid" id="gallery-grid">
         <!-- Media Cards injected by app.js -->
+      </div>
+    </div>
+
+    <!-- View 3: Wallpaper Generator View -->
+    <div class="wallpaper-view hidden" id="wallpaper-view">
+      <div class="wallpaper-topbar">
+        <div class="wallpaper-title-group">
+          <button class="back-link-btn" id="wallpaper-back-btn" title="Back to All Titles">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            <span>All Titles</span>
+          </button>
+          <div class="active-movie-heading">
+            <h2>Wallpaper Studio</h2>
+            <span class="active-movie-count" id="wallpaper-subtitle">Random Cinema Collage</span>
+          </div>
+        </div>
+
+        <div class="wallpaper-actions">
+          <button class="action-btn primary" id="btn-wallpaper-shuffle" title="Generate New Random Wallpaper">
+            <svg class="shuffle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            <span>Shuffle New</span>
+          </button>
+          <button class="action-btn" id="btn-wallpaper-rescatter" title="Rescatter positions of current photos">
+            <svg class="rescatter-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 3 21 3 21 8"/>
+              <line x1="4" y1="20" x2="21" y2="3"/>
+              <polyline points="21 16 21 21 16 21"/>
+              <line x1="15" y1="15" x2="21" y2="21"/>
+              <line x1="4" y1="4" x2="9" y2="9"/>
+            </svg>
+            <span>Rescatter</span>
+          </button>
+          <button class="action-btn" id="btn-wallpaper-download" title="Download Master Quality Wallpaper">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span id="wallpaper-download-text">Download 1080p</span>
+          </button>
+          <button class="icon-btn" id="btn-wallpaper-fullscreen" title="Toggle Fullscreen Preview">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 3 21 3 21 9"/>
+              <polyline points="9 21 3 21 3 15"/>
+              <line x1="21" y1="3" x2="14" y2="10"/>
+              <line x1="3" y1="21" x2="10" y2="14"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Customization Controls Strip -->
+      <div class="wallpaper-controls-bar">
+        <div class="control-unit">
+          <span class="control-label">Resolution</span>
+          <div class="segmented-control" id="wallpaper-res-control" role="group" aria-label="Resolution">
+            <button class="seg-btn active" data-res="1080p" data-w="1920" data-h="1080">1080p</button>
+            <button class="seg-btn" data-res="2k" data-w="2560" data-h="1440">2K QHD</button>
+            <button class="seg-btn" data-res="4k" data-w="3840" data-h="2160">4K</button>
+          </div>
+        </div>
+
+        <div class="control-unit">
+          <span class="control-label">Layout</span>
+          <div class="segmented-control" id="wallpaper-layout-control" role="group" aria-label="Layout">
+            <button class="seg-btn active" data-layout="scattered">Scattered</button>
+            <button class="seg-btn" data-layout="staggered">Staggered</button>
+            <button class="seg-btn" data-layout="strips">Cinema Strips</button>
+          </div>
+        </div>
+
+        <div class="control-unit">
+          <span class="control-label">Borders</span>
+          <div class="segmented-control" id="wallpaper-gap-control" role="group" aria-label="Border Gap">
+            <button class="seg-btn" data-gap="0">Seamless</button>
+            <button class="seg-btn active" data-gap="6">Clean</button>
+            <button class="seg-btn" data-gap="14">Framed</button>
+          </div>
+        </div>
+
+        <div class="control-unit wallpaper-source-unit">
+          <span class="control-label">Source</span>
+          <div class="wallpaper-source-wrapper" id="wallpaper-source-wrapper">
+            <button type="button" class="source-picker-btn" id="btn-wallpaper-source" title="Filter wallpaper by movie title(s)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                <polyline points="10 2 10 10 13 7 16 10 16 2"/>
+              </svg>
+              <span id="wallpaper-source-btn-text">All Catalog (300+)</span>
+              <svg class="chevron-down" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+
+            <!-- Searchable Multi-Select Popover -->
+            <div class="wallpaper-source-popover hidden" id="wallpaper-source-popover">
+              <div class="source-popover-header">
+                <span class="source-popover-title">Select Source Movie(s)</span>
+                <div class="source-popover-actions">
+                  <button type="button" class="source-action-link" id="btn-source-all">All Catalog</button>
+                  <button type="button" class="source-action-link" id="btn-source-clear">Clear</button>
+                </div>
+              </div>
+              <div class="source-search-box">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.3-4.3"/>
+                </svg>
+                <input type="text" id="wallpaper-source-search" placeholder="Search 300+ movie titles..." autocomplete="off" spellcheck="false">
+              </div>
+              <div class="source-options-list" id="wallpaper-source-list">
+                <!-- Dynamically populated options -->
+              </div>
+              <div class="source-popover-footer">
+                <span id="source-selected-count">All catalog selected</span>
+                <button type="button" class="source-apply-btn" id="btn-source-apply">Apply & Generate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selected Source Titles Strip -->
+      <div class="wallpaper-selected-sources hidden" id="wallpaper-selected-sources">
+        <span class="selected-sources-label">Filtering From:</span>
+        <div class="selected-sources-tags" id="selected-sources-tags"></div>
+        <button type="button" class="clear-sources-btn" id="btn-clear-sources" title="Reset to all catalog movies">✕ Reset to All</button>
+      </div>
+
+      <!-- Canvas Stage Frame -->
+      <div class="wallpaper-stage">
+        <div class="wallpaper-canvas-frame" id="wallpaper-canvas-frame">
+          <canvas id="wallpaper-canvas" width="1920" height="1080"></canvas>
+          <div class="wallpaper-hover-rect" id="wallpaper-hover-rect"></div>
+          <button type="button" class="hover-swap-btn" id="hover-swap-btn" title="Swap with another random image">
+            <svg class="swap-btn-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+              <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+              <path d="M16 16h5v5"/>
+            </svg>
+            <span>Swap</span>
+          </button>
+          <div class="wallpaper-tooltip" id="wallpaper-tooltip">
+            <div class="wallpaper-tooltip-icon">🎬</div>
+            <div class="wallpaper-tooltip-body">
+              <span class="wallpaper-tooltip-title" id="wallpaper-tooltip-title">Movie Title</span>
+              <span class="wallpaper-tooltip-caption" id="wallpaper-tooltip-caption"></span>
+            </div>
+          </div>
+          <div class="wallpaper-loader" id="wallpaper-loader">
+            <div class="wallpaper-spinner"></div>
+            <span id="wallpaper-loader-status">Composing random movie stills...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Movies in Collage -->
+      <div class="wallpaper-footer">
+        <div class="wallpaper-footer-header">
+          <span class="footer-title">Movies Featured in this Collage</span>
+          <span class="footer-hint">Click any title to explore its full gallery</span>
+        </div>
+        <div class="wallpaper-chips" id="wallpaper-chips">
+          <!-- Populated dynamically with chips linking to movie galleries -->
+        </div>
       </div>
     </div>
   </main>
