@@ -202,11 +202,19 @@
       <!-- Customization Controls Strip -->
       <div class="wallpaper-controls-bar">
         <div class="control-unit">
+          <span class="control-label">Aspect</span>
+          <div class="segmented-control" id="wallpaper-aspect-control" role="group" aria-label="Aspect Ratio">
+            <button class="seg-btn active" data-aspect="16:9">16:9</button>
+            <button class="seg-btn" data-aspect="9:16">9:16</button>
+          </div>
+        </div>
+
+        <div class="control-unit">
           <span class="control-label">Resolution</span>
           <div class="segmented-control" id="wallpaper-res-control" role="group" aria-label="Resolution">
-            <button class="seg-btn active" data-res="1080p" data-w="1920" data-h="1080">1080p</button>
-            <button class="seg-btn" data-res="2k" data-w="2560" data-h="1440">2K QHD</button>
-            <button class="seg-btn" data-res="4k" data-w="3840" data-h="2160">4K</button>
+            <button class="seg-btn active" data-res="1080p">1080p</button>
+            <button class="seg-btn" data-res="2k">2K</button>
+            <button class="seg-btn" data-res="4k">4K</button>
           </div>
         </div>
 

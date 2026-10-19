@@ -54,6 +54,7 @@ const btnWallpaperRescatter = document.getElementById('btn-wallpaper-rescatter')
 const btnWallpaperDownload = document.getElementById('btn-wallpaper-download');
 const wallpaperDownloadText = document.getElementById('wallpaper-download-text');
 const btnWallpaperFullscreen = document.getElementById('btn-wallpaper-fullscreen');
+const wallpaperAspectControl = document.getElementById('wallpaper-aspect-control');
 const wallpaperResControl = document.getElementById('wallpaper-res-control');
 const wallpaperLayoutControl = document.getElementById('wallpaper-layout-control');
 const wallpaperGapControl = document.getElementById('wallpaper-gap-control');
@@ -95,9 +96,10 @@ function generateScatterVariations(count = 16) {
 }
 
 const wallpaperState = {
+  aspect: '16:9', // '16:9' or '9:16'
+  resName: '1080p',
   width: 1920,
   height: 1080,
-  resName: '1080p',
   layout: 'scattered',
   gap: 6,
   isLoading: false,
@@ -109,6 +111,26 @@ const wallpaperState = {
   currentHoverIndex: -1,
   scatterVariations: generateScatterVariations(16),
 };
+
+function getWallpaperDimensions(aspect, resName) {
+  const isPortrait = aspect === '9:16';
+  switch (resName) {
+    case '4k':
+      return isPortrait ? { w: 2160, h: 3840 } : { w: 3840, h: 2160 };
+    case '2k':
+      return isPortrait ? { w: 1440, h: 2560 } : { w: 2560, h: 1440 };
+    case '1080p':
+    default:
+      return isPortrait ? { w: 1080, h: 1920 } : { w: 1920, h: 1080 };
+  }
+}
+
+function updateDownloadButtonLabel() {
+  if (!wallpaperDownloadText) return;
+  const res = wallpaperState.resName.toUpperCase();
+  const asp = wallpaperState.aspect;
+  wallpaperDownloadText.textContent = `Download ${res} (${asp})`;
+}
 
 // Custom Searchable Dropdown Elements
 const customSelectWrapper = document.getElementById('custom-select-wrapper');
@@ -926,6 +948,21 @@ async function switchToWallpaperView(updateHistory = true) {
     counterLabelEl.textContent = 'photos';
   }
 
+  if (wallpaperCanvasFrame) {
+    wallpaperCanvasFrame.classList.toggle('portrait', wallpaperState.aspect === '9:16');
+  }
+  if (wallpaperAspectControl) {
+    wallpaperAspectControl.querySelectorAll('.seg-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.aspect === wallpaperState.aspect);
+    });
+  }
+  if (wallpaperResControl) {
+    wallpaperResControl.querySelectorAll('.seg-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.res === wallpaperState.resName);
+    });
+  }
+  updateDownloadButtonLabel();
+
   // If no wallpaper has been generated yet, generate one automatically
   if (wallpaperState.items.length === 0) {
     await generateWallpaper(true);
@@ -1307,43 +1344,66 @@ function nextImage() {
 // Wallpaper Studio: Random Cinema Collage Generator
 // ---------------------------------------------------------------------------
 
-function getRequiredSlotCount(layout) {
+function getRequiredSlotCount(layout, aspect = wallpaperState.aspect) {
+  if (aspect === '9:16') {
+    switch (layout) {
+      case 'scattered': return 12;
+      case 'staggered': return 8;
+      case 'strips': return 7;
+      default: return 12;
+    }
+  }
   switch (layout) {
     case 'scattered': return 16;
     case 'staggered': return 10;
     case 'strips': return 7;
-    default:
-      return 16;
+    default: return 16;
   }
 }
 
 function getWallpaperLayoutRects(layout, W, H, gap, items = []) {
   const rects = [];
   const g = Math.max(0, gap);
+  const isPortrait = H > W;
 
   if (layout === 'scattered') {
-    // Scattered / Overlapping Tabletop Layout (16 uncropped photos, organic tilts & shadows on dark backdrop)
-    // Covers the canvas comprehensively from edge to edge with minimal overlap (~5-12%)
-    const anchors = [
-      // Row 0 (Top tier - 4 photos)
+    // Organic Overlapping Tabletop Layout
+    const anchors = isPortrait ? [
+      // 9:16 Portrait Anchors (6 tiers x 2 columns = 12 organic overlapping stills)
+      { cx: 0.28, cy: 0.085, rot: -2.2 },
+      { cx: 0.72, cy: 0.088, rot:  1.8 },
+
+      { cx: 0.27, cy: 0.248, rot:  2.4 },
+      { cx: 0.73, cy: 0.252, rot: -2.0 },
+
+      { cx: 0.29, cy: 0.412, rot: -1.8 },
+      { cx: 0.71, cy: 0.416, rot:  2.5 },
+
+      { cx: 0.26, cy: 0.578, rot:  2.2 },
+      { cx: 0.74, cy: 0.582, rot: -2.4 },
+
+      { cx: 0.28, cy: 0.742, rot: -2.0 },
+      { cx: 0.72, cy: 0.746, rot:  2.1 },
+
+      { cx: 0.27, cy: 0.908, rot:  1.9 },
+      { cx: 0.73, cy: 0.912, rot: -2.2 },
+    ] : [
+      // 16:9 Landscape Anchors (4 tiers x 4 columns = 16 organic overlapping stills)
       { cx: 0.125, cy: 0.130, rot: -2.2 },
       { cx: 0.375, cy: 0.122, rot:  1.8 },
       { cx: 0.625, cy: 0.135, rot: -2.5 },
       { cx: 0.875, cy: 0.125, rot:  2.0 },
 
-      // Row 1 (Upper-middle tier - 4 photos)
       { cx: 0.135, cy: 0.380, rot:  2.6 },
       { cx: 0.380, cy: 0.372, rot: -1.8 },
       { cx: 0.620, cy: 0.385, rot:  2.2 },
       { cx: 0.865, cy: 0.375, rot: -2.8 },
 
-      // Row 2 (Lower-middle tier - 4 photos)
       { cx: 0.120, cy: 0.630, rot: -2.4 },
       { cx: 0.370, cy: 0.638, rot:  2.5 },
       { cx: 0.630, cy: 0.622, rot: -2.0 },
       { cx: 0.880, cy: 0.632, rot:  2.2 },
 
-      // Row 3 (Bottom tier - 4 photos)
       { cx: 0.130, cy: 0.880, rot:  2.0 },
       { cx: 0.380, cy: 0.872, rot: -2.6 },
       { cx: 0.620, cy: 0.885, rot:  2.4 },
@@ -1360,31 +1420,52 @@ function getWallpaperLayoutRects(layout, W, H, gap, items = []) {
       }
       ratio = Math.max(0.55, Math.min(2.8, ratio));
 
-      // Sizing preserves true master uncropped aspect ratio while covering cell bounds with minimal overlap
       let w, h;
-      if (ratio >= 1.7) {
-        // Widescreen cinema stills (1.7 to 2.4+)
-        w = Math.round(W * 0.285);
-        h = Math.round(w / ratio);
-        if (h < H * 0.235) {
-          h = Math.round(H * 0.235);
-          w = Math.round(h * ratio);
-        }
-      } else if (ratio >= 1.2) {
-        // Standard landscape (4:3, 3:2, 1.2 to 1.7)
-        h = Math.round(H * 0.288);
-        w = Math.round(h * ratio);
-        if (w < W * 0.26) {
-          w = Math.round(W * 0.26);
+      if (isPortrait) {
+        if (ratio >= 1.7) {
+          w = Math.round(W * 0.64);
           h = Math.round(w / ratio);
+          if (h < H * 0.175) {
+            h = Math.round(H * 0.175);
+            w = Math.round(h * ratio);
+          }
+        } else if (ratio >= 1.2) {
+          h = Math.round(H * 0.205);
+          w = Math.round(h * ratio);
+          if (w < W * 0.58) {
+            w = Math.round(W * 0.58);
+            h = Math.round(w / ratio);
+          }
+        } else {
+          h = Math.round(H * 0.23);
+          w = Math.round(h * ratio);
+          if (w < W * 0.46) {
+            w = Math.round(W * 0.46);
+            h = Math.round(w / ratio);
+          }
         }
       } else {
-        // Square or portrait stills/posters (< 1.2)
-        h = Math.round(H * 0.32);
-        w = Math.round(h * ratio);
-        if (w < W * 0.19) {
-          w = Math.round(W * 0.19);
+        if (ratio >= 1.7) {
+          w = Math.round(W * 0.285);
           h = Math.round(w / ratio);
+          if (h < H * 0.235) {
+            h = Math.round(H * 0.235);
+            w = Math.round(h * ratio);
+          }
+        } else if (ratio >= 1.2) {
+          h = Math.round(H * 0.288);
+          w = Math.round(h * ratio);
+          if (w < W * 0.26) {
+            w = Math.round(W * 0.26);
+            h = Math.round(w / ratio);
+          }
+        } else {
+          h = Math.round(H * 0.32);
+          w = Math.round(h * ratio);
+          if (w < W * 0.19) {
+            w = Math.round(W * 0.19);
+            h = Math.round(w / ratio);
+          }
         }
       }
 
@@ -1393,8 +1474,13 @@ function getWallpaperLayoutRects(layout, W, H, gap, items = []) {
         : { rot: anc.rot, dx: 0, dy: 0 };
 
       const rot = v.rot !== undefined ? v.rot : anc.rot;
-      const cx = Math.round(W * Math.max(0.08, Math.min(0.92, anc.cx + (v.dx || 0))));
-      const cy = Math.round(H * Math.max(0.08, Math.min(0.92, anc.cy + (v.dy || 0))));
+      const minX = isPortrait ? 0.12 : 0.08;
+      const maxX = isPortrait ? 0.88 : 0.92;
+      const minY = isPortrait ? 0.06 : 0.08;
+      const maxY = isPortrait ? 0.94 : 0.92;
+
+      const cx = Math.round(W * Math.max(minX, Math.min(maxX, anc.cx + (v.dx || 0))));
+      const cy = Math.round(H * Math.max(minY, Math.min(maxY, anc.cy + (v.dy || 0))));
 
       rects.push({
         x: cx - Math.round(w / 2),
@@ -1409,98 +1495,183 @@ function getWallpaperLayoutRects(layout, W, H, gap, items = []) {
       });
     });
   } else if (layout === 'staggered') {
-    // 2D Staggered Masonry: Neither heights nor widths are fixed!
-    // 4 vertical columns with alternating 2 and 3 items (10 stills total)
-    // Both column widths and item heights vary dynamically and are staggered across columns
-    const firstEntry = items[0];
-    let firstRatio = 1.5;
-    if (firstEntry && firstEntry.img && firstEntry.img.naturalWidth && firstEntry.img.naturalHeight) {
-      firstRatio = firstEntry.img.naturalWidth / firstEntry.img.naturalHeight;
-    } else if (firstEntry && firstEntry.item && firstEntry.item.width && firstEntry.item.height) {
-      firstRatio = Number(firstEntry.item.width) / Number(firstEntry.item.height);
-    }
+    if (isPortrait) {
+      // 9:16 Portrait: 2 vertical columns with 4 items each (8 items total)
+      const colCounts = [4, 4];
+      const widthRatios = [0.49, 0.51];
+      const availW = W - g * (colCounts.length + 1);
+      let curX = g;
+      let allocatedW = 0;
+      let itemIdx = 0;
 
-    const startWithTwo = firstRatio < 1.35;
-    const colCounts = startWithTwo ? [2, 3, 2, 3] : [3, 2, 3, 2];
-    const widthRatios = startWithTwo ? [0.22, 0.28, 0.23, 0.27] : [0.27, 0.23, 0.28, 0.22];
-
-    const availW = W - g * (colCounts.length + 1);
-    let curX = g;
-    let allocatedW = 0;
-    let itemIdx = 0;
-
-    colCounts.forEach((count, c) => {
-      let colW = Math.round(availW * widthRatios[c]);
-      if (c === colCounts.length - 1) {
-        colW = availW - allocatedW;
-      }
-
-      const availH = H - g * (count + 1);
-
-      // Collect inverse aspect ratios (height ~ 1 / ratio) for items in this column
-      const invRatios = [];
-      for (let i = 0; i < count; i++) {
-        const entry = items[itemIdx + i];
-        let ratio = 1.5;
-        if (entry && entry.img && entry.img.naturalWidth && entry.img.naturalHeight) {
-          ratio = entry.img.naturalWidth / entry.img.naturalHeight;
-        } else if (entry && entry.item && entry.item.width && entry.item.height) {
-          ratio = Number(entry.item.width) / Number(entry.item.height);
-        } else {
-          // Fallback staggered height variations
-          const fallbackPresets = (count === 2)
-            ? (c % 2 === 0 ? [1.3, 0.85] : [0.85, 1.3])
-            : [1.4, 1.0, 1.5];
-          ratio = fallbackPresets[i] || 1.4;
+      colCounts.forEach((count, c) => {
+        let colW = Math.round(availW * widthRatios[c]);
+        if (c === colCounts.length - 1) {
+          colW = availW - allocatedW;
         }
 
-        const clampedRatio = Math.min(2.8, Math.max(0.65, ratio));
-        invRatios.push(1 / clampedRatio);
+        const availH = H - g * (count + 1);
+        const invRatios = [];
+        for (let i = 0; i < count; i++) {
+          const entry = items[itemIdx + i];
+          let ratio = 1.5;
+          if (entry && entry.img && entry.img.naturalWidth && entry.img.naturalHeight) {
+            ratio = entry.img.naturalWidth / entry.img.naturalHeight;
+          } else if (entry && entry.item && entry.item.width && entry.item.height) {
+            ratio = Number(entry.item.width) / Number(entry.item.height);
+          } else {
+            const fallbackPresets = c === 0 ? [1.4, 1.1, 1.5, 1.2] : [1.2, 1.5, 1.1, 1.4];
+            ratio = fallbackPresets[i] || 1.3;
+          }
+          const clampedRatio = Math.min(2.8, Math.max(0.65, ratio));
+          invRatios.push(1 / clampedRatio);
+        }
+
+        const totalInv = invRatios.reduce((sum, v) => sum + v, 0);
+        let curY = g;
+        let allocatedH = 0;
+        for (let i = 0; i < count; i++) {
+          let h = Math.round(availH * (invRatios[i] / totalInv));
+          if (i === count - 1) {
+            h = availH - allocatedH;
+          }
+          rects.push({ x: curX, y: curY, w: colW, h });
+          curY += h + g;
+          allocatedH += h;
+          itemIdx++;
+        }
+
+        curX += colW + g;
+        allocatedW += colW;
+      });
+    } else {
+      // 16:9 Landscape: 4 vertical columns with alternating 2 and 3 items (10 items total)
+      const firstEntry = items[0];
+      let firstRatio = 1.5;
+      if (firstEntry && firstEntry.img && firstEntry.img.naturalWidth && firstEntry.img.naturalHeight) {
+        firstRatio = firstEntry.img.naturalWidth / firstEntry.img.naturalHeight;
+      } else if (firstEntry && firstEntry.item && firstEntry.item.width && firstEntry.item.height) {
+        firstRatio = Number(firstEntry.item.width) / Number(firstEntry.item.height);
       }
 
-      const totalInv = invRatios.reduce((sum, v) => sum + v, 0);
+      const startWithTwo = firstRatio < 1.35;
+      const colCounts = startWithTwo ? [2, 3, 2, 3] : [3, 2, 3, 2];
+      const widthRatios = startWithTwo ? [0.22, 0.28, 0.23, 0.27] : [0.27, 0.23, 0.28, 0.22];
+
+      const availW = W - g * (colCounts.length + 1);
+      let curX = g;
+      let allocatedW = 0;
+      let itemIdx = 0;
+
+      colCounts.forEach((count, c) => {
+        let colW = Math.round(availW * widthRatios[c]);
+        if (c === colCounts.length - 1) {
+          colW = availW - allocatedW;
+        }
+
+        const availH = H - g * (count + 1);
+
+        const invRatios = [];
+        for (let i = 0; i < count; i++) {
+          const entry = items[itemIdx + i];
+          let ratio = 1.5;
+          if (entry && entry.img && entry.img.naturalWidth && entry.img.naturalHeight) {
+            ratio = entry.img.naturalWidth / entry.img.naturalHeight;
+          } else if (entry && entry.item && entry.item.width && entry.item.height) {
+            ratio = Number(entry.item.width) / Number(entry.item.height);
+          } else {
+            const fallbackPresets = (count === 2)
+              ? (c % 2 === 0 ? [1.3, 0.85] : [0.85, 1.3])
+              : [1.4, 1.0, 1.5];
+            ratio = fallbackPresets[i] || 1.4;
+          }
+
+          const clampedRatio = Math.min(2.8, Math.max(0.65, ratio));
+          invRatios.push(1 / clampedRatio);
+        }
+
+        const totalInv = invRatios.reduce((sum, v) => sum + v, 0);
+
+        let curY = g;
+        let allocatedH = 0;
+        for (let i = 0; i < count; i++) {
+          let h = Math.round(availH * (invRatios[i] / totalInv));
+          if (i === count - 1) {
+            h = availH - allocatedH;
+          }
+
+          rects.push({ x: curX, y: curY, w: colW, h });
+          curY += h + g;
+          allocatedH += h;
+          itemIdx++;
+        }
+
+        curX += colW + g;
+        allocatedW += colW;
+      });
+    }
+  } else {
+    // 'strips'
+    if (isPortrait) {
+      // 9:16 Portrait Cinema Strips (7 items in 5 tiers: 1, 2, 1, 2, 1)
+      const availH = H - g * 6;
+      const weightSingle = 1.25;
+      const weightDouble = 1.0;
+      const totalWeight = weightSingle * 3 + weightDouble * 2;
+      const hSingle = Math.round(availH * (weightSingle / totalWeight));
+      const hDouble = Math.round(availH * (weightDouble / totalWeight));
+
+      const wFull = W - g * 2;
+      const wHalf = Math.floor((W - g * 3) / 2);
 
       let curY = g;
-      let allocatedH = 0;
-      for (let i = 0; i < count; i++) {
-        let h = Math.round(availH * (invRatios[i] / totalInv));
-        if (i === count - 1) {
-          h = availH - allocatedH;
-        }
 
-        rects.push({ x: curX, y: curY, w: colW, h });
-        curY += h + g;
-        allocatedH += h;
-        itemIdx++;
-      }
+      // Tier 0 (1 item)
+      rects.push({ x: g, y: curY, w: wFull, h: hSingle });
+      curY += hSingle + g;
 
-      curX += colW + g;
-      allocatedW += colW;
-    });
-  } else {
-    // 'strips' (Cinema Strips - 7 items, 3 horizontal cinematic rows)
-    const rowH = Math.floor((H - g * 4) / 3);
+      // Tier 1 (2 items)
+      rects.push({ x: g, y: curY, w: wHalf, h: hDouble });
+      rects.push({ x: g + wHalf + g, y: curY, w: W - g - (g + wHalf + g), h: hDouble });
+      curY += hDouble + g;
 
-    // Row 0 (top 2)
-    const y0 = g;
-    const h0 = rowH;
-    const w0 = Math.floor((W - g * 3) / 2);
-    rects.push({ x: g, y: y0, w: w0, h: h0 });
-    rects.push({ x: g + w0 + g, y: y0, w: W - g - (g + w0 + g), h: h0 });
+      // Tier 2 (1 item)
+      rects.push({ x: g, y: curY, w: wFull, h: hSingle });
+      curY += hSingle + g;
 
-    // Row 1 (mid 3)
-    const y1 = g + rowH + g;
-    const h1 = rowH;
-    const w1 = Math.floor((W - g * 4) / 3);
-    rects.push({ x: g, y: y1, w: w1, h: h1 });
-    rects.push({ x: g + w1 + g, y: y1, w: w1, h: h1 });
-    rects.push({ x: g + (w1 + g) * 2, y: y1, w: W - g - (g + (w1 + g) * 2), h: h1 });
+      // Tier 3 (2 items)
+      rects.push({ x: g, y: curY, w: wHalf, h: hDouble });
+      rects.push({ x: g + wHalf + g, y: curY, w: W - g - (g + wHalf + g), h: hDouble });
+      curY += hDouble + g;
 
-    // Row 2 (bot 2)
-    const y2 = y1 + rowH + g;
-    const h2 = H - g - y2;
-    rects.push({ x: g, y: y2, w: w0, h: h2 });
-    rects.push({ x: g + w0 + g, y: y2, w: W - g - (g + w0 + g), h: h2 });
+      // Tier 4 (1 item - remaining height)
+      const hLast = H - g - curY;
+      rects.push({ x: g, y: curY, w: wFull, h: hLast });
+    } else {
+      // 16:9 Landscape (7 items, 3 horizontal cinematic rows: 2, 3, 2)
+      const rowH = Math.floor((H - g * 4) / 3);
+
+      // Row 0 (top 2)
+      const y0 = g;
+      const h0 = rowH;
+      const w0 = Math.floor((W - g * 3) / 2);
+      rects.push({ x: g, y: y0, w: w0, h: h0 });
+      rects.push({ x: g + w0 + g, y: y0, w: W - g - (g + w0 + g), h: h0 });
+
+      // Row 1 (mid 3)
+      const y1 = g + rowH + g;
+      const h1 = rowH;
+      const w1 = Math.floor((W - g * 4) / 3);
+      rects.push({ x: g, y: y1, w: w1, h: h1 });
+      rects.push({ x: g + w1 + g, y: y1, w: w1, h: h1 });
+      rects.push({ x: g + (w1 + g) * 2, y: y1, w: W - g - (g + (w1 + g) * 2), h: h1 });
+
+      // Row 2 (bot 2)
+      const y2 = y1 + rowH + g;
+      const h2 = H - g - y2;
+      rects.push({ x: g, y: y2, w: w0, h: h2 });
+      rects.push({ x: g + w0 + g, y: y2, w: W - g - (g + w0 + g), h: h2 });
+    }
   }
 
   return rects;
@@ -1548,7 +1719,7 @@ function drawWallpaperScene(rects, lift = 0) {
   ctx.fillRect(0, 0, W, H);
 
   // Scaled gap based on 1080p reference
-  const scale = W / 1920;
+  const scale = Math.min(W, H) / 1080;
   const scaledGap = Math.round(wallpaperState.gap * scale);
   const items = wallpaperState.items;
 
@@ -1560,7 +1731,7 @@ function drawWallpaperScene(rects, lift = 0) {
         ctx.translate(rect.cx, rect.cy);
         ctx.rotate((rect.rot * Math.PI) / 180);
 
-        const shadowScale = W / 1920;
+        const shadowScale = Math.min(W, H) / 1080;
         const liftScale = 1 + lift * 0.035;
         const curW = rect.w * liftScale;
         const curH = rect.h * liftScale;
@@ -1609,7 +1780,7 @@ function renderWallpaperCanvas() {
 
   const W = wallpaperState.width;
   const H = wallpaperState.height;
-  const scale = W / 1920;
+  const scale = Math.min(W, H) / 1080;
   const scaledGap = Math.round(wallpaperState.gap * scale);
   const items = wallpaperState.items;
   const rects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, items);
@@ -1670,14 +1841,16 @@ function renderWallpaperChips() {
   wallpaperChips.appendChild(fragment);
 
   if (wallpaperSubtitle) {
+    const asp = wallpaperState.aspect;
+    const res = wallpaperState.resName.toUpperCase();
     if (wallpaperState.selectedTitleIds && wallpaperState.selectedTitleIds.length === 1) {
       const meta = titlesRegistry.find(t => t.id === wallpaperState.selectedTitleIds[0]);
       const titleName = meta ? (meta.name || meta.id) : 'Selected Title';
-      wallpaperSubtitle.textContent = `${activeCount} stills from "${titleName}" (${wallpaperState.resName.toUpperCase()})`;
+      wallpaperSubtitle.textContent = `${activeCount} stills from "${titleName}" (${res} • ${asp})`;
     } else if (wallpaperState.selectedTitleIds && wallpaperState.selectedTitleIds.length > 1) {
-      wallpaperSubtitle.textContent = `${activeCount} stills from ${wallpaperState.selectedTitleIds.length} selected titles (${wallpaperState.resName.toUpperCase()})`;
+      wallpaperSubtitle.textContent = `${activeCount} stills from ${wallpaperState.selectedTitleIds.length} selected titles (${res} • ${asp})`;
     } else {
-      wallpaperSubtitle.textContent = `${activeCount} stills from ${movieMap.size} titles (${wallpaperState.resName.toUpperCase()})`;
+      wallpaperSubtitle.textContent = `${activeCount} stills from ${movieMap.size} titles (${res} • ${asp})`;
     }
   }
 }
@@ -1844,7 +2017,7 @@ async function generateWallpaper(forceNew = true) {
       wallpaperLoaderStatus.textContent = `Loading high-resolution images...`;
     }
 
-    const previewDim = Math.max(1200, Math.round(wallpaperState.width * 0.6));
+    const previewDim = Math.max(1200, Math.round(Math.max(wallpaperState.width, wallpaperState.height) * 0.6));
 
     const loadedEntries = await Promise.all(
       fetchedItems.map(async (entry) => {
@@ -1918,7 +2091,7 @@ function rescatterWallpaper() {
   // 4. Calculate target rects for the new arrangement
   const W = wallpaperState.width;
   const H = wallpaperState.height;
-  const scale = W / 1920;
+  const scale = Math.min(W, H) / 1080;
   const scaledGap = Math.round(wallpaperState.gap * scale);
   const targetRects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, wallpaperState.items);
 
@@ -1994,7 +2167,8 @@ function downloadWallpaper() {
     drawWallpaperScene(wallpaperState.renderedRects, 0);
   }
   const resLabel = wallpaperState.resName.toUpperCase();
-  const filename = `IMDb_Wallpaper_${resLabel}_${Date.now()}.jpg`;
+  const aspectSlug = wallpaperState.aspect === '9:16' ? 'Portrait_9x16' : 'Landscape_16x9';
+  const filename = `IMDb_Wallpaper_${aspectSlug}_${resLabel}_${Date.now()}.jpg`;
 
   wallpaperCanvas.toBlob((blob) => {
     if (!blob) {
@@ -2131,7 +2305,7 @@ function updateHoverRectForIndex(index) {
       cornerTR_Y = r.y;
     }
 
-    const scale = W / 1920;
+    const scale = Math.min(W, H) / 1080;
     const inset = 14 * scale;
     const btnW = 86 * scale;
     const btnH = 34 * scale;
@@ -2335,7 +2509,7 @@ async function swapSingleWallpaperItem(index) {
     }
 
     // Preload replacement image preview
-    const previewDim = Math.max(1200, Math.round(wallpaperState.width * 0.6));
+    const previewDim = Math.max(1200, Math.round(Math.max(wallpaperState.width, wallpaperState.height) * 0.6));
     const targetUrl = getPreviewImageUrl(chosenItem.url, chosenItem.width, chosenItem.height, previewDim);
     const newImg = await preloadImage(targetUrl);
 
@@ -2354,7 +2528,7 @@ async function swapSingleWallpaperItem(index) {
     // Recalculate layout rects with updated aspect ratio
     const W = wallpaperState.width;
     const H = wallpaperState.height;
-    const scale = W / 1920;
+    const scale = Math.min(W, H) / 1080;
     const scaledGap = Math.round(wallpaperState.gap * scale);
     const rects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, wallpaperState.items);
     wallpaperState.renderedRects = rects;
@@ -2712,18 +2886,49 @@ function setupEventListeners() {
     });
   }
 
+  // Wallpaper Aspect Ratio Buttons (16:9 Landscape vs 9:16 Portrait)
+  if (wallpaperAspectControl) {
+    wallpaperAspectControl.querySelectorAll('.seg-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const newAspect = btn.dataset.aspect;
+        if (wallpaperState.aspect === newAspect) return;
+
+        wallpaperAspectControl.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        wallpaperState.aspect = newAspect;
+        const dims = getWallpaperDimensions(newAspect, wallpaperState.resName);
+        wallpaperState.width = dims.w;
+        wallpaperState.height = dims.h;
+
+        if (wallpaperCanvasFrame) {
+          wallpaperCanvasFrame.classList.toggle('portrait', newAspect === '9:16');
+        }
+
+        updateDownloadButtonLabel();
+
+        const needed = getRequiredSlotCount(wallpaperState.layout, newAspect);
+        if (wallpaperState.items.length < needed) {
+          await generateWallpaper(false);
+        } else {
+          renderWallpaperCanvas();
+        }
+      });
+    });
+  }
+
   // Wallpaper Resolution Buttons
   if (wallpaperResControl) {
     wallpaperResControl.querySelectorAll('.seg-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         wallpaperResControl.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        wallpaperState.width = parseInt(btn.dataset.w, 10);
-        wallpaperState.height = parseInt(btn.dataset.h, 10);
-        wallpaperState.resName = btn.dataset.res;
-        if (wallpaperDownloadText) {
-          wallpaperDownloadText.textContent = `Download ${btn.textContent.trim()}`;
-        }
+        const resName = btn.dataset.res;
+        wallpaperState.resName = resName;
+        const dims = getWallpaperDimensions(wallpaperState.aspect, resName);
+        wallpaperState.width = dims.w;
+        wallpaperState.height = dims.h;
+        updateDownloadButtonLabel();
         renderWallpaperCanvas();
       });
     });
