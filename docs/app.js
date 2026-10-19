@@ -113,15 +113,28 @@ const wallpaperState = {
 };
 
 function getWallpaperDimensions(aspect, resName) {
-  const isPortrait = aspect === '9:16';
-  switch (resName) {
-    case '4k':
-      return isPortrait ? { w: 2160, h: 3840 } : { w: 3840, h: 2160 };
-    case '2k':
-      return isPortrait ? { w: 1440, h: 2560 } : { w: 2560, h: 1440 };
-    case '1080p':
-    default:
-      return isPortrait ? { w: 1080, h: 1920 } : { w: 1920, h: 1080 };
+  if (aspect === '9:16') {
+    switch (resName) {
+      case '4k': return { w: 2160, h: 3840 };
+      case '2k': return { w: 1440, h: 2560 };
+      case '1080p':
+      default: return { w: 1080, h: 1920 };
+    }
+  } else if (aspect === '16:10') {
+    switch (resName) {
+      case '4k': return { w: 3840, h: 2400 };
+      case '2k': return { w: 2560, h: 1600 };
+      case '1080p':
+      default: return { w: 1920, h: 1200 };
+    }
+  } else {
+    // 16:9
+    switch (resName) {
+      case '4k': return { w: 3840, h: 2160 };
+      case '2k': return { w: 2560, h: 1440 };
+      case '1080p':
+      default: return { w: 1920, h: 1080 };
+    }
   }
 }
 
@@ -950,6 +963,7 @@ async function switchToWallpaperView(updateHistory = true) {
 
   if (wallpaperCanvasFrame) {
     wallpaperCanvasFrame.classList.toggle('portrait', wallpaperState.aspect === '9:16');
+    wallpaperCanvasFrame.classList.toggle('ratio-16-10', wallpaperState.aspect === '16:10');
   }
   if (wallpaperAspectControl) {
     wallpaperAspectControl.querySelectorAll('.seg-btn').forEach(btn => {
@@ -2167,7 +2181,12 @@ function downloadWallpaper() {
     drawWallpaperScene(wallpaperState.renderedRects, 0);
   }
   const resLabel = wallpaperState.resName.toUpperCase();
-  const aspectSlug = wallpaperState.aspect === '9:16' ? 'Portrait_9x16' : 'Landscape_16x9';
+  let aspectSlug = 'Landscape_16x9';
+  if (wallpaperState.aspect === '9:16') {
+    aspectSlug = 'Portrait_9x16';
+  } else if (wallpaperState.aspect === '16:10') {
+    aspectSlug = 'Landscape_16x10';
+  }
   const filename = `IMDb_Wallpaper_${aspectSlug}_${resLabel}_${Date.now()}.jpg`;
 
   wallpaperCanvas.toBlob((blob) => {
@@ -2903,6 +2922,7 @@ function setupEventListeners() {
 
         if (wallpaperCanvasFrame) {
           wallpaperCanvasFrame.classList.toggle('portrait', newAspect === '9:16');
+          wallpaperCanvasFrame.classList.toggle('ratio-16-10', newAspect === '16:10');
         }
 
         updateDownloadButtonLabel();

@@ -1888,6 +1888,11 @@ body {
   transition: box-shadow 0.3s ease, max-width 0.35s cubic-bezier(0.2, 0, 0, 1), aspect-ratio 0.35s cubic-bezier(0.2, 0, 0, 1);
 }
 
+.wallpaper-canvas-frame.ratio-16-10 {
+  max-width: min(1360px, calc(78vh * 16 / 10));
+  aspect-ratio: 16 / 10;
+}
+
 .wallpaper-canvas-frame.portrait {
   max-width: min(440px, calc(78vh * 9 / 16));
   aspect-ratio: 9 / 16;
@@ -2312,6 +2317,7 @@ body {
     gap: 0.75rem;
   }
 
+  .wallpaper-canvas-frame.ratio-16-10,
   .wallpaper-canvas-frame.portrait {
     max-width: 100%;
   }
