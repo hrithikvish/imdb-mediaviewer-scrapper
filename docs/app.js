@@ -237,7 +237,7 @@ function polaroidInnerSize(r, outerW, outerH) {
 let scatterPlacementCache = null;
 
 const wallpaperState = {
-  aspect: '16:9', // '16:9', '16:10', '9:16' or '9:20'
+  aspect: '16:9', // '16:9', '16:10', '1:1', '9:16' or '9:20'
   resName: '1080p',
   width: 1920,
   height: 1080,
@@ -276,6 +276,13 @@ function getWallpaperDimensions(aspect, resName) {
       case '2k': return { w: 1440, h: 2560 };
       case '1080p':
       default: return { w: 1080, h: 1920 };
+    }
+  } else if (aspect === '1:1') {
+    switch (resName) {
+      case '4k': return { w: 2160, h: 2160 };
+      case '2k': return { w: 1440, h: 1440 };
+      case '1080p':
+      default: return { w: 1080, h: 1080 };
     }
   } else if (aspect === '16:10') {
     switch (resName) {
@@ -2444,6 +2451,8 @@ function downloadWallpaper() {
     aspectSlug = 'Portrait_9x20';
   } else if (wallpaperState.aspect === '16:10') {
     aspectSlug = 'Landscape_16x10';
+  } else if (wallpaperState.aspect === '1:1') {
+    aspectSlug = 'Square_1x1';
   }
   const filename = `IMDb_Wallpaper_${aspectSlug}_${resLabel}_${Date.now()}.jpg`;
 
@@ -3386,6 +3395,7 @@ function syncWallpaperControls() {
   if (wallpaperCanvasFrame) {
     wallpaperCanvasFrame.classList.toggle('portrait', isPortraitAspect(s.aspect));
     wallpaperCanvasFrame.classList.toggle('ratio-16-10', s.aspect === '16:10');
+    wallpaperCanvasFrame.classList.toggle('ratio-1-1', s.aspect === '1:1');
     wallpaperCanvasFrame.classList.toggle('ratio-9-20', s.aspect === '9:20');
   }
   updateDownloadButtonLabel();
@@ -3434,7 +3444,7 @@ async function restoreSharedWallpaper(params) {
   const s = wallpaperState;
   const pick = (v, list, fallback) => (list.includes(v) ? v : fallback);
   s.layout = pick(params.get('layout'), WALLPAPER_LAYOUTS, 'scattered');
-  s.aspect = pick(params.get('aspect'), ['16:9', '16:10', '9:16', '9:20'], '16:9');
+  s.aspect = pick(params.get('aspect'), ['16:9', '16:10', '1:1', '9:16', '9:20'], '16:9');
   s.resName = pick(params.get('res'), ['1080p', '2k', '4k'], '1080p');
   const border = params.get('border');
   s.frame = border === 'polaroid' ? 'polaroid' : null;
@@ -3933,6 +3943,7 @@ function setupEventListeners() {
         if (wallpaperCanvasFrame) {
           wallpaperCanvasFrame.classList.toggle('portrait', isPortraitAspect(newAspect));
           wallpaperCanvasFrame.classList.toggle('ratio-16-10', newAspect === '16:10');
+          wallpaperCanvasFrame.classList.toggle('ratio-1-1', newAspect === '1:1');
           wallpaperCanvasFrame.classList.toggle('ratio-9-20', newAspect === '9:20');
         }
 

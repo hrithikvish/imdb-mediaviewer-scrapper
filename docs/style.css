@@ -1987,6 +1987,11 @@ body {
   aspect-ratio: 16 / 10;
 }
 
+.wallpaper-canvas-frame.ratio-1-1 {
+  max-width: min(760px, 78vh);
+  aspect-ratio: 1 / 1;
+}
+
 .wallpaper-canvas-frame.portrait {
   max-width: min(440px, calc(78vh * 9 / 16));
   aspect-ratio: 9 / 16;
@@ -2410,6 +2415,7 @@ body {
   }
 
   .wallpaper-canvas-frame.ratio-16-10,
+  .wallpaper-canvas-frame.ratio-1-1,
   .wallpaper-canvas-frame.portrait {
     max-width: 100%;
   }
