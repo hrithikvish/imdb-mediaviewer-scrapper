@@ -3424,7 +3424,29 @@ function wallpaperShareUrl() {
   p.set('seed', String(layoutSeed()));
   const count = Math.min(s.items.length, s.renderedRects.length || s.items.length);
   p.set('p', s.items.slice(0, count).map(e => `${e.titleMeta.id}~${photoKey(e.item.url)}`).join('.'));
+  if (s.selectedTitleIds.length) p.set('t', s.selectedTitleIds.join('.'));
+  // Single swaps keep the old placement, so the seed alone can't rebuild it: send the placement itself
+  const c = scatterPlacementCache;
+  if (s.layout === 'scattered' && c && c.vars === s.scatterVariations && c.placement.length === count) {
+    p.set('sp', c.placement.map(encodePlacement).join(''));
+  }
   return url.toString();
+}
+
+// Base36 fixed width per photo: center x, y (2 chars each) and area (3 chars), all normalized to the canvas
+const PLACEMENT_CHARS = 7;
+function encodePlacement(pl) {
+  const q = (v, n) => Math.round(Math.max(0, Math.min(1, v)) * (36 ** n - 1)).toString(36).padStart(n, '0');
+  return q(pl.nx, 2) + q(pl.ny, 2) + q(pl.area, 3);
+}
+
+function decodePlacement(str) {
+  const out = [];
+  for (let i = 0; i + PLACEMENT_CHARS <= str.length; i += PLACEMENT_CHARS) {
+    const d = (a, n) => parseInt(str.slice(i + a, i + a + n), 36) / (36 ** n - 1);
+    out.push({ nx: d(0, 2), ny: d(2, 2), area: d(4, 3) });
+  }
+  return out.every(pl => Number.isFinite(pl.nx + pl.ny + pl.area)) ? out : [];
 }
 
 async function copyWallpaperLink() {
@@ -3457,6 +3479,9 @@ async function restoreSharedWallpaper(params) {
   const seed = Number(params.get('seed'));
   s.scatterVariations = generateScatterVariations(Number.isInteger(seed) && seed >= 0 ? seed : undefined);
   const refs = (params.get('p') || '').split('.').filter(Boolean).map(ref => ref.split('~'));
+  s.selectedTitleIds = (params.get('t') || '').split('.').filter(id => titlesRegistry.some(t => t.id === id));
+  updateWallpaperSourceUI();
+  const placement = decodePlacement(params.get('sp') || '');
 
   // Show the studio with its loader; isLoading keeps the view switch from generating a random collage
   s.isLoading = true;
@@ -3473,6 +3498,16 @@ async function restoreSharedWallpaper(params) {
     return img ? { titleMeta: meta, item, img } : null;
   }));
   s.items = entries.filter(Boolean);
+  // Missing photos would shift every slot after them: fall back to recomputing from the seed
+  if (s.layout === 'scattered' && placement.length === refs.length && s.items.length === refs.length) {
+    scatterPlacementCache = {
+      vars: s.scatterVariations,
+      aspectKey: (s.width / s.height).toFixed(3),
+      isPolaroid: s.frame === 'polaroid',
+      settingsKey: JSON.stringify(s.scatter),
+      placement,
+    };
+  }
   if (wallpaperLoader) wallpaperLoader.classList.remove('active');
   s.isLoading = false;
   if (s.items.length) renderWallpaperCanvas();
