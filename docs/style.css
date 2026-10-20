@@ -1992,6 +1992,12 @@ body {
   aspect-ratio: 9 / 16;
 }
 
+/* 9:20 modern phones: extra class beats the mobile `.portrait { max-width: 100% }` so the tall frame still fits the viewport height */
+.wallpaper-canvas-frame.portrait.ratio-9-20 {
+  max-width: min(400px, calc(78vh * 9 / 20));
+  aspect-ratio: 9 / 20;
+}
+
 .wallpaper-canvas-frame:fullscreen,
 .wallpaper-canvas-frame:-webkit-full-screen {
   max-width: 100vw;

@@ -225,7 +225,7 @@ function polaroidInnerSize(r, outerW, outerH) {
 let scatterPlacementCache = null;
 
 const wallpaperState = {
-  aspect: '16:9', // '16:9' or '9:16'
+  aspect: '16:9', // '16:9', '16:10', '9:16' or '9:20'
   resName: '1080p',
   width: 1920,
   height: 1080,
@@ -243,8 +243,20 @@ const wallpaperState = {
   scatter: loadScatterSettings(),
 };
 
+// Tall phone screens (9:16 classic, 9:20 modern FHD+/QHD+) share the portrait layouts
+function isPortraitAspect(aspect) {
+  return aspect === '9:16' || aspect === '9:20';
+}
+
 function getWallpaperDimensions(aspect, resName) {
-  if (aspect === '9:16') {
+  if (aspect === '9:20') {
+    switch (resName) {
+      case '4k': return { w: 2160, h: 4800 };
+      case '2k': return { w: 1440, h: 3200 };
+      case '1080p':
+      default: return { w: 1080, h: 2400 };
+    }
+  } else if (aspect === '9:16') {
     switch (resName) {
       case '4k': return { w: 2160, h: 3840 };
       case '2k': return { w: 1440, h: 2560 };
@@ -1101,8 +1113,9 @@ async function switchToWallpaperView(updateHistory = true) {
   }
 
   if (wallpaperCanvasFrame) {
-    wallpaperCanvasFrame.classList.toggle('portrait', wallpaperState.aspect === '9:16');
+    wallpaperCanvasFrame.classList.toggle('portrait', isPortraitAspect(wallpaperState.aspect));
     wallpaperCanvasFrame.classList.toggle('ratio-16-10', wallpaperState.aspect === '16:10');
+    wallpaperCanvasFrame.classList.toggle('ratio-9-20', wallpaperState.aspect === '9:20');
   }
   if (wallpaperAspectControl) {
     wallpaperAspectControl.querySelectorAll('.seg-btn').forEach(btn => {
@@ -1498,7 +1511,7 @@ function nextImage() {
 // ---------------------------------------------------------------------------
 
 function getRequiredSlotCount(layout, aspect = wallpaperState.aspect) {
-  if (aspect === '9:16') {
+  if (isPortraitAspect(aspect)) {
     switch (layout) {
       case 'scattered': return wallpaperState.scatter.count || 20;
       case 'staggered': return 8;
@@ -2323,6 +2336,8 @@ function downloadWallpaper() {
   let aspectSlug = 'Landscape_16x9';
   if (wallpaperState.aspect === '9:16') {
     aspectSlug = 'Portrait_9x16';
+  } else if (wallpaperState.aspect === '9:20') {
+    aspectSlug = 'Portrait_9x20';
   } else if (wallpaperState.aspect === '16:10') {
     aspectSlug = 'Landscape_16x10';
   }
@@ -3060,8 +3075,9 @@ function setupEventListeners() {
         wallpaperState.height = dims.h;
 
         if (wallpaperCanvasFrame) {
-          wallpaperCanvasFrame.classList.toggle('portrait', newAspect === '9:16');
+          wallpaperCanvasFrame.classList.toggle('portrait', isPortraitAspect(newAspect));
           wallpaperCanvasFrame.classList.toggle('ratio-16-10', newAspect === '16:10');
+          wallpaperCanvasFrame.classList.toggle('ratio-9-20', newAspect === '9:20');
         }
 
         updateDownloadButtonLabel();
