@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -234,6 +234,7 @@
             <button class="seg-btn" data-gap="0">Seamless</button>
             <button class="seg-btn active" data-gap="6">Clean</button>
             <button class="seg-btn" data-gap="14">Framed</button>
+            <button class="seg-btn" data-gap="14" data-frame="polaroid">Polaroid</button>
           </div>
         </div>
 
@@ -278,6 +279,41 @@
           </div>
         </div>
       </div>
+
+      <!-- Advanced Scattered Layout Settings -->
+      <details class="wallpaper-advanced" id="wallpaper-advanced" hidden>
+        <summary>
+          <span class="control-label">Advanced</span>
+          <span class="advanced-hint">Scattered layout tuning</span>
+        </summary>
+        <div class="advanced-grid" id="wallpaper-advanced-grid">
+          <label class="advanced-field">
+            <span class="advanced-name">Photos <output data-for="count"></output></span>
+            <input type="range" data-setting="count" min="8" max="40" step="1">
+          </label>
+          <label class="advanced-field">
+            <span class="advanced-name">Size variety <output data-for="sizeVariety"></output></span>
+            <input type="range" data-setting="sizeVariety" min="0" max="45" step="1">
+          </label>
+          <label class="advanced-field">
+            <span class="advanced-name">Coverage <output data-for="coverage"></output></span>
+            <input type="range" data-setting="coverage" min="70" max="200" step="5">
+          </label>
+          <label class="advanced-field">
+            <span class="advanced-name">Overlap avoidance <output data-for="overlap"></output></span>
+            <input type="range" data-setting="overlap" min="0" max="300" step="10">
+          </label>
+          <label class="advanced-field">
+            <span class="advanced-name">Tilt <output data-for="tilt"></output></span>
+            <input type="range" data-setting="tilt" min="0" max="20" step="1">
+          </label>
+          <label class="advanced-field">
+            <span class="advanced-name">Edge bleed <output data-for="bleed"></output></span>
+            <input type="range" data-setting="bleed" min="0" max="50" step="5">
+          </label>
+          <button type="button" class="action-btn advanced-reset" id="btn-scatter-reset" title="Restore default scattered settings">Reset</button>
+        </div>
+      </details>
 
       <!-- Selected Source Titles Strip -->
       <div class="wallpaper-selected-sources hidden" id="wallpaper-selected-sources">

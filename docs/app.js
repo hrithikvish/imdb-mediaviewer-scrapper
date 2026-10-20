@@ -84,16 +84,145 @@ const wallpaperSelectedSources = document.getElementById('wallpaper-selected-sou
 const selectedSourcesTags = document.getElementById('selected-sources-tags');
 const btnClearSources = document.getElementById('btn-clear-sources');
 
-function generateScatterVariations(count = 16) {
+// Advanced scattered-layout settings. Defaults reproduce the stock layout.
+const SCATTER_DEFAULTS = {
+  count: null,      // photos; null = 24 landscape / 20 portrait
+  sizeVariety: 10,  // % linear size spread around the average photo
+  coverage: 125,    // % of canvas area covered by photos in total
+  overlap: 100,     // % penalty for overlapping an already covered spot
+  tilt: 5,          // max rotation in degrees
+  bleed: 25,        // % of a photo allowed past the canvas edge
+};
+const SCATTER_MAX_COUNT = 40;
+// Advanced row is hidden for now; flip to true to bring it back (saved tweaks are ignored while false)
+const SCATTER_ADVANCED_ENABLED = false;
+const SCATTER_SETTINGS_KEY = 'imdb_wallpaper_scatter';
+
+function loadScatterSettings() {
+  if (!SCATTER_ADVANCED_ENABLED) return { ...SCATTER_DEFAULTS };
+  try {
+    const saved = JSON.parse(localStorage.getItem(SCATTER_SETTINGS_KEY) || 'null');
+    if (saved && typeof saved === 'object') return { ...SCATTER_DEFAULTS, ...saved };
+  } catch (e) { /* storage blocked or bad JSON: use defaults */ }
+  return { ...SCATTER_DEFAULTS };
+}
+
+function saveScatterSettings() {
+  try {
+    localStorage.setItem(SCATTER_SETTINGS_KEY, JSON.stringify(wallpaperState.scatter));
+  } catch (e) { /* storage blocked: settings last for this visit only */ }
+}
+
+// Raw randoms only; settings turn them into size and tilt, so sliders tweak the same arrangement
+function generateScatterVariations(count = SCATTER_MAX_COUNT) {
+  const seed = Math.floor(Math.random() * 2 ** 31);
   const variations = [];
   for (let i = 0; i < count; i++) {
-    const rot = Number(((Math.random() * 6.4) - 3.2).toFixed(1));
-    const dx = Number(((Math.random() * 0.03) - 0.015).toFixed(3));
-    const dy = Number(((Math.random() * 0.03) - 0.015).toFixed(3));
-    variations.push({ rot, dx, dy });
+    variations.push({
+      rotU: Math.random() * 2 - 1, // -1..1, scaled by tilt
+      sizeU: Math.random(),        // 0..1, scaled by size variety
+      seed,
+    });
   }
-  return variations;
+  // Largest first: big photos claim space, smaller ones fill the leftover gaps
+  return variations.sort((a, b) => b.sizeU - a.sizeU);
 }
+
+// Deterministic PRNG so the same variations give the same layout on re-render
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Greedy gap-filling placement. Returns normalized {nx, ny, area, ratio} per item.
+function computeScatterPlacement(vars, ratios, W, H, settings) {
+  const rand = mulberry32(vars[0].seed);
+  const variety = settings.sizeVariety / 100;
+  const bleed = settings.bleed / 100;
+  const overlapPenalty = settings.overlap / 100;
+  const sizeOf = v => 1 - variety + v.sizeU * 2 * variety;
+  const cell = Math.max(W, H) / 64;
+  const GW = Math.ceil(W / cell);
+  const GH = Math.ceil(H / cell);
+  const covered = new Uint8Array(GW * GH);
+  const sumSq = vars.reduce((sum, v) => sum + sizeOf(v) ** 2, 0);
+  const baseArea = (W * H * settings.coverage / 100) / sumSq; // over 1x so edges and tilt gaps get covered
+
+  return vars.map((v, i) => {
+    const ratio = ratios[i];
+    const uncovered = [];
+    for (let k = 0; k < covered.length; k++) if (!covered[k]) uncovered.push(k);
+
+    let best = null;
+    for (let t = 0; t < 200; t++) {
+      // Per-try size wiggle (grows with size variety) so a photo can still fit its hole
+      const area = baseArea * sizeOf(v) ** 2 * (1 - 1.5 * variety + rand() * 3 * variety);
+      const w = Math.min(Math.sqrt(area * ratio), W * 0.8);
+      const h = Math.min(w / ratio, H * 0.8);
+      let cx, cy;
+      if (uncovered.length && t % 2 === 0) {
+        // Aim at an empty spot
+        const k = uncovered[Math.floor(rand() * uncovered.length)];
+        cx = ((k % GW) + 0.5) * cell + (rand() - 0.5) * w * 0.8;
+        cy = (Math.floor(k / GW) + 0.5) * cell + (rand() - 0.5) * h * 0.8;
+      } else {
+        cx = rand() * W;
+        cy = rand() * H;
+      }
+      // Allow some bleed past the edges, never more than the bleed share of the photo
+      cx = Math.max(w * (0.5 - bleed), Math.min(W - w * (0.5 - bleed), cx));
+      cy = Math.max(h * (0.5 - bleed), Math.min(H - h * (0.5 - bleed), cy));
+
+      const x0 = Math.max(0, Math.floor((cx - w / 2) / cell));
+      const x1 = Math.min(GW - 1, Math.floor((cx + w / 2) / cell));
+      const y0 = Math.max(0, Math.floor((cy - h / 2) / cell));
+      const y1 = Math.min(GH - 1, Math.floor((cy + h / 2) / cell));
+      let fresh = 0, overlap = 0;
+      for (let y = y0; y <= y1; y++) {
+        for (let x = x0; x <= x1; x++) {
+          if (covered[y * GW + x]) overlap++; else fresh++;
+        }
+      }
+      const score = fresh - overlap * overlapPenalty;
+      if (!best || score > best.score) best = { score, cx, cy, w, h, x0, x1, y0, y1 };
+    }
+
+    for (let y = best.y0; y <= best.y1; y++) {
+      for (let x = best.x0; x <= best.x1; x++) covered[y * GW + x] = 1;
+    }
+    return { nx: best.cx / W, ny: best.cy / H, area: (best.w * best.h) / (W * H), ratio };
+  });
+}
+
+// Polaroid frame geometry: side border is a fraction of the photo's short edge, bottom strip is 5x thicker
+const POLAROID_SIDE = 0.045;
+const POLAROID_BOTTOM = POLAROID_SIDE * 5;
+function polaroidSide(photoW, photoH) {
+  return Math.round(Math.min(photoW, photoH) * POLAROID_SIDE);
+}
+
+// Ratio of the whole print (photo + frame) for a photo ratio r
+function polaroidOuterRatio(r) {
+  return r >= 1
+    ? (r + 2 * POLAROID_SIDE) / (1 + POLAROID_SIDE + POLAROID_BOTTOM)
+    : (1 + 2 * POLAROID_SIDE) / (1 / r + POLAROID_SIDE + POLAROID_BOTTOM);
+}
+
+// Inner photo size that fills a print of outerW x outerH
+function polaroidInnerSize(r, outerW, outerH) {
+  if (r >= 1) {
+    const h = outerH / (1 + POLAROID_SIDE + POLAROID_BOTTOM);
+    return { w: h * r, h };
+  }
+  const w = outerW / (1 + 2 * POLAROID_SIDE);
+  return { w, h: w / r };
+}
+
+let scatterPlacementCache = null;
 
 const wallpaperState = {
   aspect: '16:9', // '16:9' or '9:16'
@@ -102,6 +231,7 @@ const wallpaperState = {
   height: 1080,
   layout: 'scattered',
   gap: 6,
+  frame: null, // 'polaroid' or null
   isLoading: false,
   isSwappingSingle: false,
   activeAnimId: null,
@@ -109,7 +239,8 @@ const wallpaperState = {
   items: [], // Array of { titleMeta, item, img }
   renderedRects: [],
   currentHoverIndex: -1,
-  scatterVariations: generateScatterVariations(16),
+  scatterVariations: generateScatterVariations(),
+  scatter: loadScatterSettings(),
 };
 
 function getWallpaperDimensions(aspect, resName) {
@@ -239,8 +370,16 @@ function applyTheme(theme) {
 }
 
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-  applyTheme(current === 'light' ? 'dark' : 'light');
+  const root = document.documentElement;
+  const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  const next = current === 'light' ? 'dark' : 'light';
+
+  // Thousands of cards each animating their own colors made the switch janky; switch instantly.
+  // (A View Transition snapshot of this ~24k-node page froze phones for seconds, so none here.)
+  root.classList.add('theme-switching');
+  applyTheme(next);
+  // Wait for the new colors to paint before transitions come back
+  requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-switching')));
 }
 
 // ---------------------------------------------------------------------------
@@ -1361,17 +1500,17 @@ function nextImage() {
 function getRequiredSlotCount(layout, aspect = wallpaperState.aspect) {
   if (aspect === '9:16') {
     switch (layout) {
-      case 'scattered': return 12;
+      case 'scattered': return wallpaperState.scatter.count || 20;
       case 'staggered': return 8;
       case 'strips': return 7;
-      default: return 12;
+      default: return 20;
     }
   }
   switch (layout) {
-    case 'scattered': return 16;
+    case 'scattered': return wallpaperState.scatter.count || 24;
     case 'staggered': return 10;
     case 'strips': return 7;
-    default: return 16;
+    default: return 24;
   }
 }
 
@@ -1381,50 +1520,11 @@ function getWallpaperLayoutRects(layout, W, H, gap, items = []) {
   const isPortrait = H > W;
 
   if (layout === 'scattered') {
-    // Organic Overlapping Tabletop Layout
-    const anchors = isPortrait ? [
-      // 9:16 Portrait Anchors (6 tiers x 2 columns = 12 organic overlapping stills)
-      { cx: 0.28, cy: 0.085, rot: -2.2 },
-      { cx: 0.72, cy: 0.088, rot:  1.8 },
-
-      { cx: 0.27, cy: 0.248, rot:  2.4 },
-      { cx: 0.73, cy: 0.252, rot: -2.0 },
-
-      { cx: 0.29, cy: 0.412, rot: -1.8 },
-      { cx: 0.71, cy: 0.416, rot:  2.5 },
-
-      { cx: 0.26, cy: 0.578, rot:  2.2 },
-      { cx: 0.74, cy: 0.582, rot: -2.4 },
-
-      { cx: 0.28, cy: 0.742, rot: -2.0 },
-      { cx: 0.72, cy: 0.746, rot:  2.1 },
-
-      { cx: 0.27, cy: 0.908, rot:  1.9 },
-      { cx: 0.73, cy: 0.912, rot: -2.2 },
-    ] : [
-      // 16:9 Landscape Anchors (4 tiers x 4 columns = 16 organic overlapping stills)
-      { cx: 0.125, cy: 0.130, rot: -2.2 },
-      { cx: 0.375, cy: 0.122, rot:  1.8 },
-      { cx: 0.625, cy: 0.135, rot: -2.5 },
-      { cx: 0.875, cy: 0.125, rot:  2.0 },
-
-      { cx: 0.135, cy: 0.380, rot:  2.6 },
-      { cx: 0.380, cy: 0.372, rot: -1.8 },
-      { cx: 0.620, cy: 0.385, rot:  2.2 },
-      { cx: 0.865, cy: 0.375, rot: -2.8 },
-
-      { cx: 0.120, cy: 0.630, rot: -2.4 },
-      { cx: 0.370, cy: 0.638, rot:  2.5 },
-      { cx: 0.630, cy: 0.622, rot: -2.0 },
-      { cx: 0.880, cy: 0.632, rot:  2.2 },
-
-      { cx: 0.130, cy: 0.880, rot:  2.0 },
-      { cx: 0.380, cy: 0.872, rot: -2.6 },
-      { cx: 0.620, cy: 0.885, rot:  2.4 },
-      { cx: 0.870, cy: 0.875, rot: -2.0 },
-    ];
-
-    anchors.forEach((anc, i) => {
+    // Gap-filling collage: variable sizes, low overlap, cached so a single swap keeps the rest in place
+    const required = getRequiredSlotCount('scattered', isPortrait ? '9:16' : '16:9');
+    const n = Math.min(required, items.length || required);
+    const vars = (wallpaperState.scatterVariations || generateScatterVariations()).slice(0, n);
+    const ratios = vars.map((v, i) => {
       const entry = items[i];
       let ratio = 1.6;
       if (entry && entry.img && entry.img.naturalWidth && entry.img.naturalHeight) {
@@ -1432,70 +1532,44 @@ function getWallpaperLayoutRects(layout, W, H, gap, items = []) {
       } else if (entry && entry.item && entry.item.width && entry.item.height) {
         ratio = Number(entry.item.width) / Number(entry.item.height);
       }
-      ratio = Math.max(0.55, Math.min(2.8, ratio));
+      return Math.max(0.55, Math.min(2.8, ratio));
+    });
 
-      let w, h;
-      if (isPortrait) {
-        if (ratio >= 1.7) {
-          w = Math.round(W * 0.64);
-          h = Math.round(w / ratio);
-          if (h < H * 0.175) {
-            h = Math.round(H * 0.175);
-            w = Math.round(h * ratio);
-          }
-        } else if (ratio >= 1.2) {
-          h = Math.round(H * 0.205);
-          w = Math.round(h * ratio);
-          if (w < W * 0.58) {
-            w = Math.round(W * 0.58);
-            h = Math.round(w / ratio);
-          }
-        } else {
-          h = Math.round(H * 0.23);
-          w = Math.round(h * ratio);
-          if (w < W * 0.46) {
-            w = Math.round(W * 0.46);
-            h = Math.round(w / ratio);
-          }
-        }
-      } else {
-        if (ratio >= 1.7) {
-          w = Math.round(W * 0.285);
-          h = Math.round(w / ratio);
-          if (h < H * 0.235) {
-            h = Math.round(H * 0.235);
-            w = Math.round(h * ratio);
-          }
-        } else if (ratio >= 1.2) {
-          h = Math.round(H * 0.288);
-          w = Math.round(h * ratio);
-          if (w < W * 0.26) {
-            w = Math.round(W * 0.26);
-            h = Math.round(w / ratio);
-          }
-        } else {
-          h = Math.round(H * 0.32);
-          w = Math.round(h * ratio);
-          if (w < W * 0.19) {
-            w = Math.round(W * 0.19);
-            h = Math.round(w / ratio);
-          }
-        }
+    // Polaroid: place the whole print (photo + frame) so the thick bottom strip is part of the footprint
+    const isPolaroid = wallpaperState.frame === 'polaroid';
+    const outerRatios = isPolaroid ? ratios.map(polaroidOuterRatio) : ratios;
+
+    const aspectKey = (W / H).toFixed(3);
+    const settings = wallpaperState.scatter;
+    const settingsKey = JSON.stringify(settings);
+    const c = scatterPlacementCache;
+    if (!c || c.vars !== wallpaperState.scatterVariations || c.aspectKey !== aspectKey
+      || c.isPolaroid !== isPolaroid || c.settingsKey !== settingsKey || c.placement.length !== n) {
+      scatterPlacementCache = {
+        vars: wallpaperState.scatterVariations,
+        aspectKey,
+        isPolaroid,
+        settingsKey,
+        placement: computeScatterPlacement(vars, outerRatios, W, H, settings),
+      };
+    }
+
+    scatterPlacementCache.placement.forEach((p, i) => {
+      // Swapped photo: keep its spot and area, adapt the shape to the new ratio
+      const area = p.area * W * H;
+      const outerW = Math.sqrt(area * outerRatios[i]);
+      const outerH = outerW / outerRatios[i];
+      let w = Math.round(outerW);
+      let h = Math.round(outerH);
+      const cx = Math.round(p.nx * W);
+      let cy = Math.round(p.ny * H);
+      if (isPolaroid) {
+        const inner = polaroidInnerSize(ratios[i], outerW, outerH);
+        w = Math.round(inner.w);
+        h = Math.round(inner.h);
+        // Photo sits in the upper part of the print: shift its center up from the print center
+        cy = Math.round(p.ny * H - outerH / 2 + polaroidSide(w, h) + h / 2);
       }
-
-      const v = (wallpaperState.scatterVariations && wallpaperState.scatterVariations[i])
-        ? wallpaperState.scatterVariations[i]
-        : { rot: anc.rot, dx: 0, dy: 0 };
-
-      const rot = v.rot !== undefined ? v.rot : anc.rot;
-      const minX = isPortrait ? 0.12 : 0.08;
-      const maxX = isPortrait ? 0.88 : 0.92;
-      const minY = isPortrait ? 0.06 : 0.08;
-      const maxY = isPortrait ? 0.94 : 0.92;
-
-      const cx = Math.round(W * Math.max(minX, Math.min(maxX, anc.cx + (v.dx || 0))));
-      const cy = Math.round(H * Math.max(minY, Math.min(maxY, anc.cy + (v.dy || 0))));
-
       rects.push({
         x: cx - Math.round(w / 2),
         y: cy - Math.round(h / 2),
@@ -1503,7 +1577,7 @@ function getWallpaperLayoutRects(layout, W, H, gap, items = []) {
         h,
         cx,
         cy,
-        rot,
+        rot: Number((vars[i].rotU * settings.tilt).toFixed(1)),
         isRotated: true,
         uncropped: true,
       });
@@ -1762,7 +1836,32 @@ function drawWallpaperScene(rects, lift = 0) {
         // gap 0: pure uncropped photo casting shadow on black canvas
         // gap 6: 3px crisp white studio border
         // gap 14: 8px photo print frame
-        if (scaledGap > 0) {
+        if (wallpaperState.frame === 'polaroid') {
+          // Polaroid print: thin sides, thick bottom strip with the movie name
+          const side = polaroidSide(curW, curH);
+          const bottom = Math.round(Math.min(curW, curH) * POLAROID_BOTTOM);
+          ctx.fillStyle = '#f4f1ea';
+          ctx.fillRect(-curW / 2 - side, -curH / 2 - side, curW + side * 2, curH + side + bottom);
+
+          ctx.shadowColor = 'transparent';
+          ctx.drawImage(entry.img, 0, 0, entry.img.naturalWidth, entry.img.naturalHeight, -curW / 2, -curH / 2, curW, curH);
+
+          const label = (entry.titleMeta && (entry.titleMeta.name || entry.titleMeta.id)) || '';
+          if (label) {
+            const maxTextW = curW - side * 2;
+            let fontSize = Math.round(bottom * 0.62);
+            ctx.font = `600 ${fontSize}px Caveat, 'Segoe Print', cursive`;
+            const textW = ctx.measureText(label).width;
+            if (textW > maxTextW) {
+              fontSize = Math.max(8, Math.floor(fontSize * maxTextW / textW));
+              ctx.font = `600 ${fontSize}px Caveat, 'Segoe Print', cursive`;
+            }
+            ctx.fillStyle = '#2b2b30';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(label, 0, curH / 2 + bottom / 2, maxTextW);
+          }
+        } else if (scaledGap > 0) {
           const borderThick = (wallpaperState.gap >= 14) ? Math.round(8 * shadowScale) : Math.round(3 * shadowScale);
           ctx.fillStyle = '#f8f8f6';
           ctx.fillRect(-curW / 2 - borderThick, -curH / 2 - borderThick, curW + borderThick * 2, curH + borderThick * 2);
@@ -1784,6 +1883,31 @@ function drawWallpaperScene(rects, lift = 0) {
       ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
     }
   });
+}
+
+const SCATTER_UNITS = { count: '', sizeVariety: '%', coverage: '%', overlap: '%', tilt: '°', bleed: '%' };
+
+// Push current scatter settings into the Advanced sliders and their value labels
+function syncScatterControls() {
+  const grid = document.getElementById('wallpaper-advanced-grid');
+  if (!grid) return;
+  grid.querySelectorAll('input[data-setting]').forEach(input => {
+    const key = input.dataset.setting;
+    const value = key === 'count' ? getRequiredSlotCount('scattered') : wallpaperState.scatter[key];
+    input.value = value;
+    const out = grid.querySelector(`output[data-for="${key}"]`);
+    if (out) out.textContent = `${value}${SCATTER_UNITS[key]}`;
+  });
+}
+
+// Photo count changed: fetch more photos if needed, otherwise just re-layout
+async function applyScatterCount() {
+  if (wallpaperState.layout !== 'scattered') return;
+  if (wallpaperState.items.length < getRequiredSlotCount('scattered')) {
+    await generateWallpaper(false);
+  } else {
+    animateScatterTweak();
+  }
 }
 
 function renderWallpaperCanvas() {
@@ -1833,13 +1957,7 @@ function renderWallpaperChips() {
     chip.href = `?title=${encodeURIComponent(meta.id)}`;
     chip.title = `Open full gallery for ${meta.name || meta.id}`;
 
-    const posterUrl = meta.posterUrl ? getPreviewImageUrl(meta.posterUrl, 60, 60, 100) : '';
-    const imgHtml = posterUrl
-      ? `<img class="movie-chip-thumb" src="${posterUrl}" alt="" loading="lazy">`
-      : `<span class="movie-chip-thumb" style="display:flex;align-items:center;justify-content:center;font-size:10px;">🎬</span>`;
-
     chip.innerHTML = `
-      ${imgHtml}
       <span class="movie-chip-name">${escapeHtml(meta.name || meta.id)}</span>
       <span class="movie-chip-arrow">↗</span>
     `;
@@ -2047,7 +2165,7 @@ async function generateWallpaper(forceNew = true) {
     );
 
     wallpaperState.items = loadedEntries.filter(e => e.img !== null);
-    wallpaperState.scatterVariations = generateScatterVariations(16);
+    wallpaperState.scatterVariations = generateScatterVariations();
 
     renderWallpaperCanvas();
 
@@ -2071,54 +2189,15 @@ function easeOutCubic(t) {
   return 1 - Math.pow(1 - t, 3);
 }
 
-function rescatterWallpaper() {
-  if (wallpaperState.isLoading || !wallpaperState.items.length) return;
-
-  if (btnWallpaperRescatter) {
-    btnWallpaperRescatter.classList.add('rescattering');
-    setTimeout(() => btnWallpaperRescatter.classList.remove('rescattering'), 450);
-  }
-
-  // Cancel any running animation
+// Tween every photo from start to end rect (position, size, tilt), then settle on targetRects.
+// liftAmount scales the mid-flight lift: 1 for a full rescatter, smaller for gentle tweaks.
+function animateWallpaperRects(animPairs, targetRects, duration, liftAmount = 1) {
   if (wallpaperState.activeAnimId) {
     cancelAnimationFrame(wallpaperState.activeAnimId);
     wallpaperState.activeAnimId = null;
   }
-
-  // 1. Snapshot start rects for each item currently rendered
-  const prevRectMap = new Map();
-  wallpaperState.items.forEach((entry, i) => {
-    if (wallpaperState.renderedRects && wallpaperState.renderedRects[i]) {
-      prevRectMap.set(entry, { ...wallpaperState.renderedRects[i] });
-    }
-  });
-
-  // 2. Shuffle current items array (Fisher-Yates)
-  for (let i = wallpaperState.items.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [wallpaperState.items[i], wallpaperState.items[j]] = [wallpaperState.items[j], wallpaperState.items[i]];
-  }
-
-  // 3. Generate new organic tilt & positional shifts for scattered layout
-  wallpaperState.scatterVariations = generateScatterVariations(16);
-
-  // 4. Calculate target rects for the new arrangement
-  const W = wallpaperState.width;
-  const H = wallpaperState.height;
-  const scale = Math.min(W, H) / 1080;
-  const scaledGap = Math.round(wallpaperState.gap * scale);
-  const targetRects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, wallpaperState.items);
-
-  // 5. Build animation pairs (start -> end for each item)
-  const animPairs = wallpaperState.items.map((entry, i) => {
-    const end = targetRects[i];
-    const start = prevRectMap.get(entry) || end;
-    return { start, end };
-  });
-
   hideWallpaperHover();
 
-  const duration = 460; // ms
   const startTime = performance.now();
 
   function animate(now) {
@@ -2127,7 +2206,7 @@ function rescatterWallpaper() {
     const progress = easeOutCubic(rawProgress);
 
     // Physical lift curve: peaks at mid-flight, settles at landing
-    const lift = Math.sin(rawProgress * Math.PI);
+    const lift = Math.sin(rawProgress * Math.PI) * liftAmount;
 
     // Interpolate every photo rect
     const currentRects = animPairs.map(({ start, end }) => {
@@ -2171,6 +2250,66 @@ function rescatterWallpaper() {
   }
 
   wallpaperState.activeAnimId = requestAnimationFrame(animate);
+}
+
+// Advanced setting changed: glide each slot from where it is drawn now (even mid-animation) to its new spot
+function animateScatterTweak() {
+  if (wallpaperState.layout !== 'scattered' || !wallpaperState.items.length) return;
+  const W = wallpaperState.width;
+  const H = wallpaperState.height;
+  const scaledGap = Math.round(wallpaperState.gap * Math.min(W, H) / 1080);
+  const targetRects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, wallpaperState.items);
+  const prev = wallpaperState.renderedRects || [];
+  const animPairs = targetRects.map((end, i) => ({ start: prev[i] ? { ...prev[i] } : end, end }));
+  animateWallpaperRects(animPairs, targetRects, 320, 0.35);
+}
+
+function rescatterWallpaper() {
+  if (wallpaperState.isLoading || !wallpaperState.items.length) return;
+
+  if (btnWallpaperRescatter) {
+    btnWallpaperRescatter.classList.add('rescattering');
+    setTimeout(() => btnWallpaperRescatter.classList.remove('rescattering'), 450);
+  }
+
+  // Cancel any running animation
+  if (wallpaperState.activeAnimId) {
+    cancelAnimationFrame(wallpaperState.activeAnimId);
+    wallpaperState.activeAnimId = null;
+  }
+
+  // 1. Snapshot start rects for each item currently rendered
+  const prevRectMap = new Map();
+  wallpaperState.items.forEach((entry, i) => {
+    if (wallpaperState.renderedRects && wallpaperState.renderedRects[i]) {
+      prevRectMap.set(entry, { ...wallpaperState.renderedRects[i] });
+    }
+  });
+
+  // 2. Shuffle current items array (Fisher-Yates)
+  for (let i = wallpaperState.items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [wallpaperState.items[i], wallpaperState.items[j]] = [wallpaperState.items[j], wallpaperState.items[i]];
+  }
+
+  // 3. Generate new organic tilt & positional shifts for scattered layout
+  wallpaperState.scatterVariations = generateScatterVariations();
+
+  // 4. Calculate target rects for the new arrangement
+  const W = wallpaperState.width;
+  const H = wallpaperState.height;
+  const scale = Math.min(W, H) / 1080;
+  const scaledGap = Math.round(wallpaperState.gap * scale);
+  const targetRects = getWallpaperLayoutRects(wallpaperState.layout, W, H, scaledGap, wallpaperState.items);
+
+  // 5. Build animation pairs (start -> end for each item)
+  // Map over target rects, not items: after an aspect switch there can be more items than slots
+  const animPairs = targetRects.map((end, i) => {
+    const start = prevRectMap.get(wallpaperState.items[i]) || end;
+    return { start, end };
+  });
+
+  animateWallpaperRects(animPairs, targetRects, 460, 1);
 }
 
 function downloadWallpaper() {
@@ -2927,6 +3066,7 @@ function setupEventListeners() {
 
         updateDownloadButtonLabel();
 
+        syncScatterControls();
         const needed = getRequiredSlotCount(wallpaperState.layout, newAspect);
         if (wallpaperState.items.length < needed) {
           await generateWallpaper(false);
@@ -2962,6 +3102,21 @@ function setupEventListeners() {
         btn.classList.add('active');
         const newLayout = btn.dataset.layout;
         wallpaperState.layout = newLayout;
+
+        const advancedRow = document.getElementById('wallpaper-advanced');
+        if (advancedRow) advancedRow.hidden = !SCATTER_ADVANCED_ENABLED || newLayout !== 'scattered';
+
+        // Polaroid prints only exist in the scattered layout; fall back to Framed elsewhere
+        const polaroidBtn = wallpaperGapControl && wallpaperGapControl.querySelector('[data-frame="polaroid"]');
+        if (polaroidBtn) {
+          polaroidBtn.hidden = newLayout !== 'scattered';
+          if (polaroidBtn.hidden && wallpaperState.frame === 'polaroid') {
+            wallpaperState.frame = null;
+            wallpaperGapControl.querySelectorAll('.seg-btn').forEach(b => {
+              b.classList.toggle('active', b.dataset.gap === '14' && !b.dataset.frame);
+            });
+          }
+        }
         const needed = getRequiredSlotCount(newLayout);
         if (wallpaperState.items.length < needed) {
           await generateWallpaper(false);
@@ -2979,9 +3134,51 @@ function setupEventListeners() {
         wallpaperGapControl.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         wallpaperState.gap = parseInt(btn.dataset.gap, 10);
+        wallpaperState.frame = btn.dataset.frame || null;
         renderWallpaperCanvas();
+        // Canvas text needs the handwriting font loaded; redraw once it arrives
+        if (wallpaperState.frame === 'polaroid' && document.fonts) {
+          document.fonts.load("600 40px Caveat").then(() => {
+            if (wallpaperState.frame === 'polaroid') renderWallpaperCanvas();
+          }).catch(() => {});
+        }
       });
     });
+  }
+
+  // Advanced Scattered Settings
+  const advancedGrid = document.getElementById('wallpaper-advanced-grid');
+  if (advancedGrid) {
+    syncScatterControls();
+    advancedGrid.querySelectorAll('input[data-setting]').forEach(input => {
+      const key = input.dataset.setting;
+      input.addEventListener('input', () => {
+        const value = Number(input.value);
+        const out = advancedGrid.querySelector(`output[data-for="${key}"]`);
+        if (out) out.textContent = `${value}${SCATTER_UNITS[key]}`;
+        if (key === 'count') return; // applied on release, since it may fetch photos
+        wallpaperState.scatter[key] = value;
+        saveScatterSettings();
+        animateScatterTweak();
+      });
+      if (key === 'count') {
+        input.addEventListener('change', () => {
+          wallpaperState.scatter.count = Number(input.value);
+          saveScatterSettings();
+          applyScatterCount();
+        });
+      }
+    });
+
+    const btnScatterReset = document.getElementById('btn-scatter-reset');
+    if (btnScatterReset) {
+      btnScatterReset.addEventListener('click', () => {
+        wallpaperState.scatter = { ...SCATTER_DEFAULTS };
+        saveScatterSettings();
+        syncScatterControls();
+        applyScatterCount();
+      });
+    }
   }
 
   // Main Header Search Input

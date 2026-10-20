@@ -27,6 +27,7 @@
   --accent-rgb: 245, 197, 24;
   --accent-hover: #e2b616;
   --accent-glow: rgba(245, 197, 24, 0.15);
+  --on-accent: #000;
 
   --radius-xs: 5px;
   --radius-sm: 8px;
@@ -62,6 +63,7 @@
   --accent-rgb: 217, 119, 6;
   --accent-hover: #b45309;
   --accent-glow: rgba(217, 119, 6, 0.15);
+  --on-accent: #fff;
 
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
@@ -527,7 +529,7 @@ body {
 
 .seg-btn.active {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   box-shadow: var(--shadow-sm);
 }
 
@@ -631,6 +633,9 @@ body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   position: relative;
   scroll-margin-top: 68px;
+  /* Skip style/layout/paint for off-screen rows (500+ rows): keeps theme switches and scrolling cheap */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 185px; /* real row: 197px desktop, 185px tablet, 169px phone */
 }
 
 .title-row:hover {
@@ -737,7 +742,7 @@ body {
 
 .title-row-view-all:hover {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   border-color: var(--accent);
 }
 
@@ -813,7 +818,7 @@ body {
 
 .strip-scroll-btn:hover {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   border-color: var(--accent);
   transform: translateY(-50%) scale(1.08);
 }
@@ -1228,7 +1233,7 @@ body {
 
 .lightbox-btn:hover {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   border-color: var(--accent);
 }
 
@@ -1337,7 +1342,7 @@ body {
 
 .nav-arrow:hover {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   border-color: var(--accent);
   transform: translateY(-50%) scale(1.08);
 }
@@ -1465,7 +1470,7 @@ body {
 
 .nav-pill-btn.active {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   border-color: var(--accent);
 }
 
@@ -1491,6 +1496,16 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  min-width: 0;
+}
+
+/* Let the long "N stills from N titles (res • aspect)" subtitle wrap on phones */
+.wallpaper-title-group .active-movie-heading {
+  flex-wrap: wrap;
+}
+
+#wallpaper-subtitle {
+  white-space: normal;
 }
 
 .wallpaper-actions {
@@ -1523,7 +1538,7 @@ body {
 
 .action-btn.primary {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   border-color: var(--accent);
 }
 
@@ -1572,6 +1587,85 @@ body {
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+/* Advanced Scattered Settings */
+.wallpaper-advanced {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1rem;
+}
+
+.wallpaper-advanced[hidden] {
+  display: none;
+}
+
+.wallpaper-advanced summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.wallpaper-advanced summary::-webkit-details-marker {
+  display: none;
+}
+
+.wallpaper-advanced summary::before {
+  content: '▸';
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  transition: transform 0.15s ease;
+}
+
+.wallpaper-advanced[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.advanced-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.advanced-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 0.75rem 1.25rem;
+  align-items: end;
+  margin-top: 0.75rem;
+}
+
+.advanced-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.advanced-name {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.advanced-name output {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.advanced-field input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.advanced-reset {
+  justify-self: start;
 }
 
 /* Source Movie Selector */
@@ -1773,7 +1867,7 @@ body {
 
 .source-apply-btn {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   border: none;
   border-radius: var(--radius-sm);
   font-size: 0.72rem;
@@ -1968,7 +2062,7 @@ body {
 .hover-swap-btn:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   transform: translate(-100%, 0) scale(1.05);
 }
 
@@ -2155,7 +2249,7 @@ body {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
-  padding: 0.25rem 0.75rem 0.25rem 0.35rem;
+  padding: 0.35rem 0.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -2165,14 +2259,6 @@ body {
   cursor: pointer;
   transition: var(--transition);
   text-decoration: none;
-}
-
-.movie-chip-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: var(--bg-card);
 }
 
 .movie-chip:hover {
@@ -2365,4 +2451,11 @@ body {
     right: 0;
     left: auto;
   }
+}
+
+/* Theme switch: no per-element color transitions, so 500+ rows do not each animate */
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
 }
