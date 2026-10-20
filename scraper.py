@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IMDb MediaViewer Scraper (Python Edition)
+IMDb MediaViewer Scraper
 High-performance scraper for IMDb media galleries:
 - Extracts master quality uncompressed images, true captions, and dimensions
 - Intercepts Next.js __NEXT_DATA__ and GraphQL TitleMediaIndexPagination responses

@@ -6,15 +6,14 @@ Welcome to the **IMDb MediaViewer Scrapper & Gallery** repository. This document
 
 ## 📌 1. Project Overview & Architecture
 
-This repository is a dual-engine scraper and static web application designed to extract and showcase full master-resolution photos, production stills, and posters from IMDb title galleries (`tt...`) and person galleries (`nm...`).
+This repository is a Python scraper and static web application designed to extract and showcase full master-resolution photos, production stills, and posters from IMDb title galleries (`tt...`) and person galleries (`nm...`).
 
 ### Key Capabilities
 - **Original Master Asset Extraction**: Cleans IMDb's dynamic resize and crop parameters down to uncompressed original master image URLs (often 2000px+ up to 4K).
 - **Partitioned Static Architecture**: Stores extracted media in dedicated per-title JSON files (`docs/titles/{titleId}.json`) and indexes them in a lightweight registry (`docs/titles.json`).
 - **Zero-Backend Web Application**: Pure vanilla JS, CSS, and HTML application hosted statically via GitHub Pages from the `docs/` directory.
-- **Dual Scraping Engines**:
-  1. **Python Playwright (`scraper.py`)**: High-speed, unbuffered scraper used in GitHub Actions automation.
-  2. **Kotlin Clean Architecture (`src/main/kotlin`)**: Modular, typed MVVM scraper supporting multiple fallback extraction strategies (OkHttp + Jsoup, Next.js JSON parser, Playwright sniffer).
+- **Python Playwright Scraper (`scraper.py`)**: Single-file, unbuffered scraper used locally and in GitHub Actions automation. Resolves titles via IMDb's Suggestion API, scrolls `/mediaindex/` galleries, and reads Next.js / GraphQL media payloads.
+- **Wallpaper Studio**: In-browser collage generator (scattered, staggered, strips layouts; Polaroid frames) rendered on `<canvas>` from the same per-title JSON data.
 
 ---
 
@@ -29,25 +28,15 @@ imdb-mediaviewer-scrapper/
 │   ├── index.html                    # Single-page web viewer
 │   ├── app.js                        # Client-side routing, filtering, rendering, lightbox
 │   ├── style.css                     # Design system, layout, responsive breakpoints
+│   ├── titles.html                   # Redirect to index.html (old catalog URL)
 │   ├── titles.json                   # Registry index of all scraped titles
 │   ├── gallery.json                  # Legacy single-title output (backwards compatibility)
 │   └── titles/                       # Partitioned per-title JSON data
 │       ├── tt0056241.json
 │       ├── tt0816692.json
 │       └── ...                       # 300+ scraped title archives
-├── src/                              # Kotlin Scraper Engine
-│   ├── main/kotlin/org/hrithikvish/
-│   │   ├── Main.kt                   # Kotlin CLI entrypoint
-│   │   └── scraper/
-│   │       ├── di/                   # Dependency injection container (AppContainer)
-│   │       ├── domain/               # Models, repository contracts, and use cases
-│   │       ├── data/                 # HTTP, JSON, and Playwright data sources
-│   │       └── presentation/         # StateFlow ViewModel and Console View
-│   └── test/kotlin/                  # JUnit5 & MockK test suite
-├── scraper.py                        # Python Playwright scraper engine (CI runner)
+├── scraper.py                        # Python Playwright scraper (local CLI & CI runner)
 ├── requirements.txt                  # Python dependencies (playwright)
-├── build.gradle.kts                  # Gradle build script (Kotlin 2.2, JVM 17)
-├── settings.gradle.kts               # Gradle project configuration
 ├── README.md                         # Public repository documentation
 └── AGENTS.md                         # Agent instructions & technical reference (this file)
 ```
@@ -167,19 +156,6 @@ python3 scraper.py --force --input movies.txt
 python3 scraper.py --rebuild-index
 ```
 
-### Kotlin Scraper & Tests
-
-```bash
-# Run Kotlin scraper
-./gradlew run --args="https://www.imdb.com/title/tt0056241/"
-
-# Run test suite
-./gradlew test
-
-# Build distribution jar
-./gradlew build
-```
-
 ### Local Frontend Preview
 
 ```bash
@@ -199,7 +175,7 @@ python3 -m http.server 8000 -d docs
    - Each title must be stored in `docs/titles/{id}.json`.
    - Never store full image item arrays directly in `docs/titles.json` — keep `docs/titles.json` strictly as a lightweight catalog index.
 3. **Preserve Master URL Cleaning Logic**:
-   - Ensure `clean_imdb_image_url()` in Python and `cleanImdbImageUrl()` in Kotlin remain synchronized.
+   - `clean_imdb_image_url()` in `scraper.py` is the single source of truth for stripping resize/crop parameters.
    - Never apply resize/crop filters to master assets stored in `items[].url`.
 4. **Preserve Uncropped Staggered Layout Rules**:
    - Do not reintroduce fixed column widths (`grid-template-columns: repeat(...)`) or fixed aspect ratios (`4/3` or `1/1` with `object-fit: cover`) to gallery grids or catalog strips.
