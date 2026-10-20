@@ -22,3 +22,8 @@ venv/
 .venv/
 env/
 *.egg-info/
+
+### Gallery data (lives on the `data` branch; ./data.sh pull | publish) ###
+docs/titles/
+docs/titles.json
+docs/gallery.json

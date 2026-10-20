@@ -39,11 +39,16 @@ scraper.py                          # Python + Playwright scraper (local CLI & G
 ├── save_title_gallery()            # Writes docs/titles/{id}.json, updates docs/titles.json
 └── rebuild_titles_registry()       # --rebuild-index: regenerates the registry (stdlib only)
 
+data.sh                             # pull | publish gallery data to/from the `data` branch
+serve.py                            # Local preview: code from docs/, data straight from the `data` branch
+
 docs/                               # GitHub Pages site (vanilla HTML/CSS/JS, no build step)
-├── index.html, app.js, style.css   # Catalog, gallery, lightbox, Wallpaper Studio
-├── titles.json                     # Lightweight registry of all titles
-└── titles/{id}.json                # One gallery file per title
+├── index.html, app.js, style.css   # Catalog, gallery, lightbox, Wallpaper Studio   (main branch)
+├── titles.json                     # Lightweight registry of all titles              (data branch)
+└── titles/{id}.json                # One gallery file per title                      (data branch)
 ```
+
+**Code and data live on separate branches.** `main` holds only code. Scraped JSON lives on the orphan `data` branch at the same `docs/` paths (gitignored on `main`). The deploy workflow unpacks `data` into `docs/` before publishing, so the live site is unchanged. Locally, `serve.py` reads the data from the branch, so no data files need to be on disk.
 
 ---
 
@@ -70,6 +75,9 @@ docs/                               # GitHub Pages site (vanilla HTML/CSS/JS, no
 
 ### Python Scraper (Powers GitHub Actions)
 ```bash
+# Fetch the scraped data into docs/ (needed before scraping locally: the scraper skips existing titles)
+./data.sh pull
+
 # Setup virtual environment & dependencies
 python3 -m venv .venv
 source .venv/bin/activate
@@ -90,12 +98,18 @@ python3 scraper.py --force --input movies.txt
 
 # Rebuild docs/titles.json from docs/titles/*.json (no Playwright needed)
 python3 scraper.py --rebuild-index
+
+# Publish locally scraped titles to the data branch (merges with remote; newest scrape wins)
+./data.sh publish "chore: add titles"
+
+# Optional: drop the local copies again (the preview reads from the data branch)
+rm -rf docs/titles docs/titles.json docs/gallery.json
 ```
 
 ### Local Preview
 ```bash
-python3 -m http.server 8000 -d docs
-# Open http://localhost:8000
+python3 serve.py          # http://localhost:8000; gallery data is read from origin/data
+git fetch origin data     # refresh the data; picked up on the next page load
 ```
 
 ---
@@ -107,7 +121,7 @@ The repository includes a production-ready GitHub Actions workflow (`.github/wor
 1. Go to the **Actions** tab in your GitHub repository.
 2. Select **"Scrape IMDb & Deploy to GitHub Pages"**.
 3. Click **Run workflow**, paste any text containing 100+ IMDb URLs, movie titles, or search links, and run.
-4. The workflow batch-scrapes the photos, generates partitioned `docs/titles/{id}.json` files, updates `docs/titles.json`, and deploys to your live GitHub Pages gallery automatically!
+4. The workflow batch-scrapes the photos, commits the new `docs/titles/{id}.json` files and updated `docs/titles.json` to the `data` branch, and deploys to your live GitHub Pages gallery automatically!
 
 ---
 

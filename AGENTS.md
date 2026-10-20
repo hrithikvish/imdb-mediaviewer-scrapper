@@ -11,6 +11,7 @@ This repository is a Python scraper and static web application designed to extra
 ### Key Capabilities
 - **Original Master Asset Extraction**: Cleans IMDb's dynamic resize and crop parameters down to uncompressed original master image URLs (often 2000px+ up to 4K).
 - **Partitioned Static Architecture**: Stores extracted media in dedicated per-title JSON files (`docs/titles/{titleId}.json`) and indexes them in a lightweight registry (`docs/titles.json`).
+- **Code and Data on Separate Branches**: `main` holds code only. Scraped data lives on the orphan `data` branch at the same `docs/` paths (gitignored on `main`); CI merges both into the Pages artifact, so the site still serves `titles.json` and `titles/*.json` from the same origin.
 - **Zero-Backend Web Application**: Pure vanilla JS, CSS, and HTML application hosted statically via GitHub Pages from the `docs/` directory.
 - **Python Playwright Scraper (`scraper.py`)**: Single-file, unbuffered scraper used locally and in GitHub Actions automation. Resolves titles via IMDb's Suggestion API, scrolls `/mediaindex/` galleries, and reads Next.js / GraphQL media payloads.
 - **Wallpaper Studio**: In-browser collage generator (scattered, staggered, strips layouts; Polaroid frames) rendered on `<canvas>` from the same per-title JSON data.
@@ -29,12 +30,13 @@ imdb-mediaviewer-scrapper/
 │   ├── app.js                        # Client-side routing, filtering, rendering, lightbox
 │   ├── style.css                     # Design system, layout, responsive breakpoints
 │   ├── titles.html                   # Redirect to index.html (old catalog URL)
-│   ├── titles.json                   # Registry index of all scraped titles
-│   ├── gallery.json                  # Legacy single-title output (backwards compatibility)
-│   └── titles/                       # Partitioned per-title JSON data
+│   ├── titles.json                   # [data branch] Registry index of all scraped titles
+│   ├── gallery.json                  # [data branch] Legacy single-title output (backwards compatibility)
+│   └── titles/                       # [data branch] Partitioned per-title JSON data
 │       ├── tt0056241.json
-│       ├── tt0816692.json
-│       └── ...                       # 300+ scraped title archives
+│       └── ...                       # 500+ scraped title archives
+├── data.sh                           # pull | publish gallery data to/from the `data` branch
+├── serve.py                          # Local preview server (data read from the `data` branch)
 ├── scraper.py                        # Python Playwright scraper (local CLI & CI runner)
 ├── requirements.txt                  # Python dependencies (playwright)
 ├── README.md                         # Public repository documentation
@@ -124,11 +126,18 @@ To prevent photo cropping:
 
 The workflow file `.github/workflows/deploy-pages.yml` manages automated batch scraping and GitHub Pages deployments.
 
-### Concurrency & Queueing Safety
-- **Explicit Branch Checkout**: Uses `actions/checkout@v4` with `ref: ${{ github.ref_name }}` and `fetch-depth: 0`. This prevents queued `workflow_dispatch` runs from checking out stale commits from when the action was initially queued.
-- **Deterministic Registry Synchronization**:
-  - Running `python3 scraper.py --rebuild-index` scans `docs/titles/*.json` and regenerates `docs/titles.json` and `docs/gallery.json` in $\approx 0.15\text{s}$ using Python standard library only.
-  - The commit & push step uses a retry loop with automated rebase conflict resolution: if `docs/titles.json` conflicts during rebase, the rebase resets the shared registry and regenerates it directly from all on-disk `docs/titles/*.json` files, preventing merge failure.
+### Pipeline
+1. **Checkout `main`** (`fetch-depth: 0`). Runs triggered by a push to `data` still check out `main` for code.
+2. **`./data.sh pull`** unpacks the `data` branch into `docs/` (needed for the scraper's skip-existing logic and for the deploy).
+3. **Scrape** (`workflow_dispatch` only).
+4. **`./data.sh publish`** merges with the latest remote `data` branch, rebuilds the registry, commits to `data` with `[skip ci]`, and pushes (5 retries on rejection). CI never commits to `main`.
+5. **Upload `docs/`** (code + data) as the Pages artifact and deploy.
+
+### Concurrency & Data Safety
+- A single concurrency group (`${{ github.workflow }}`) serializes all runs across `main` and `data`.
+- **Newest scrape wins**: when the same title exists locally and on the remote `data` branch, `data.sh` keeps the copy with the larger JSON `timestamp`, never file mtimes. Titles are only added or updated, never deleted.
+- **Deterministic Registry Synchronization**: `python3 scraper.py --rebuild-index` scans `docs/titles/*.json` and regenerates `docs/titles.json` and `docs/gallery.json` using the Python standard library only, so registry conflicts are resolved by regeneration, not by merging.
+- Deploys triggered by a push to `data` require `data` to be allowed in the `github-pages` environment's deployment branch policy.
 
 ---
 
@@ -156,12 +165,22 @@ python3 scraper.py --force --input movies.txt
 python3 scraper.py --rebuild-index
 ```
 
+### Gallery Data (`data` branch)
+
+```bash
+# Fetch the scraped data into docs/ (only needed for local scraping; the preview reads the branch)
+./data.sh pull
+
+# Publish locally scraped titles to the data branch (merges with remote, newest scrape wins)
+./data.sh publish "chore: add titles"
+```
+
 ### Local Frontend Preview
 
 ```bash
-# Serve docs/ directory locally
-python3 -m http.server 8000 -d docs
-# Open http://localhost:8000 in your browser
+# Code from docs/, gallery data straight from origin/data (falls back to local `data`); no data files on disk
+python3 serve.py
+# Open http://localhost:8000 — `git fetch origin data` refreshes data without a restart
 ```
 
 ---
@@ -173,6 +192,7 @@ python3 -m http.server 8000 -d docs
    - Only execute `git commit` or `git push` when the user explicitly commands it.
 2. **Never Break Independent Title Partitioning**:
    - Each title must be stored in `docs/titles/{id}.json`.
+   - Never commit gallery data to `main`. `docs/titles/`, `docs/titles.json`, and `docs/gallery.json` belong on the `data` branch (use `./data.sh publish`).
    - Never store full image item arrays directly in `docs/titles.json` — keep `docs/titles.json` strictly as a lightweight catalog index.
 3. **Preserve Master URL Cleaning Logic**:
    - `clean_imdb_image_url()` in `scraper.py` is the single source of truth for stripping resize/crop parameters.
