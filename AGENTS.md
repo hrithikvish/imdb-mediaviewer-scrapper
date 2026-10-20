@@ -27,7 +27,7 @@ imdb-mediaviewer-scrapper/
 │       └── deploy-pages.yml         # GitHub Actions CI/CD automation workflow
 ├── docs/                             # GitHub Pages static website root
 │   ├── index.html                    # Single-page web viewer
-│   ├── app.js                        # Client-side routing, filtering, rendering, lightbox
+│   ├── app.js                        # Client-side routing, filtering, rendering, lightbox, Wallpaper Studio
 │   ├── style.css                     # Design system, layout, responsive breakpoints
 │   ├── titles.html                   # Redirect to index.html (old catalog URL)
 │   ├── titles.json                   # [data branch] Registry index of all scraped titles

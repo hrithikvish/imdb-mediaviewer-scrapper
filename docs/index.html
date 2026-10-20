@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@600&family=Limelight&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -131,6 +131,14 @@
           <p class="catalog-subtitle" id="catalog-subtitle">Titles scraped in master quality. Click any title to browse its full gallery.</p>
         </div>
       </div>
+      <!-- Browse by decade; stills-only applies to the photo strips and Wallpaper Studio -->
+      <div class="catalog-filters" id="catalog-filters">
+        <div class="filter-chips" id="decade-chips" role="group" aria-label="Filter by decade"></div>
+        <label class="stills-toggle" title="Hide premiere, red-carpet and behind-the-scenes photos">
+          <input type="checkbox" id="stills-only-toggle">
+          <span>Stills only <span class="exp-tag" title="Experimental: photo types are guessed from IMDb captions">Exp</span></span>
+        </label>
+      </div>
       <div class="titles-list" id="titles-list">
         <!-- Rendered title rows with horizontal scroll strips -->
       </div>
@@ -148,6 +156,13 @@
         <div class="active-movie-heading">
           <h2 id="active-movie-name">Movie Name</h2>
           <span class="active-movie-count" id="active-movie-count">0 photos</span>
+        </div>
+        <div class="segmented-control kind-tabs" id="kind-tabs" role="group" aria-label="Photo type">
+          <button class="seg-btn active" data-kind="all">All</button>
+          <button class="seg-btn" data-kind="still">Stills</button>
+          <button class="seg-btn" data-kind="poster">Posters</button>
+          <button class="seg-btn" data-kind="bts">Behind the scenes</button>
+          <button class="seg-btn" data-kind="event">Events</button>
         </div>
       </div>
       <div class="gallery-grid" id="gallery-grid">
@@ -176,7 +191,7 @@
             <svg class="shuffle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
             </svg>
-            <span>Shuffle New</span>
+            <span>New</span>
           </button>
           <button class="action-btn" id="btn-wallpaper-rescatter" title="Rescatter positions of current photos">
             <svg class="rescatter-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -195,6 +210,20 @@
               <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
             <span id="wallpaper-download-text">Download 1080p</span>
+          </button>
+          <button class="action-btn" id="btn-wallpaper-share" title="Copy a link that rebuilds this exact collage">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            <span id="wallpaper-share-text">Copy Link</span>
+          </button>
+          <button class="icon-btn" id="btn-wallpaper-history" title="History: wallpapers made in this tab" aria-label="Wallpaper history">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/>
+              <path d="M3 3v5h5"/>
+              <path d="M12 7v5l3 3"/>
+            </svg>
           </button>
           <button class="icon-btn" id="btn-wallpaper-fullscreen" title="Toggle Fullscreen Preview">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -234,16 +263,46 @@
             <button class="seg-btn active" data-layout="scattered">Scattered</button>
             <button class="seg-btn" data-layout="staggered">Staggered</button>
             <button class="seg-btn" data-layout="strips">Cinema Strips</button>
+            <button class="seg-btn" data-layout="contact">Contact Sheet</button>
+            <button class="seg-btn" data-layout="filmstrip">Film Strip</button>
+            <button class="seg-btn" data-layout="lobby">Lobby Card</button>
+            <button class="seg-btn" data-layout="poster">Polaroid Posters</button>
           </div>
         </div>
 
-        <div class="control-unit">
+        <div class="control-unit" id="wallpaper-borders-unit">
           <span class="control-label">Borders</span>
           <div class="segmented-control" id="wallpaper-gap-control" role="group" aria-label="Border Gap">
             <button class="seg-btn" data-gap="0">Seamless</button>
             <button class="seg-btn active" data-gap="6">Clean</button>
             <button class="seg-btn" data-gap="14">Framed</button>
             <button class="seg-btn" data-gap="14" data-frame="polaroid">Polaroid</button>
+          </div>
+        </div>
+
+        <div class="control-unit" id="wallpaper-letterbox-unit">
+          <span class="control-label">Letterbox</span>
+          <div class="segmented-control" id="wallpaper-letterbox-control" role="group" aria-label="Letterbox">
+            <button class="seg-btn active" data-letterbox="">Off</button>
+            <button class="seg-btn" data-letterbox="1.85">1.85</button>
+            <button class="seg-btn" data-letterbox="2.39">2.39</button>
+          </div>
+        </div>
+
+        <div class="control-unit">
+          <span class="control-label">Finish</span>
+          <div class="segmented-control" id="wallpaper-finish-control" role="group" aria-label="Film finish">
+            <button class="seg-btn" data-finish="grain" aria-pressed="false">Grain</button>
+            <button class="seg-btn" data-finish="halation" aria-pressed="false">Halation</button>
+            <button class="seg-btn" data-finish="bw" aria-pressed="false">B&amp;W</button>
+          </div>
+        </div>
+
+        <div class="control-unit" id="wallpaper-photos-unit">
+          <span class="control-label">Photos</span>
+          <div class="segmented-control" id="wallpaper-photos-control" role="group" aria-label="Photo types">
+            <button class="seg-btn" data-stills="0">All</button>
+            <button class="seg-btn" data-stills="1" title="Experimental: photo types are guessed from IMDb captions">Stills only <span class="exp-tag">Exp</span></button>
           </div>
         </div>
 
@@ -369,6 +428,25 @@
           <!-- Populated dynamically with chips linking to movie galleries -->
         </div>
       </div>
+    </div>
+
+    <!-- View 4: Wallpaper History (this tab only) -->
+    <div class="history-view hidden" id="history-view">
+      <div class="gallery-title-bar">
+        <button class="back-link-btn" id="history-back-btn" title="Back to Wallpaper Studio">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          <span>Wallpaper Studio</span>
+        </button>
+        <div class="active-movie-heading">
+          <h2>History</h2>
+          <span class="active-movie-count" id="history-count">0 wallpapers</span>
+        </div>
+        <button type="button" class="action-btn history-clear" id="btn-history-clear">Clear</button>
+      </div>
+      <p class="history-hint">Wallpapers made in this tab, newest first. Click one to rebuild it. They are kept until you close the tab.</p>
+      <div class="history-grid" id="history-grid"></div>
     </div>
   </main>
 

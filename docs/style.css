@@ -2536,3 +2536,216 @@ body {
   justify-content: flex-end;
   gap: 0.5rem;
 }
+
+/* ==========================================================================
+   Photo Types, Decades & Film Colors
+   ========================================================================== */
+
+/* The hidden attribute must win over component display rules (e.g. .control-unit { display: flex }) */
+[hidden] {
+  display: none !important;
+}
+
+.catalog-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  flex-wrap: wrap;
+  margin-top: -0.5rem;
+}
+
+.filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 100%;
+  padding: 2px;
+}
+
+.filter-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  flex-shrink: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-chip:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.filter-chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.chip-count,
+.seg-count {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  opacity: 0.7;
+}
+
+.seg-count {
+  margin-left: 0.3rem;
+}
+
+.stills-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.stills-toggle input {
+  accent-color: var(--accent);
+  width: 14px;
+  height: 14px;
+}
+
+/* Experimental feature marker */
+.exp-tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.05rem 0.3rem;
+  border-radius: var(--radius-xs);
+  border: 1px solid currentColor;
+  opacity: 0.75;
+  vertical-align: 1px;
+}
+
+/* Gallery photo type tabs */
+.gallery-title-bar {
+  flex-wrap: wrap;
+}
+
+.kind-tabs {
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+/* Seven layouts: let the layout control wrap */
+#wallpaper-layout-control {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 520px) {
+  .stills-toggle {
+    margin-left: 0;
+  }
+
+  .kind-tabs {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Wallpaper History
+   ========================================================================== */
+
+.history-view {
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.history-clear {
+  margin-left: auto;
+}
+
+.history-hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: -0.4rem 0 1.25rem;
+}
+
+/* Fixed-height cards, width follows each preview's aspect (no cropping) */
+.history-grid {
+  --history-thumb-height: 180px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.history-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.history-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.history-thumb {
+  display: block;
+  height: var(--history-thumb-height);
+  width: auto;
+}
+
+.history-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.5rem 0.65rem;
+  max-width: 0;
+  min-width: 100%;
+}
+
+.history-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-sub {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 520px) {
+  .history-grid {
+    --history-thumb-height: 130px;
+    gap: 0.6rem;
+  }
+}
