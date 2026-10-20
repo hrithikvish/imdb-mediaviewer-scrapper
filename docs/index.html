@@ -92,6 +92,14 @@
           </svg>
         </a>
 
+        <!-- Scrape Request (opens a pre-filled GitHub issue that triggers the scrape workflow) -->
+        <button id="btn-scrape-request" class="icon-btn" type="button" title="Scrape a title" aria-label="Scrape a title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+
         <!-- Dark/Light Theme Toggle -->
         <button id="theme-toggle" class="icon-btn" title="Toggle Theme" aria-label="Toggle Theme">
           <svg id="theme-icon-moon" class="theme-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -432,6 +440,23 @@
     <!-- Floating Caption Bar -->
     <div class="lightbox-caption-bar" id="lightbox-caption">Caption text</div>
   </div>
+
+  <!-- Scrape Request Dialog -->
+  <dialog id="scrape-dialog" class="scrape-dialog" aria-labelledby="scrape-dialog-title">
+    <form method="dialog" id="scrape-form">
+      <h2 id="scrape-dialog-title">Scrape a title</h2>
+      <p class="scrape-hint">IMDb URLs, IDs (<code>tt…</code>, <code>nm…</code>) or plain titles, one per line. This opens a pre-filled GitHub issue: submit it to start the scrape. The issue is updated and closed when the site is redeployed.</p>
+      <textarea id="scrape-input" rows="5" required placeholder="https://www.imdb.com/title/tt0113277/&#10;Inception (2010)&#10;nm0000138"></textarea>
+      <label class="scrape-force">
+        <input type="checkbox" id="scrape-force">
+        <span>Re-scrape titles that already exist</span>
+      </label>
+      <div class="scrape-actions">
+        <button type="button" class="action-btn" id="btn-scrape-cancel">Cancel</button>
+        <button type="submit" class="action-btn primary" value="submit">Open on GitHub</button>
+      </div>
+    </form>
+  </dialog>
 
   <script src="app.js"></script>
 </body>

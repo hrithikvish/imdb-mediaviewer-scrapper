@@ -129,9 +129,10 @@ The workflow file `.github/workflows/deploy-pages.yml` manages automated batch s
 ### Pipeline
 1. **Checkout `main`** (`fetch-depth: 0`). Runs triggered by a push to `data` still check out `main` for code.
 2. **`./data.sh pull`** unpacks the `data` branch into `docs/` (needed for the scraper's skip-existing logic and for the deploy).
-3. **Scrape** (`workflow_dispatch` only).
+3. **Scrape** on `workflow_dispatch`, or on an `issues: opened` event whose title starts with `[scrape]` / `[scrape:force]` and whose author is `OWNER`, `MEMBER`, or `COLLABORATOR` (job-level `if`; other issues skip the job). The site's **+** button opens such a pre-filled issue. Issue text reaches the shell only via `env:`, never `${{ }}` interpolation inside `run:`.
 4. **`./data.sh publish`** merges with the latest remote `data` branch, rebuilds the registry, commits to `data` with `[skip ci]`, and pushes (5 retries on rejection). CI never commits to `main`.
 5. **Upload `docs/`** (code + data) as the Pages artifact and deploy.
+6. For issue-triggered runs: comment the added / re-scraped titles on the issue and close it (or comment the failure and leave it open).
 
 ### Concurrency & Data Safety
 - A single concurrency group (`${{ github.workflow }}`) serializes all runs across `main` and `data`.

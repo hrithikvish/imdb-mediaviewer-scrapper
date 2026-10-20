@@ -18,6 +18,7 @@ let searchQuery = '';
 let currentLightboxIndex = 0;
 let titleRowObserver = null;
 let catalogScrollY = 0;
+const GITHUB_REPO = 'hrithikvish/imdb-mediaviewer-scrapper';
 let lastViewedTitleId = null;
 
 // Core DOM Elements
@@ -3283,6 +3284,30 @@ function setupEventListeners() {
       switchToCatalogView(false);
     }
   });
+
+  // Scrape Request: pre-filled "[scrape]" issue; the deploy workflow scrapes, redeploys and closes it
+  const scrapeDialog = document.getElementById('scrape-dialog');
+  const btnScrapeRequest = document.getElementById('btn-scrape-request');
+  if (scrapeDialog && btnScrapeRequest && scrapeDialog.showModal) {
+    const scrapeInput = document.getElementById('scrape-input');
+    btnScrapeRequest.addEventListener('click', () => {
+      scrapeDialog.showModal();
+      scrapeInput.focus();
+    });
+    document.getElementById('btn-scrape-cancel').addEventListener('click', () => scrapeDialog.close());
+    document.getElementById('scrape-form').addEventListener('submit', () => {
+      const text = scrapeInput.value.trim();
+      if (!text) return;
+      const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+      const tag = document.getElementById('scrape-force').checked ? '[scrape:force]' : '[scrape]';
+      const summary = lines[0].length > 60 ? `${lines[0].slice(0, 57)}...` : lines[0];
+      const title = `${tag} ${summary}${lines.length > 1 ? ` (+${lines.length - 1} more)` : ''}`;
+      // Body must be only the requested titles: the scraper parses all of it as free-form input
+      const url = `https://github.com/${GITHUB_REPO}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(text)}`;
+      window.open(url, '_blank', 'noopener');
+      scrapeInput.value = '';
+    });
+  }
 
   // Global Keyboard Shortcuts
   window.addEventListener('keydown', (e) => {

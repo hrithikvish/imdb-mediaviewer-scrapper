@@ -116,6 +116,14 @@ git fetch origin data     # refresh the data; picked up on the next page load
 
 ## ⚡ GitHub Actions Automation
 
+### Scrape from the site
+1. Click the **+** button in the site header, paste IMDb URLs, IDs, or titles (one per line), and click **Open on GitHub**.
+2. Submit the pre-filled issue (titled `[scrape] …`, or `[scrape:force] …` to re-scrape existing titles).
+3. The workflow scrapes, publishes to the `data` branch, redeploys the site, then comments the added titles on the issue and closes it.
+
+Only issues opened by the repository owner or collaborators trigger a scrape; any other issue is ignored.
+
+### Scrape from the Actions tab
 The repository includes a production-ready GitHub Actions workflow (`.github/workflows/deploy-pages.yml`):
 
 1. Go to the **Actions** tab in your GitHub repository.

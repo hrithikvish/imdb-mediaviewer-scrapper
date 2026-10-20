@@ -19,12 +19,16 @@ on:
         required: false
         type: boolean
         default: false
+  # "Scrape a title" button on the site opens a pre-filled issue titled "[scrape] ..." (or "[scrape:force] ...")
+  issues:
+    types: [opened]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: write
   pages: write
   id-token: write
+  issues: write   # comment on / close scrape-request issues
 
 # Allow one deployment at a time without cancelling running scrapes
 concurrency:
@@ -33,6 +37,11 @@ concurrency:
 
 jobs:
   scrape-and-deploy:
+    # Issue-triggered scrapes: only "[scrape...]" issues opened by the repo owner or collaborators
+    if: >-
+      github.event_name != 'issues' ||
+      (startsWith(github.event.issue.title, '[scrape') &&
+       contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.issue.author_association))
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -49,15 +58,63 @@ jobs:
       - name: Pull Gallery Data
         run: ./data.sh pull
 
+      # Turns a workflow_dispatch input or a scrape-request issue into build/input_text.txt.
+      # Issue text is untrusted: it only ever reaches the shell through env vars, never ${{ }} interpolation.
+      - name: Resolve Scrape Request
+        id: req
+        env:
+          DISPATCH_INPUT: ${{ github.event.inputs.imdb_input || github.event.inputs.imdb_url }}
+          DISPATCH_FORCE: ${{ github.event.inputs.force_rescrape }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          mkdir -p build
+          case "$GITHUB_EVENT_NAME" in
+            workflow_dispatch)
+              printf "%s\n" "$DISPATCH_INPUT" > build/input_text.txt
+              FORCE="$DISPATCH_FORCE"
+              ;;
+            issues)
+              # Body holds the titles/URLs; fall back to the title text after the "[scrape]" tag
+              if printf "%s" "$ISSUE_BODY" | grep -q '[^[:space:]]'; then
+                printf "%s\n" "$ISSUE_BODY" > build/input_text.txt
+              else
+                printf "%s\n" "${ISSUE_TITLE#*]}" > build/input_text.txt
+              fi
+              case "$ISSUE_TITLE" in "[scrape:force]"*|"[SCRAPE:FORCE]"*) FORCE=true ;; *) FORCE=false ;; esac
+              ;;
+            *)
+              echo "scrape=false" >> "$GITHUB_OUTPUT"
+              exit 0
+              ;;
+          esac
+          if ! grep -q '[^[:space:]]' build/input_text.txt; then
+            echo "Error: no IMDb titles, IDs or URLs were given."
+            exit 1
+          fi
+          cp docs/titles.json build/registry_before.json
+          echo "scrape=true" >> "$GITHUB_OUTPUT"
+          echo "force=${FORCE:-false}" >> "$GITHUB_OUTPUT"
+
+      - name: Acknowledge Scrape Request
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE: ${{ github.event.issue.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh issue comment "$ISSUE" --body "🎬 Scrape started. Live log: $RUN_URL"
+
       - name: Set up Python
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.req.outputs.scrape == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
 
       - name: Cache Playwright Browsers
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.req.outputs.scrape == 'true'
         id: playwright-cache
         uses: actions/cache@v4
         with:
@@ -67,31 +124,24 @@ jobs:
             playwright-browsers-${{ runner.os }}-
 
       - name: Install Python Dependencies
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.req.outputs.scrape == 'true'
         run: |
           pip install -r requirements.txt
 
       - name: Install Playwright Chromium with Dependencies
-        if: github.event_name == 'workflow_dispatch' && steps.playwright-cache.outputs.cache-hit != 'true'
+        if: steps.req.outputs.scrape == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: playwright install --with-deps chromium
 
       - name: Install OS Dependencies Only (Cache Hit)
-        if: github.event_name == 'workflow_dispatch' && steps.playwright-cache.outputs.cache-hit == 'true'
+        if: steps.req.outputs.scrape == 'true' && steps.playwright-cache.outputs.cache-hit == 'true'
         run: playwright install-deps chromium
 
       - name: Run Python Scraper & Export Gallery
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.req.outputs.scrape == 'true'
         env:
-          INPUT_TEXT: ${{ github.event.inputs.imdb_input || github.event.inputs.imdb_url }}
-          FORCE_RESCRAPE: ${{ github.event.inputs.force_rescrape }}
+          FORCE_RESCRAPE: ${{ steps.req.outputs.force }}
           PYTHONUNBUFFERED: "1"
         run: |
-          if [ -z "$INPUT_TEXT" ]; then
-            echo "Error: imdb_input is required!"
-            exit 1
-          fi
-          mkdir -p build
-          printf "%s\n" "$INPUT_TEXT" > build/input_text.txt
           echo "Processing provided input text..."
 
           EXTRA_ARGS=""
@@ -103,11 +153,32 @@ jobs:
           python3 -u scraper.py --input build/input_text.txt $EXTRA_ARGS
 
       - name: Publish Gallery Data to data Branch
-        if: always() && github.event_name == 'workflow_dispatch'
+        if: always() && steps.req.outputs.scrape == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           ./data.sh publish "chore: batch update gallery data [skip ci]"
+
+      - name: Summarize Changes
+        if: always() && steps.req.outputs.scrape == 'true'
+        run: |
+          python3 - <<'EOF'
+          import json
+          before = {t["id"]: t for t in json.load(open("build/registry_before.json"))}
+          after = json.load(open("docs/titles.json"))
+          added = [t for t in after if t["id"] not in before]
+          updated = [t for t in after if t["id"] in before and t.get("lastUpdated") != before[t["id"]].get("lastUpdated")]
+          line = lambda t: f"- **{t['name']}** ({t.get('itemCount', 0)} photos)"
+          out = []
+          if added:
+              out += [f"**Added {len(added)} title(s):**"] + [line(t) for t in added] + [""]
+          if updated:
+              out += [f"**Re-scraped {len(updated)} title(s):**"] + [line(t) for t in updated] + [""]
+          if not out:
+              out = ["Nothing new: the title(s) were already scraped or could not be resolved. Use `[scrape:force]` to refresh existing titles."]
+          open("build/changes.md", "w").write("\n".join(out) + "\n")
+          EOF
+          cat build/changes.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -120,3 +191,27 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Report Back on Issue
+        if: always() && github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE: ${{ github.event.issue.number }}
+          JOB_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          if [ "$JOB_STATUS" = "success" ]; then
+            {
+              echo "✅ Done, the site is updated: $PAGE_URL"
+              echo
+              cat build/changes.md 2>/dev/null || true
+              echo
+              echo "Run: $RUN_URL"
+            } > build/comment.md
+            gh issue comment "$ISSUE" --body-file build/comment.md
+            gh issue close "$ISSUE" --reason completed
+          else
+            gh issue comment "$ISSUE" --body "❌ Scrape or deploy failed ($JOB_STATUS). Logs: $RUN_URL"
+          fi
