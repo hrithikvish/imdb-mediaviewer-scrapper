@@ -1212,12 +1212,43 @@ async function switchToWallpaperView(updateHistory = true) {
   }
 }
 
+let currentGalleryColCount = 0;
+let galleryResizeTimer = null;
+
+function getGalleryColumnCount() {
+  const containerWidth = gridContainer ? gridContainer.clientWidth : 0;
+  const w = containerWidth > 0 ? containerWidth : window.innerWidth;
+  if (!w || w <= 0) return 4;
+  if (w < 520) return 2;
+  if (w < 820) return 3;
+  if (w < 1180) return 4;
+  return 5;
+}
+
+function handleGalleryResize() {
+  if (currentView !== 'gallery') return;
+  const newCols = getGalleryColumnCount();
+  if (newCols !== currentGalleryColCount) {
+    currentGalleryColCount = newCols;
+    renderGrid();
+  }
+}
+
 function renderGallerySkeleton() {
-  gridContainer.innerHTML = `
-    <div class="skeleton-grid" style="grid-column: 1 / -1;">
-      ${Array.from({ length: 8 }).map(() => '<div class="skeleton-card"></div>').join('')}
-    </div>
-  `;
+  const numCols = getGalleryColumnCount();
+  currentGalleryColCount = numCols;
+  const sampleAspects = [1.33, 0.75, 1.5, 0.67, 1.25, 0.8];
+
+  let html = '';
+  for (let c = 0; c < numCols; c++) {
+    html += '<div class="gallery-col">';
+    for (let r = 0; r < 4; r++) {
+      const ratio = sampleAspects[(c * 4 + r) % sampleAspects.length];
+      html += `<div class="skeleton-card" style="aspect-ratio: ${ratio};"></div>`;
+    }
+    html += '</div>';
+  }
+  gridContainer.innerHTML = html;
 }
 
 // ---------------------------------------------------------------------------
@@ -1289,7 +1320,21 @@ function renderGrid() {
     return;
   }
 
-  const fragment = document.createDocumentFragment();
+  // Equal-width column masonry: number of columns adapts to device width,
+  // card heights vary according to natural image aspect ratios.
+  const numCols = getGalleryColumnCount();
+  currentGalleryColCount = numCols;
+
+  const colElements = [];
+  const colHeights = [];
+
+  for (let c = 0; c < numCols; c++) {
+    const col = document.createElement('div');
+    col.className = 'gallery-col';
+    gridContainer.appendChild(col);
+    colElements.push(col);
+    colHeights.push(0);
+  }
 
   filtered.forEach((item, index) => {
     const card = document.createElement('div');
@@ -1302,32 +1347,33 @@ function renderGrid() {
     const caption = item.title || (selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo');
     const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 480);
 
-    // Staggered grid: fixed height, variable width matching image aspect ratio (no cropping)
     const width = Number(item.width) || 0;
     const height = Number(item.height) || 0;
     const aspectRatio = (width > 0 && height > 0) ? (width / height) : 1.5;
 
     card.style.setProperty('--aspect-ratio', aspectRatio.toFixed(4));
-    card.style.width = `calc(var(--gallery-thumb-height, 220px) * ${aspectRatio.toFixed(4)})`;
 
     card.innerHTML = `
-      <div class="media-thumb-wrapper">
+      <div class="media-thumb-wrapper" style="--aspect-ratio: ${aspectRatio.toFixed(4)}">
         <img class="media-thumb" src="${previewUrl}" alt="${escapeHtml(caption)}" loading="lazy">
         <span class="card-badge ${badge.isHigh ? 'high-res' : ''}" title="${badge.dim}">${badge.label}</span>
-      </div>
-      <div class="card-info">
-        <div class="card-title" title="${escapeHtml(caption)}">${escapeHtml(caption)}</div>
+        <div class="card-info">
+          <div class="card-title" title="${escapeHtml(caption)}">${escapeHtml(caption)}</div>
+        </div>
       </div>
     `;
 
     const img = card.querySelector('.media-thumb');
+    const thumbWrapper = card.querySelector('.media-thumb-wrapper');
     const onImgLoaded = () => {
       img.classList.add('loaded');
       if (!width || !height) {
         if (img.naturalWidth && img.naturalHeight) {
           const naturalRatio = (img.naturalWidth / img.naturalHeight).toFixed(4);
           card.style.setProperty('--aspect-ratio', naturalRatio);
-          card.style.width = `calc(var(--gallery-thumb-height, 220px) * ${naturalRatio})`;
+          if (thumbWrapper) {
+            thumbWrapper.style.setProperty('--aspect-ratio', naturalRatio);
+          }
         }
       }
     };
@@ -1349,10 +1395,19 @@ function renderGrid() {
       }
     });
 
-    fragment.appendChild(card);
-  });
+    // Shortest-column greedy bin-packing
+    let shortestCol = 0;
+    let minH = colHeights[0];
+    for (let c = 1; c < numCols; c++) {
+      if (colHeights[c] < minH) {
+        minH = colHeights[c];
+        shortestCol = c;
+      }
+    }
 
-  gridContainer.appendChild(fragment);
+    colElements[shortestCol].appendChild(card);
+    colHeights[shortestCol] += (1 / aspectRatio);
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -3895,6 +3950,19 @@ function setupEventListeners() {
   // Gallery Back Button -> Return to Catalog View
   if (galleryBackBtn) {
     galleryBackBtn.addEventListener('click', () => switchToCatalogView(true));
+  }
+
+  // Window & Container resize handling for Movie Gallery Grid
+  window.addEventListener('resize', () => {
+    clearTimeout(galleryResizeTimer);
+    galleryResizeTimer = setTimeout(handleGalleryResize, 80);
+  });
+
+  if (window.ResizeObserver && gridContainer) {
+    const ro = new ResizeObserver(() => {
+      handleGalleryResize();
+    });
+    ro.observe(gridContainer);
   }
 
   // Wallpaper Source Title Selector

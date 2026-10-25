@@ -104,16 +104,17 @@ The web frontend operates in two primary views:
 1. **Catalog View (`#catalog-view`)**: A-Z listing of all scraped titles, each featuring a horizontal photo strip.
 2. **Title Gallery View (`#gallery-view`)**: Full gallery view for a single selected title with search and resolution filtering.
 
-### Staggered Fixed-Height / Variable-Width Layout
+### Layout Engines
 To prevent photo cropping:
-- Rather than forcing photos into square/4:3 boxes with `object-fit: cover`, rows have a **fixed height** and items have a **variable width** proportional to each image's true aspect ratio (`width = height * (imageWidth / imageHeight)`).
+- Rather than forcing photos into square/4:3 boxes with `object-fit: cover`, images maintain their true natural aspect ratio (`width / height`).
 - **Single Title Gallery Grid**:
-  - CSS variable: `--gallery-thumb-height: 220px` (desktop), `190px` (tablet), `150px` (mobile).
-  - Width: `calc(var(--gallery-thumb-height) * var(--aspect-ratio))`.
+  - Responsive equal-width columns (`.gallery-col`) adapt dynamically to device width (2 columns on mobile, up to 10+ columns on widescreen displays).
+  - Variable card height according to each image's true aspect ratio (`aspect-ratio: var(--aspect-ratio)`).
+  - Shortest-column greedy bin-packing ensures a balanced, seamless waterfall grid with zero Cumulative Layout Shift (CLS).
 - **All Titles Catalog Strip**:
-  - CSS variable: `--strip-card-height: 130px` (desktop), `118px` (tablet), `105px` (mobile).
-  - Width: `calc(var(--strip-card-height) * var(--aspect-ratio))`.
-- **Zero CLS**: Card widths and aspect ratios are calculated upfront in `app.js` using metadata `width` and `height`, preventing Cumulative Layout Shift during lazy loading.
+  - Fixed-height horizontal photo strip with CSS variable `--strip-card-height: 130px` (desktop), `118px` (tablet), `105px` (mobile).
+  - Card width: `calc(var(--strip-card-height) * var(--aspect-ratio))`.
+- **Zero CLS**: Card aspect ratios are calculated upfront in `app.js` using metadata `width` and `height`, preventing Cumulative Layout Shift during lazy loading.
 
 ### Lightbox / Carousel
 - Click any photo to launch the full-screen carousel (`#lightbox`).
@@ -198,9 +199,11 @@ python3 serve.py
 3. **Preserve Master URL Cleaning Logic**:
    - `clean_imdb_image_url()` in `scraper.py` is the single source of truth for stripping resize/crop parameters.
    - Never apply resize/crop filters to master assets stored in `items[].url`.
-4. **Preserve Uncropped Staggered Layout Rules**:
-   - Do not reintroduce fixed column widths (`grid-template-columns: repeat(...)`) or fixed aspect ratios (`4/3` or `1/1` with `object-fit: cover`) to gallery grids or catalog strips.
-   - Always preserve the `--aspect-ratio` calculation and CSS variables `--gallery-thumb-height` / `--strip-card-height`.
+4. **Preserve Uncropped Layout Rules**:
+   - Movie gallery grid uses an uncropped responsive masonry layout with equal-width columns and natural variable height proportional to each image's true aspect ratio.
+   - Catalog horizontal strips preserve `--strip-card-height` and uncropped aspect ratios.
+   - Do not reintroduce fixed square/4:3 boxes with cropping (`object-fit: cover` with fixed aspect-ratios).
+   - Always preserve the `--aspect-ratio` calculation.
 5. **Keep `--rebuild-index` Free of External Dependencies**:
    - `rebuild_titles_registry()` in `scraper.py` must only use the Python standard library (`os`, `sys`, `json`, `time`, `argparse`).
    - Do not require `playwright` for registry rebuilding.
