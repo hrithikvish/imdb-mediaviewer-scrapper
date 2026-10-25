@@ -1,525 +1,85 @@
 {
-    "targetUrl": "https://www.imdb.com/title/tt0056937/mediaindex/",
+    "targetUrl": "https://www.imdb.com/title/tt1856101/mediaindex/",
     "items": [
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjNkNmNjMzgtZDFlOS00OTE3LWFjZTUtNGYyZmM5ZjEzNmIxXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTg3NDIwNzU3MF5BMl5BanBnXkFtZTgwMDQ5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 166,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDc5NjY5YWYtOTk1Yy00NWEzLWFjNGUtZGU4MjdmYTQwZGQ5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 273,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2Q1ZTI5ZjYtZWU0NC00MzlhLTkzMzctMjRmMmJlMTY0MzM3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 175,
+            "width": 328,
             "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjQ2OTQ2Mzg2OV5BMl5BanBnXkFtZTgwOTQwODUyMTI@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTgyMzYyMTU2NF5BMl5BanBnXkFtZTgwMTQ5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 275,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjQwMDYzMTI3OV5BMl5BanBnXkFtZTgwODU5NzUyMTI@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 292,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTYyNzc0Nzc3OV5BMl5BanBnXkFtZTgwMDU5NzUyMTI@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 287,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjA0MjIzMzU3N15BMl5BanBnXkFtZTgwMTEzNzUyMTI@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 287,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjMyMzgyMTgzMF5BMl5BanBnXkFtZTgwNjMxMDg5MTE@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 280,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjIwMDYyNDQ2MF5BMl5BanBnXkFtZTgwMDMxMDg5MTE@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 219,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjMzMDE2NDk5OF5BMl5BanBnXkFtZTgwMjMxMDg5MTE@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 176,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjM3NjQyMTM5Ml5BMl5BanBnXkFtZTgwNDMxMDg5MTE@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 174,
+            "width": 524,
             "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTk0NjE4NTYzMV5BMl5BanBnXkFtZTgwODIxMDg5MTE@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTU5NTkwNTA2NF5BMl5BanBnXkFtZTgwMjQ5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 179,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDYxNTM5Mjk4N15BMl5BanBnXkFtZTgwNzIxMDg5MTE@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 331,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTcyOTQ2MTY4M15BMl5BanBnXkFtZTgwOTIxMDg5MTE@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 295,
+            "width": 522,
             "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTQ3MzE3Mjc0MF5BMl5BanBnXkFtZTgwNDIxMDg5MTE@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BNDc5NjM5MzY5N15BMl5BanBnXkFtZTgwNTQ5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 281,
+            "width": 328,
             "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjQ5NTQxMDE1NV5BMl5BanBnXkFtZTcwODE2NjgyMw@@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTg0OTk2Njk2OF5BMl5BanBnXkFtZTgwNjQ5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 254,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTAwMTU3NjA3NDVeQTJeQWpwZ15BbWU3MDkxNjY4MjM@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 261,
+            "width": 328,
             "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTY2ODY5MzgzMF5BMl5BanBnXkFtZTcwMTI2NjgyMw@@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjE2OTA5MjQzNl5BMl5BanBnXkFtZTgwNzQ5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 198,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzQ0NTg2NDY4MF5BMl5BanBnXkFtZTcwMjI2NjgyMw@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 256,
+            "width": 328,
             "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjAzOTk5MTQwNV5BMl5BanBnXkFtZTcwNDI2NjgyMw@@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BOTg1MjE2NDc3M15BMl5BanBnXkFtZTgwODQ5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 158,
-            "height": 217,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjE5NjU4Njk1M15BMl5BanBnXkFtZTcwNjI2NjgyMw@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 284,
+            "width": 328,
             "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjA4MDIyOTk2NF5BMl5BanBnXkFtZTYwNjg2NTY3._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 204,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTY1NzE1NTg0Nl5BMl5BanBnXkFtZTYwODg2NTY3._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 161,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTM2MDM1MTI3N15BMl5BanBnXkFtZTYwMTk2NTY3._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 149,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTg0MTcxODQ1NV5BMl5BanBnXkFtZTYwMzk2NTY3._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 295,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTE0NjY0ODY1M15BMl5BanBnXkFtZTYwNDk2NTY3._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 167,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTkzMTU0NzIwNl5BMl5BanBnXkFtZTYwODMwMjM2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 162,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTQxMzY5MzgwOV5BMl5BanBnXkFtZTYwMDQwMjM2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 170,
-            "height": 219,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjk1MTUwMjg3MF5BMl5BanBnXkFtZTYwNjM4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 165,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzZhMmRlODQtZmE5My00YmQxLTlmYzMtYTAwYTI5ZjNhZDg5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 162,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2RmNzM2ZTktMDg3MC00ZjNhLWExMDEtZmQ4MTAxZjhjOGUzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 171,
-            "height": 219,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTE5Mjg1NDA2OV5BMl5BanBnXkFtZTYwMjQ4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 169,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTQ2NzMzNDkzN15BMl5BanBnXkFtZTYwNDQ4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 169,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjE3ODM4MTM5N15BMl5BanBnXkFtZTYwNjQ4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 159,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTMzMDk2MjEyNl5BMl5BanBnXkFtZTYwMDU4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 167,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjE4Mzg5OTc2MV5BMl5BanBnXkFtZTYwNDU4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 154,
-            "height": 219,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDM3NjkwMzM0Nl5BMl5BanBnXkFtZTYwNjU4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 153,
-            "height": 219,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTUzODc3MjA1NF5BMl5BanBnXkFtZTYwMDY4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 155,
-            "height": 219,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTgwNTU5NjIyOV5BMl5BanBnXkFtZTYwMjY4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 293,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjA3NzI2MjI2NF5BMl5BanBnXkFtZTYwNDY4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 300,
-            "height": 219,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTIzMjUxOTIxNF5BMl5BanBnXkFtZTYwNjY4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 159,
-            "height": 217,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTM1NzI2OTc5OF5BMl5BanBnXkFtZTYwODY4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 300,
-            "height": 219,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTY3NDcxMzUyNF5BMl5BanBnXkFtZTYwMDc4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 147,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODA5MzQwMDI5NF5BMl5BanBnXkFtZTYwMjc4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 144,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTY0ODgwNjk3N15BMl5BanBnXkFtZTYwNDc4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 228,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTM1NzQ0OTg3M15BMl5BanBnXkFtZTYwNjc4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 229,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzE5Nzk4NTI5OV5BMl5BanBnXkFtZTYwODc4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": null,
-            "width": 155,
-            "height": 218,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTY0MTY2NzQ2Ml5BMl5BanBnXkFtZTYwMDg4MTU2._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjEyMTI0NjM2OV5BMl5BanBnXkFtZTgwOTQ5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
@@ -530,4220 +90,469 @@
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTg1MzIwMDY3Ml5BMl5BanBnXkFtZTYwMjg4MTU2._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjQ5NjA3MzIzMl5BMl5BanBnXkFtZTgwMDU5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 175,
+            "width": 328,
+            "height": 219,
+            "metadata": {
+                "source": "gallery_dom"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMjQwNTI4ODkzNl5BMl5BanBnXkFtZTgwMzU5MjY2MzI@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "title": null,
+            "width": 341,
             "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTgwNzA1NzM1M15BMl5BanBnXkFtZTYwNDg4MTU2._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTUxMDI3NDUxNV5BMl5BanBnXkFtZTgwNDU5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
             "title": null,
-            "width": 176,
+            "width": 524,
+            "height": 219,
+            "metadata": {
+                "source": "gallery_dom"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BNzU4NTM0MDg5OV5BMl5BanBnXkFtZTgwNTU5MjY2MzI@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "title": null,
+            "width": 328,
+            "height": 219,
+            "metadata": {
+                "source": "gallery_dom"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BNDAwODEzNTc2N15BMl5BanBnXkFtZTgwODE5MjY2MzI@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "title": null,
+            "width": 328,
+            "height": 219,
+            "metadata": {
+                "source": "gallery_dom"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMTUzNTg1MTUwMl5BMl5BanBnXkFtZTgwMDI5MjY2MzI@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "title": null,
+            "width": 328,
+            "height": 219,
+            "metadata": {
+                "source": "gallery_dom"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMjA4MzU3NDA1NF5BMl5BanBnXkFtZTgwMTI5MjY2MzI@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "title": null,
+            "width": 328,
+            "height": 219,
+            "metadata": {
+                "source": "gallery_dom"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMjQ1MzQ2NTM3Ml5BMl5BanBnXkFtZTgwMzI5MjY2MzI@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "title": null,
+            "width": 328,
+            "height": 219,
+            "metadata": {
+                "source": "gallery_dom"
+            }
+        },
+        {
+            "url": "https://m.media-amazon.com/images/M/MV5BMjM5MDg5NTkyNV5BMl5BanBnXkFtZTgwNDI5MjY2MzI@._V1_.jpg",
+            "type": "IMAGE",
+            "mimeType": "image/jpeg",
+            "title": null,
+            "width": 259,
             "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjI1NjM3NTg0NF5BMl5BanBnXkFtZTcwMzk5MjgyNw@@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjQ3NTQ1MTgyOV5BMl5BanBnXkFtZTgwNTI5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "\"Cleopatra\" Elizabeth Taylor, director Joseph L. Mankiewicz, Richard Burton 1962 20th Century Fox",
-            "width": 500,
-            "height": 370,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTM2NjA5ODM3N15BMl5BanBnXkFtZTYwOTQyNTAz._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjMxOTM1MTY2OF5BMl5BanBnXkFtZTgwNjI5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "John Doucette as Achillas in \"Cleopatra\" - Photo courtesy of the Doucette Family",
-            "width": 450,
-            "height": 307,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTc0MDEzOTgwMV5BMl5BanBnXkFtZTYwODU4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "\"Cleopatra\" Elizabeth Taylor 1963 20th Century Fox",
-            "width": 319,
-            "height": 450,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTIzMzUyMTgzNV5BMl5BanBnXkFtZTYwNjEyNjQ2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Eddie Fisher and Richard Burton on the set of \"Cleopatra\"",
-            "width": 450,
-            "height": 328,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTkxNTEzOTk2NV5BMl5BanBnXkFtZTYwNjAzNjQ2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Eddie Fisher and Richard Burton in Rome during filming of \"Cleopatra\"",
-            "width": 450,
-            "height": 334,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTU0ODAxNDgwM15BMl5BanBnXkFtZTYwMjU4MTU2._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "\"Cleopatra\" Elizabeth Taylor 1963 20th Century Fox",
-            "width": 324,
-            "height": 450,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjAwODQ0ODc0NV5BMl5BanBnXkFtZTcwMDg5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Lara Nieto and Adrian Brody attend the 'Cleopatra' premiere during The 66th Annual Cannes Film Festival at The 60th Anniversary Theatre on May 21, 2013 in Cannes, France.",
-            "width": 2048,
-            "height": 1363,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjE1MTU4NzIyN15BMl5BanBnXkFtZTcwMjg5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Jessica Chastain at an event for Cleopatra (1963)",
-            "width": 2048,
-            "height": 1365,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjMxMjc4NjAzNF5BMl5BanBnXkFtZTcwMzg5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Barbara Palvin at an event for Cleopatra (1963)",
-            "width": 1363,
-            "height": 2048,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTQyNjAxNDY2NV5BMl5BanBnXkFtZTcwNDg5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Aishwarya Rai Bachchan at an event for Cleopatra (1963)",
-            "width": 1363,
-            "height": 2048,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDY3NDA1MDA4MV5BMl5BanBnXkFtZTcwNjg5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Jessica Chastain at an event for Cleopatra (1963)",
-            "width": 1328,
-            "height": 2048,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTM5MjIyMzIyNl5BMl5BanBnXkFtZTcwNzg5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Joan Smalls at an event for Cleopatra (1963)",
-            "width": 1362,
-            "height": 2048,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjA1OTA2NTMwNF5BMl5BanBnXkFtZTcwOTg5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Beatrice Rosen at an event for Cleopatra (1963)",
-            "width": 1363,
-            "height": 2048,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTU5OTEyODIxMF5BMl5BanBnXkFtZTcwMDk5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Chris Tucker at an event for Cleopatra (1963)",
-            "width": 2048,
-            "height": 1362,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjEwNTM5ODIxNV5BMl5BanBnXkFtZTcwMzk5ODQ1OQ@@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Milla Jovovich at an event for Cleopatra (1963)",
-            "width": 1363,
-            "height": 2048,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTMwNDc4YzgtNTZkYy00YmQ5LTkyMGItNTIyZmU5N2YyYTM3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 682,
-            "height": 973,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDg1NWYxNTQtOTFmMC00ZGE4LTlmNTItMDhlYTk1MDJiNTJkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 2000,
-            "height": 2994,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMmM1MmVjYTYtYTI1Yy00ZDczLThhNDItNjM1OTQ5YzEzODJlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1000,
-            "height": 1450,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjkyYTM4ZDQtZjg3ZC00YWU0LTllMGMtMGMyZjk0OGRiNWIyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 600,
-            "height": 800,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjI4ODE1NzQxOF5BMl5BanBnXkFtZTgwOTA5NDgzMTE@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 675,
-            "height": 1000,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjMxNDU4Njg0MF5BMl5BanBnXkFtZTYwMDExMjA5._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
+            "title": null,
             "width": 340,
-            "height": 475,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjY1NDU5OTYxNl5BMl5BanBnXkFtZTYwMjkwMzA5._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjExOTU0NTk2OV5BMl5BanBnXkFtZTgwNzI5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 338,
-            "height": 475,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTIzODIxMjIyNV5BMl5BanBnXkFtZTYwNTI3NTE5._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjI2NDk2MDkwNl5BMl5BanBnXkFtZTgwODI5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 260,
-            "height": 475,
+            "title": null,
+            "width": 340,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTc4MDE3MDcyNF5BMl5BanBnXkFtZTYwMzYxNjE5._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTc5MjMxMDU4MV5BMl5BanBnXkFtZTgwOTI5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 279,
-            "height": 475,
+            "title": null,
+            "width": 522,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTk1OTMyNTkwNV5BMl5BanBnXkFtZTYwODQyNjE5._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTU1NjQzODEwNF5BMl5BanBnXkFtZTgwMDM5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 265,
-            "height": 475,
+            "title": null,
+            "width": 375,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTI4NjAwNTY5Ml5BMl5BanBnXkFtZTYwOTY2NjE5._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BODYzNTY5NzA2MF5BMl5BanBnXkFtZTgwMjM5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 475,
-            "height": 303,
+            "title": null,
+            "width": 339,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTY3MjczNzYxMl5BMl5BanBnXkFtZTYwNDg0OTI5._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjEwODY1Nzk5Nl5BMl5BanBnXkFtZTgwMzM5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 294,
-            "height": 475,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTk3MzE0NjEzN15BMl5BanBnXkFtZTcwNjQ3NDcxMQ@@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTA0MzA5MjU4ODFeQTJeQWpwZ15BbWU4MDYzOTI2NjMy._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 348,
-            "height": 475,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTgyNjM4MTI4Ml5BMl5BanBnXkFtZTcwNjE4NjEzMQ@@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTYwMDgxNzA3MV5BMl5BanBnXkFtZTgwNzM5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Susan Hayward and Victor Mature in Demetrius and the Gladiators (1954)",
-            "width": 355,
-            "height": 500,
+            "title": null,
+            "width": 145,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjExMTcxODY3Nl5BMl5BanBnXkFtZTcwNjY1MjIzMQ@@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjM4MDc0MDI1OF5BMl5BanBnXkFtZTgwODM5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 359,
-            "height": 500,
+            "title": null,
+            "width": 523,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BNWJiNDYxZDgtODdlNC00MzUyLThmMzEtMWM5ODlmNDI2YjA1XkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTY2Mzc2MDI4NF5BMl5BanBnXkFtZTgwMDE5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 145,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzEwNjdlNDEtMGFiZi00ZmI2LWFmNTUtZTRiMzUwOTNiYjkxXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjMxMTAzMTYyOF5BMl5BanBnXkFtZTgwMTE5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 145,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDkyY2I4MzgtMTU2NS00MzE0LTgwNDItYjRhYmM3MTczOGJjXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMzI1ODUzNTg0Ml5BMl5BanBnXkFtZTgwMjE5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 523,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjE5MTUzZTQtMTgwYS00NTFlLWE3ZDUtZGM0NWYyMTFiYTcwXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTY1OTYwNDk3MV5BMl5BanBnXkFtZTgwMzE5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTVmYzMwMzAtY2I5MS00Y2RlLWFjYmQtNGIxMGUyYWVkOTk3XkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BOTUwNTU3Njc1Nl5BMl5BanBnXkFtZTgwNDE5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGIwN2ExZGYtOTIzNS00ZjQxLTkxNWItYmNmNDlhODg4OTU0XkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTUxMDIxMzIyNF5BMl5BanBnXkFtZTgwNzE5MjY2MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 327,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTc5OWI1NmItMDNmOC00Y2I1LWIzZTYtNTQzYjljZThmMGJmXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTU1ODExMzY4Nl5BMl5BanBnXkFtZTgwMjA1NzU1MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDg2YWViMzgtNDMwYy00NWYyLWI2YTUtYzRhMTc4ODVkNGIyXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjExNzk5OTEyOF5BMl5BanBnXkFtZTgwNzA1NzU1MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 275,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjE5NWE1ZTctMjhmYy00NDQ3LTkzZDMtNjI4MzcxZGZmM2FlXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjM1MDQyNTkxM15BMl5BanBnXkFtZTgwODA1NzU1MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2RjNDczYTAtOTJhNC00NWY1LWFkMmYtMzM2YjA3ZTZiOGJmXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTY1OTk3MjczNV5BMl5BanBnXkFtZTgwOTA1NzU1MzI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWZiZmMxOTYtOTIzNi00ZmUzLWE4MDMtZjY4N2U2NmMyYTI1XkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMTk2OTU3MDA3N15BMl5BanBnXkFtZTgwMTg5NjUyMjI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 522,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDg4NjNjNDAtNDlkMS00NjM3LWE2OGMtZTJhMjY2OTAzODdhXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjI3NDQ3Njk3M15BMl5BanBnXkFtZTgwMjg5NjUyMjI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 165,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDkwOWM3MTktYzYwZC00MDQwLTg2OTQtZDkwMjdlYWJmMGU4XkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjIwODQxNDA4N15BMl5BanBnXkFtZTgwMzg5NjUyMjI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 522,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjE3NWEzMmEtYWEwZS00OTQ2LWIzZWItMjNjMzZhODBkNTdjXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BNDkxNzY5MjIxNF5BMl5BanBnXkFtZTgwNDg5NjUyMjI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 522,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2NmYzVlNTQtMWM2Ny00N2YyLWI5NmQtMzJlNTRkZjQ5ZmI2XkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjA5NzE4NTA0MF5BMl5BanBnXkFtZTgwNTg5NjUyMjI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 522,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTRjOWU3MjYtMzBjZS00ZThhLWE2Y2QtZjFmYTYzODBmZTgxXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMjM5MTA2Mzg1NF5BMl5BanBnXkFtZTgwNDU0OTQyMDI@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2IwMGY5OWMtYTQyMy00NjQzLWI5YWMtYmY0Y2UzZjYyYTMwXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BY2EzYWRjYWItMTc2Mi00YTcwLWFiODUtMjhiMWRjYzg1YWNhXkEyXkFqcGc@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 145,
+            "height": 217,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzI5OWI0YTQtYTI1Yy00ZmI4LWE2NGYtY2QzOGYwNTMyMmQ5XkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BODc4YjZiOGQtNTMyNC00MjYxLWFmNWYtMjllMzcxYzA2NGM0XkEyXkFqcGc@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzliZjlkOWQtN2MyMi00ZmY5LWFlZTgtMWFkYjIxY2Y4ZDVhXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BY2MwNDEzMjUtOTEyYy00NmVhLTkwYmItOTQ1YzkwZjI2YTllXkEyXkFqcGc@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 145,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjJiY2ZkMzktOGE1Ni00OGM5LTk1NDQtMmYxYzg0N2NhZjYzXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BMzFiNzRmMmEtZTM2My00NjkxLWI4NWQtYzY1NmU0M2I2ZWE1XkEyXkFqcGc@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 145,
+            "height": 218,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDliZTU0ZWQtZWQyMS00MTk3LWExNDgtMTA3M2E1ZTVlODQyXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BYTI0NGZiZTQtODFmYS00ZWE4LWFlMjUtZGIyOWNkYjM0MTJkXkEyXkFqcGc@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
+            "title": null,
+            "width": 328,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         },
         {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTgyODJlZjUtMjIyZi00NTEzLTg1ZWUtNjZlNmE4MDYzOGEyXkEyXkFqcGc@._V1_.jpg",
+            "url": "https://m.media-amazon.com/images/M/MV5BZmY1MjNhMGQtZTViYS00NTA4LWJiMGUtZWEyYzI2MDg4YTFjXkEyXkFqcGc@._V1_.jpg",
             "type": "IMAGE",
             "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjVkODZhNTktNDUzZi00ZTA5LTg1NzMtMTlmZTBmY2UxYTI5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDQyYTI0MGYtOWVhOC00MzU4LWI4MWEtMzQyYTE3ODA2ZmQxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTBjY2FkZGYtZDRlOC00Mzg5LWE1NmItNjliM2I5YzIxOTRmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDk5N2VjOTgtOWRmOC00YTQ2LWI1ZTYtOTY2YTJlNmM0MTIxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BY2NiNmIyNjAtMTRhMS00NjI2LTg4MDgtOTRmY2FiOGU2YTI0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGFiZjFkNmEtY2FhYS00MDljLWE5YzItNzM4MGVlNTUxMjg3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTYzN2MwOTgtY2M2ZS00ZGJkLWI5YjYtODgxMzM3NzdkYmEzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZGM2NmJhYmEtNjg0YS00YmE1LWJlNzQtMjVkMmY4Y2I2OTBkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzA4MGUyMDQtODY2MS00MGY5LWIwOTktOWRjMDMxZDFjODcyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZWIxNzM3MDQtYTI0Yi00Yjk0LWExMWQtYjM1NzI3MWM5YWIxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjIxMDUyMjUtYTAwZC00MTYxLThlNGItZDI2ZGYzNGU1ZmEwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZWRjZGU5MzgtOTdiZC00MjcyLTljMzUtZDI1MzMyMmJiMzNlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDExMjg4ZmYtOTM4Zi00NjY4LTllMDUtMjhiN2FiYTZhMTdhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjAxNjE4YjYtMjVhZi00MTU5LWExMDYtMTAwMDZhODUyMmZlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZWNmZWE3MDktNzE0NS00NzMwLTkwMzgtOWFmMTRiZmExM2I5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNWNiNzU3Y2EtMTYzOC00NjY1LThiMjUtNDdmOGIwNWFiYWEyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODBlYmFmZWItMWE4NS00MmZjLTllMTYtMGE3ZGM2ZjExZjY5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTRmZTlmNDAtZGJiYS00YzhjLTg2Y2UtMDVmOGZhZjcwNzg3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDc3MzQ5NzYtZTEyMi00MjE2LWE1N2EtZjkwMGRkZDI5YTQ4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjViNDhkMDktYmUxNi00MWUxLWI3MTgtNmVhYThhZTRhYzc4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2MyZjE0ZjItMDFiOC00NjkxLWEwMjEtNDUwYTc4OGIyNzFkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZGQzMTQ5NGYtNWI5Ny00ZjJiLWFhMTUtYWQ0Y2U1NDc2ZGZiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTk3ZjVhN2UtYjg4Mi00M2U4LThiMWItYjFmYmM2ZWZhZjA5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDYwMGI0MWItNTc3ZC00OWJlLTg0YjUtZDI1ZDBmY2M3NTMzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzc2NmM4YTUtZDkzOS00ZDA5LTljYjItMjJkY2IxNTUzMjI1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTAzNjMwOTQtMGUyMy00OGU1LThjMzktZjAwMjE3MjlmZGRiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMmExZDlhZTktMWQ3OC00YjlkLWE1YjUtNzI4NmIzMWNkM2IxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjc2MzFjNWEtNDY4YS00NzVjLTg5YTAtMDg5ZjBlNDJjOWFmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzg0YTQwOWMtMzkwNy00OWUxLWE2N2EtZmNjMjZjMTRmMzljXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzY1ZjM2NjctNjk0Yi00ODIwLWEzMjUtZDcwOWIyMGQzNDFmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYThlYzk5YmMtMjIzYS00NmM0LWJiZmYtMGQxMjI1ZTdmNjY5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzA2NmY0OTAtZmNkYS00YzY5LWE5MjAtOGFkNzJhZjAxMGZhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDM1NGM0OTAtMmNiMC00MGFhLTlhNGYtNWE3MDVkMzRlNzFhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGJhZDI3ZGEtOWMzZi00YjMzLTg1ZDEtNWM2NzVmMzhmYmQzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMmYwMWZmOGUtOTNiZC00M2Q0LTg5Y2MtNDFiNjJjMTlmYTdmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2JmOWVjMDQtYTAzMS00ZDQyLTljY2YtNWI1MDZkOWQ3NTY0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzk3MzZlNjQtMTljZC00ZTRhLWFhNzQtODAzMjk0NGFkM2Y2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjk2OWJlMzEtODcyOC00NmZlLTkwYzMtOTQ4Mzc0NDViZjYyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjJjYWE1MTQtOTRkYS00MmZiLWI2YzMtMjlkNDc4YzcyZGIzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTA4OTY0NGYtMTVmMi00MDVlLWIwYjAtOGVlZjM3YzFkNjUyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjU5YWM5ZWItMDE4Yi00Yjc3LWE5ODYtN2FiNDBiZWQ0MTAwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGZkM2E0OGQtZmJkNi00N2I1LThiZDctNjgyZjhkZTMxY2ZmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMThmN2FkODYtMDM1Ni00ZjBkLTg5MWItZTI5ODBiY2YxZjY5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzgwMTdmNmQtODJjNi00N2U4LWFhMmQtYjk3Y2JiNjA3YTI2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZGEwNzdjOGQtNTc5Ni00ODgyLWE0NjAtOTVjNGY5MGMxNjNmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZmE4NjFmNjQtZGU3ZS00Y2Q0LThhMTktMTk4ZmJlYWE3YmU5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNmEzZTZhNzQtMjFmOC00NGJmLWI2OWItYmRkY2EzODRkM2I3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZGJhMjc0Y2YtZTA0Yy00OTgxLThmY2UtN2FiM2Q2Njk2N2UwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODdmNzU5YzctMDkzYy00ZDk3LTliZGMtMTQxNjNiNjE0NjY4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTVlNmNmMGUtOGNhZS00ODE1LWE2ZWEtNTQyZjgxYWYwMTY4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzMwNjk2NTctZmUyMy00NWY2LWExODktNjE0ODZkZTI5ZWU3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTc2NzVlODQtNjJmYy00ZjgyLThmNGYtOTJjZDFkZTczOWVmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWQxMDVmNmQtZGQ1OS00ODEzLWE0MTgtNjZkMTI4ZGFjY2U5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWZjMWM3NzUtOTg0NC00OTUzLTg5YzUtNmYwYWFkZTE0ODkyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGE4NjAwYjAtNGZkNS00NzMyLWE5MzUtZTMyMGU1ZWNlNDA2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODg5MzYzMTUtN2MzOS00YTYxLWIxNjEtZTBiN2E5NDNmNzFkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjQzMzljOGUtZDY3Yy00OWJiLThhOTctMTQ0NGMxNWRhZDhhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjc3MGE3MDktZGEzNi00YTcyLTk2YTYtNWE3YWU0NGM1MDZmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYWZhN2NmNDUtNjE4MS00YTA2LTgzNTAtNjVlODBlYTRiOWNkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzU5ODViYmMtMGNlNC00Yzg2LTg1MGMtZGE3YWRiYjU5NTU0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTZlNzAyNGEtYzQ0MS00MjgzLTk5Y2MtMjE0YmQzOGU0ZWNjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGVlZDRhMTgtM2I1NC00M2ViLTk3NDctNDg0YTIwZDI3MzEzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDcxMDE2ZGQtZTI4ZS00NTk0LWE4OTEtZDg4OTAwMzc5OWVmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTc3YzI5OTItMzA3YS00N2VjLWFlNDQtYmEyZWFiZDA1MDBkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2U2M2I0MWItYTAwNS00ZmYwLTk4NGMtYzY1ZjdkNTIwZDlmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNWI3MjVhN2QtNTIxZi00YmE1LWJlNjItYWU1Njk1MmIyYzZhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTk4MTFmYzAtNTFjZS00MzljLWE2MmQtZDY0NzU4NjliMmE4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzlmMGU3ODMtNDZmYy00NzI0LTk2ZjItMzY1MWU1MGE2ZDdlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzU1NDI1NGEtYzk1OS00NmFiLTgyOGMtODA3MWNjYTY1YjhjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNmU2NTY2NzYtZGQxZS00Y2E0LWEwZmQtN2NjYjkwOWNlMWIyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjE3OGU5YjYtNmQ3Yy00MGYxLTkzMzYtNWYyNWQ4MDJmYTYzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmJhODE5MmYtYzYyOS00NzU4LWI3OGItM2E2ZTU4OWU5M2EyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDZkYmQ4YTktYTI0YS00MzU2LWFlNGYtNDZiY2RhNDU5MTExXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzUwODU0NDctM2E3Yi00Zjk1LTg2MTctMzc2Yzk3MDUyMWEyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNWUyZjI0NTgtZDU5OS00MjQxLTljY2QtNGEwY2QzY2YyOGVjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjgyNTFlNDktNmZiNS00YWQyLThkN2MtZDRmMmY4YzkxZGJiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTVjYzc0OTMtZGE1YS00MGM1LWFiZWEtZWFhODJiMGViMDI5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNmFkYzI1YWUtZmY4Mi00NjI5LWEyMGMtYTE2NDMzYzljN2Y4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjBlN2E2ZjYtOWY5Zi00NWZmLTkxOWQtZjY4OWY0NjU3NDA4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTZiZGRlZDAtZjM0OS00YjRiLWE4OGEtNDk0MWQyNzYwYjUxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODFjNzA4Y2QtZjViMy00OWVkLWFhYjktN2JjN2ZiMjExYTIwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWM2ZjYxZDItZTE1Mi00M2UzLWJjNWUtMjM2MGQxZGE0NTg1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTNlYzk5ZmUtNTkwMS00NTYyLTg3Y2YtYTIzMTgxM2NjMTVkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTFmZGY0MjMtNGEyOS00NDM0LWExNDItNWYwOGExY2M1YTMwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2JkNGQzNWItNTcwZC00NmZhLTlmYjMtZDg0ODQwMmQ1M2MwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzUwYjU0OWMtNGE5YS00MDk0LWE2YWEtM2Y2ZDQwNjA4MmJlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGQwZDY3OGUtNmUwNC00ZjM3LWEwMTktNDhjOTYyZmM1NmNlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzJhMDM4NzYtMTYwMS00MWNjLWE3MmYtY2NkMzM4ZDA0OTI3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTc1OWY3MTQtMzlhOS00YWMzLWI3OWEtNjJmNTFmMTNmN2FmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmQ0NGE0ZjMtZTBiOS00MTk5LWJkYTYtOGU5ZWQ2OTQ5ODAyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZWMxYmFhOWQtYTY2OC00ZTliLTllNDctYjg4NGVhMzIzZTg0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMGNiYmZmYmItZWUzZS00NDBhLWE2ZDItYjljMWMzNmFhYjdmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzgwNDEyNTMtYjAxNy00YjU3LTk2NDktY2U1MDFlMDJmN2I4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNWM1MWU0MDEtN2UzZS00MTQxLTk3YTItOTBiMGYwNTg4ZTFmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTljOTYyMzEtNTc4ZC00NjkzLTljZDYtYTNmNDBjY2NmNDY2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDRmYzU0ZTAtNDkwYy00ZmE5LWJiNjktZWQ5MmFhZDhiNTQxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGM4Yjc4NjQtY2IzMC00MDY0LTgyYWQtZWMxMjJjZjg0MTJiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDg3NDkzYTctOTY4NS00ODM0LTk2NjktMWQ2YTFkMTk3M2U3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDJiMjA0MzAtMTcxYS00ZGUyLWFmNWEtZTFiZGRkMWEwYjNlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDRjZWZiYjItNmJmMS00MjUzLWFmZjQtNjk3MWIzNzY2NDQ5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 640,
-            "height": 509,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWQ1ZDFhMzMtMDJjNy00N2Q1LTk2ODktOGQ4Mzc3YzFjY2RiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTNlNDk0MWItMGIxYy00ZTA3LThhMTktNTJlYTVhNmU2MjY4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTJjZDIxNTUtMzkyYi00NDJhLWI2Y2ItZmY1NjE5ZTRmYmY0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTMwNzdmZDctMDk4Yi00MTdjLWJmNTktY2NmOTFkNGM5MTM4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Martin Landau in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGFiMzhhMjMtMWJhOS00ODJhLThkYTQtN2U5Y2YyNjFjZGJjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjQ5ZjkzODAtNmM3OC00OTlkLTkxNzctMzNkODk1ZjcwOGEwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDBhNDBlZjAtMzMxYi00YjQzLTkwMDEtYzBiOWIzZTJhMzhhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTlhNmM1NDgtYmFlNC00MWRlLThlMjMtNzIwMDhjNzgzZmQ5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWM1ODQ3NTAtYTQxZi00YTJkLTlkMmUtMzFjMDJkODE2MmQ2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjY1YWNlMWQtZDZkZC00NTI5LThlOGUtY2UxYzhjMjliZTc1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjAzZWFkNTctMDEzMy00ZjhiLTk0NzUtMDhjM2Y0Nzk5YTYyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDY4Y2QyYzctOWFlMi00Yzc1LWE3NjUtYWNhNzAzMGU4YzBhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Rex Harrison, and Michael Hordern in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjcwNGRhYTMtYzUyMS00NDVhLTgxOTUtM2MxMmIwY2NlZjExXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMGQxZmUwNWYtNDUwYy00NzEzLTkyNjgtNmFkMDljZjU2MzQ4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTBhZDFmNDAtNjA2YS00NjY5LWJmNjMtY2Y4ZjNkM2E5YTcwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDMxM2Q5NDQtMDcxZi00ODVjLWEzODgtM2RjMDhlNGIxMDA5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTQwYzZhOWYtM2U4Ny00NDJjLTk4MzctNDQ5OTY2MmI3MTFmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMmY4NzdlYjMtM2I2Yy00NjU3LTkwZmYtZDVhYzcxNzc1YjczXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmU2MmU4MzQtMmY5OS00MDdjLTg1N2MtYjRmMDRhMDQ2Mzc1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMWM3MzE0N2EtMTg0NC00ZWZmLTlhMGEtNmJlZDA5ZTZlZjJkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZWM2OTZkYTctNWVlYy00MmQ4LTg2MmUtNzAyNGRhNDc1ZDY3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2FjMTBkYjctNGEzOC00MDYwLTk4ZjEtZjBmYjU1ZjVlZDdjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1366,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjgzMGNmMGUtODVmYi00MTU0LTlmNTktYzYyNGZkZDBlNGMzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 800,
-            "height": 474,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmQ2MDYwNWEtOWE2Yy00ZDJjLWFiMDgtOGFhYmUzMjMxNWQzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 792,
-            "height": 1049,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTg2MDJkNjYtOGQ4MC00OTllLWJhZGUtNjE1ZGRlZDY3MTAyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Violeta Montenegro in Cleopatra (1963)",
-            "width": 2545,
-            "height": 1153,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTg2ZDc4NzAtMDYxNC00OTE1LTgzMmYtYzJjZWMxYTdkMmIxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Rex Harrison, and Hume Cronyn in Cleopatra (1963)",
-            "width": 1795,
-            "height": 1148,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2ZhMjYxN2ItZTVkZS00YmU1LTliZmMtN2Q4MjZmZTQ1ODgwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Loris Loddi in Cleopatra (1963)",
-            "width": 1358,
-            "height": 604,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDYxNjA1MWItNWZhNi00YjBhLTgxMmEtZjY1NGZjYzYyODg4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1024,
-            "height": 768,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWFjMzg5YTEtOWFmNi00YjllLTlhNDUtODlhZGMzMjUwNWEwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Grégoire Aslan in Cleopatra (1963)",
-            "width": 720,
-            "height": 320,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMmZlMTNkNDAtNzhjOS00ODM3LWE4OWMtM2NjOGZkOTU1MmIyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDc5OTViZmMtMTMyZi00NWViLTkxZDUtMmQ5Mjg3MzljYWUwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGM3OTQ0MjctMzdhYS00YzgyLTk4MTMtOWZmYjE0OWY2OTBkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjdmOWYzMGQtMTg2Yy00ZGVmLTgwZjQtMDE4YTIyZTgxODJmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTk0M2FjN2YtNDllNC00N2I1LWJlOTYtYmU1YmRmNDk3NzQ4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjMwZTM1YmUtMDJjOC00MWNhLTlhOWQtMDAwYTIzOTgxNzQ5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmMyM2MwNDYtNzljMy00YmY5LTkxY2ItYzVmZTYzNmQ0NTAwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzg4OWViNzMtZGM5OS00NzFjLWFjZWYtNjI1NTdmNjMxMjlmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, Rex Harrison, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjI3YjVlYWQtYmE3My00N2ViLWFkZjctYTNhYTMzZGRmNDVkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, Rex Harrison, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzFiZmRhMzItMmJjYS00ODYxLThhYWQtOTc2NWQxMzhlNDg3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, John Cairney, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BY2IxNDUwNTUtZTIzNy00NDYwLTg1OTQtMDQ3Zjk4YmI1N2MzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and John Cairney in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzE1ODRlYjAtZjBkOS00NzUxLTg1NGEtNWZmZjE1ODhmMzM4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjI2ZGY2NzItMDM3My00NWUzLWEwYWEtYWY1NDc4NWJlMjk2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDA5MWQ5Y2MtODdhNi00NDhjLWJiYzEtOTdiODY2OWJiMzVmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 872,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMGI0NWQzODQtMDc4NC00NjUxLWIzZjctN2FmNDYyNThhYTlhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "John Cairney in Cleopatra (1963)",
-            "width": 635,
-            "height": 490,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjIxZDgwMWMtOWU3NC00MWY1LTkyZDAtMDc5NzE1OTJjMjhhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Cesare Danova in Cleopatra (1963)",
-            "width": 600,
-            "height": 400,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTc1Mzg1YWUtMjUwMy00MDJjLTgwZTItN2YwNjZlMDM3NWQzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTFiZDY5MWItYzhlYS00ZDM5LTgwZWEtMDJiY2RlM2YzNjFkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Rex Harrison, and Roddy McDowall in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTUwYjA1MmQtOWEwMi00ZGNlLTg0YTctYzdlZmQ4ODg2NWQ1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODZmZmY0NGYtMWViZS00OGNhLWI4MzAtMmY5NGY1OGY0NTE2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYWUwYjEwNDgtOGQ2ZC00NDI1LWFjMDMtNGVlOTQxZTJiY2I4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Martin Landau, Hume Cronyn, and Cesare Danova in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTMyODZkMjAtMGUxYy00Njk3LTk5MmMtNTI5MDVkMmI2MjIyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDdiMGUyNzktM2JmMi00NjFhLTlkMGItNzhhMDc1YjFmMDhjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Roddy McDowall, and Andrew Keir in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjg4Mzk0N2QtODFiZC00ZTFiLTgyOGMtZjcyOGY4ZTYwMWM4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Kenneth Haigh in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTNmNjI5OGYtOTllNy00ZGUyLWJmYWUtNTgwODE5OWViODJjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDQwYTIwNTgtMTk0ZS00MDI1LThhODUtZDQxN2EyNzhhYjY3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2Q3YjMxYTEtYzBlNy00NDQyLWI4ODEtYjhkOWMzMGNjYTkyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTRkYzJmNGYtZTQ4ZS00ZmEzLWFmZWQtNjMyMDg5YTJhMDRkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Rex Harrison, and Loris Loddi in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzQ2MTY1ZjAtMTE3ZS00YWFkLTkyNzYtYTMwZGFmMWI3ZDEzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTZkMTYzNmMtNjRiYy00YzYxLWJhMzItNjJmMjNiODcwYjFhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Carroll O'Connor, Michael Gwynn, Kenneth Haigh, and John Hoyt in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMGEwMzg0ZDctYjg2OC00M2U4LTg1OTgtZmUxZWE3YTQ2MmIwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTMxZmEwYjQtOGE4My00NzRjLWIwODAtZjc2YjU4OTA1Y2Y2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDJkZjQ5NzYtMzIxMy00MGJjLTk3ZDEtZTI3N2NjZTU1ODdkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTIyY2ViZDEtZDdmYi00MDk5LThkMzYtMzFhZTZhNzAzMzMwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzdiZWZiOTMtZmE1Ni00YTllLTliMDQtNTZmNmJkZjEwY2QwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjI1ZDk3MjgtMjQ0ZS00NGJmLTk2N2UtNDg2ZjlkOTNhM2JiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Hume Cronyn in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjZjOWE2ZWMtNmUzZS00NTU1LWIzMTAtMWZiYWRjNTBhYzExXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjE4YjY0YjYtMDk4NS00Nzc0LThhZjQtNzQ4YWQxNjY4ZWY5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Hume Cronyn, Martin Benson, and Cesare Danova in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTEzZjg5MmMtMmQxZC00YmJkLWExZTQtOTAxYjFjNjFlMDYxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Martin Landau in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTQzOTQ4MzQtZGM4ZS00NGExLTg5YjctNjdkN2EyNzdlNjM4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, Jacqueline Chan, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTU2MzE0NDItYmI3OS00MTk1LThkMjAtNDY5MDRiMGM3ZDIyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzc4NDU3M2UtNjViOC00ZjExLThmZGMtNjQxMzAyZDI5MzM0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzg4MjNkM2UtNzY3ZS00ZDI1LTk3NWEtM2RhOWQxM2FjNTExXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMmZhN2NiZGMtZThhYi00OWE1LTlmYjMtMjZlY2EzMDYxNThiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Martin Landau and Furio Meniconi in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGIzMzBiY2MtODA0MS00NzlhLWFkNWEtMjNhMzdkMjBkNzhlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison, George Cole, Rodd Dana, and Robert Stephens in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDVjODRmMjMtYmZmMS00ZWUwLTkxZWMtMmVjNzVjMjEwMzEyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjY0YzA2NTktOWE2Zi00Zjk0LWFlNjAtMTcxNDA2MjNjN2Y3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, Rex Harrison, John Cairney, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzhjMTNkMzgtODE5Yi00NDM3LWFmNDAtM2QzYmFmMDU3MzI4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDhhZjEyMmYtZjMxYy00N2E5LWIxZjEtZTU2MzdiOTg1ODFmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTdjZjRhMGQtZDQzNC00ZDIxLWE5ZDEtODgyNWVhMzJlMDUyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Marie Devereux in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDUzZWFhNGYtZTM3Ny00NDMwLWI3NmEtNzg2NTAzY2Q1ZDVlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTFhZDFhMjQtMGQ1ZS00NTAxLWE5YTQtOTAyY2VjYWUzYmIyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTA2MTg1MzYtMmI1OC00NDgzLTlmNGQtMmUxODM1NTJjNDY5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZWNmM2M2ZjItZTU0Ni00ZjU5LWIzNDctNWM5MjI4NDhjMTc5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTM2MGI0NGQtMTlhOC00NjBlLTliNTYtYzViZjQ5NDg2MGEwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMmZlZDQzMmQtNjBhMC00MzY3LTg0OTYtZTRhM2ZkMzcyODdkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Martin Landau, John Bartha, and Marne Maitland in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDY3MzNlYjktZDBlMS00Nzk4LTg3N2MtM2IyNWE2YjFlZjk1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZGY2NTFjZGUtOGNkYi00NWQxLTliMjUtNGUwNmE4N2ZhOTFlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Roddy McDowall and Andrew Keir in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTEwMmRiNWQtMzIzZC00ZmM4LTlhMmUtMDAzNWFhMmY1YjM4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Roddy McDowall and Andrew Keir in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTg3MDM0YzMtZmNjMi00MTNiLWI4NGMtYWY2MWJjZmUwZmQyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZGZmYmVhNTQtZjJjOS00NDlhLTk0ZjUtNTA5ZDEyY2UyM2YzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzQzZTNkNzMtOTVhZS00NzVlLTkyZmItODNmMzU2Y2RjNWJjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMGYxM2Q0ZTQtODFmMS00MTY2LWIyYzEtZmRlY2RkOGZhNTM5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Martin Landau, and Cesare Danova in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTI5ZjkxMWQtMTVlOC00ZWEyLTk3ZjMtNTgxMGNmYjE1ZDljXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Roddy McDowall, Michael Gwynn, Kenneth Haigh, Michael Hordern, and Douglas Wilmer in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGNiMDU3YTctOWJkYi00MjEyLWIzMjctYmExYTUzOGU0ZDhlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWQwOTU0Y2EtMmRmNi00YmE0LThhZTctNmU3MjY1MjFlYzc1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Gwen Watford in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGIwM2Y0NjQtN2RiNS00NTkyLWEzNDUtZTJhN2EzZjMwYTBhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmY1MGI4MzQtZGY3My00NWJjLWFiNTctMTU0NmY5OWZkODE3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, and Isabel Cooley in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTQ4ODdlOTItMWMxMi00Mzc2LTlkNWMtODY3OGFjOGFkNDkzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTQ2YTU4NjMtYzlmNC00MjI0LWEzNDgtNmRiZmI5NWY0ZjYxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Francesca Annis in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNmQ1ODgxNzktOWUwMi00MTA1LWE3OTUtNGY3ZWM2YmI1ZmU0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cesare Danova in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDM0ZWZiZTgtZmU2NC00YTFlLTkzMTMtMmZmNjEzOWUxZjRhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Roddy McDowall in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGNjY2ZiMWItMjI5MS00NzU4LWI5YmItYWJhZDA3ZDQyOGNkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTg3ODQ3YmQtZmE0MC00OWNkLTkxZTgtNzcxNjg0YWNhMGViXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjYyYmVlM2YtOTgxMC00MWExLThlZTQtMmQ0Yzk3YTNjMTE1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmQ4MTA3YWItMWYzNS00YTkwLWFjYTgtNTY2ZGVjYzFjMzQyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTJkNjkwMTMtNWVkNS00MWQ4LWFmMGItZTg2MTI5MjBhMTljXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison, Martin Landau, Andrew Keir, and Robert Stephens in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGVlZDk1NWYtNDdlZi00ZDczLTk2MjktOGM1MjNjZTAzOWI1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmNiOTEzNmUtNDU0MC00M2FjLWJiOWYtZTMyMDFlZDdjYjkyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2NhMGRhZTgtYTMxYy00MDY1LWJjNDktMTE0Yzk5MTk5MjY4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison, Herbert Berghof, and John Doucette in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODg1NjE1OGItMzUxNy00ZThkLThjMWItZDVlZDA4YzA2MmU5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjNmZDViNjEtZWVmZi00NDU2LWEyOGEtMTMwZWMwN2RkYmQ1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDE5MjM2OTYtZmNhYi00ZDllLWE5ODctNmFhNjJlMzFiZjAwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDBiYjE0NTItNWJjNy00ZDVkLTk0MTgtN2E4YWQ1ZDIzMWM2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTM3MWZhYjYtYTE1OS00MGI4LWIwZmQtZmQ2NmI3MGVjNjIyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDk5OTBlYTctY2EwYS00N2MwLThjMDctYWM2YWE2ODcxMzQ2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDQ3NGNhZGUtZTQ3Yi00ZTRkLWFiZjktMzQwMDVkNGM3NWJlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDgwM2FiNWYtMGExZS00Y2QwLWFjNjUtYTQ5Yjc4MDI4MjM0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2E2MWM0YWEtMTU3Ni00MzEzLWIxNDYtOTAyYTNjMDViNjVlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Andrew Keir in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDhkYWUwYTctM2VlZi00ZjBlLWE3NTktYjk3MDkzMWUyYjFlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTM5Yjc1YTgtZjEwNC00NDVlLWI2ODMtMTc4ZTVkMTBkMzliXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzI4MGNiNDgtZmQwZC00MDU0LWFjMjgtNGJmNDNkZWRkZDg4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTVjNTBlYjYtMGJmNS00NDE2LWExNWEtZjNlNTg5NmIwMjlhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BY2M0NTdlOWYtMDkxZC00ODFjLThhMzgtODkzNDMzNDYxMjllXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Roddy McDowall in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDMyZGM2MzMtM2FkNi00MGQ0LWFhM2YtMTE1ZGY3YTE0NGNiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYWJlOGU0MzItM2MyOS00N2Y2LTg4OTEtNjkwMzU5Nzk2ZTRiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Roddy McDowall and Andrew Keir in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTdiMTAzMzUtNzJkNy00MTU5LWE4MDMtMDhiYjI0ZDNlMmVkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjNjNDU4YzktYWI1Ny00ZDJjLWE4MjktM2ZjYjY0NzE0ZjZkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTUxNjk4ZmQtNjkxMC00OTU0LWFlNTUtOWY1MGU5ZDgxZDY4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNmY2M2VjYTYtYjYzYS00OTBhLWE0YjgtMmU1NjE1ZDU0NTI2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzNhNjI3ZTktNzA1MS00NTIyLWI0YTktNmQ1OTgwODRjOGFmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjFhYzUwOTgtOWM4OC00YjJiLTkxYjItNjEzMTE4OGEyNWExXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjgwODA5NTAtMjU1OC00NWI5LWFhNGQtZjhjMDVkYzc2ZGRjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Roddy McDowall and Andrew Keir in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjI2ZTc1ZmUtMDYxZC00YWU3LWEyOWQtODY4NjEwNTZkZWIyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Cesare Danova in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTJmMjg3NjYtNGYzZi00ZWEwLWIyNTAtNDY5ZGNkOWJiN2JmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Cesare Danova in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTc5M2U0YzAtYTJiOC00YjFiLWE4ZWEtOTJkNjBlOThiNzhjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Kenneth Nash in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTcyMmU1MjAtNTMzNi00ODJlLWJmMzUtZDljODdhZjE3ZjZmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNWJhNjlkODAtZjg0MS00ODk1LTgxMzMtMWM3YzRiZjNhZTIwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Martin Landau in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYWJlMDFmYzMtNTNjOC00MWE1LTg2ZDUtODcwZjYxNTdhZjkwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODY5YjM4MGYtZjAxOC00MmMwLWIzZTItM2NlMTFkYTU5ZjE0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzNlZTMwYjUtOWQ5NS00MzgxLWE2MzAtZmVjNGQ4ZTU1ZGE3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGE5ZTliYzMtODliYi00MjBhLWIyY2EtZTcyZDRlMTZjYmI5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjA3YzQ3ZjgtNWZiNy00NjJkLTg0M2MtNGJlMjQ5NTc0NDljXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzYyZmJmNmItMjUzMC00MGJlLTllZjQtNWIxNzMxZDE2YzFlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton in Cleopatra (1963)",
-            "width": 1920,
-            "height": 1080,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMGI2MTI4YTktOTA5OC00ZGY0LWFkNTEtNDIxNjYyYTZkMWViXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Martin Landau in Cleopatra (1963)",
-            "width": 401,
-            "height": 459,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDBmNzIxZGQtZGU1Ni00MmE1LTkyOGYtNTA3OTYzYmZlYThlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Francesca Annis, Roddy McDowall, and Isabel Cooley in Cleopatra (1963)",
-            "width": 810,
-            "height": 620,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDljMmZkNDctOTMzYy00OTJjLWJiYjktOGEwODBhNTZjODYyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 478,
-            "height": 500,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzQ0OTc4OWEtMmFlMi00MjFiLThjNzEtNGI3ZWIzN2FkYWQzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 894,
-            "height": 1124,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2Y0MGZmOGUtZjBlMS00NmQ0LWI5MmQtNzg2YjZlZWY5YTNmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Marie Devereux in Cleopatra (1963)",
-            "width": 1302,
-            "height": 561,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzhjYjE3MmMtZGZjMC00NDczLWJmZWQtN2E1ZGMzMmFjY2U2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Marie Devereux in Cleopatra (1963)",
-            "width": 1306,
-            "height": 562,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTRkNzI4MjctMzFmNS00NmM4LWIwN2ItN2Q0MzdmZTAyMTBmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Marie Devereux in Cleopatra (1963)",
-            "width": 1301,
-            "height": 565,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2FlOTVlMDEtNjI4Yi00YjBlLTg4NDktZTVkZDU1YWZhZDY1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Marie Devereux in Cleopatra (1963)",
-            "width": 1329,
-            "height": 582,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDMzNjhhZDgtZmI4OS00MDgxLWEyNmEtY2IwYzBlOTZlYmI4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1503,
-            "height": 1016,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2I5MTljMWMtOGEzYy00MmRjLWJkYWYtYzA4ZjllNTcwMjk0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 960,
-            "height": 1200,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzRmYjU1MDAtODZlOC00NjU2LTliOGYtNzY5NzM1YjVkZDllXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Rex Harrison in Cleopatra (1963)",
-            "width": 800,
-            "height": 717,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjQ5MzJmNDYtYzFkNi00OGRkLThiZGItMTNjYzQyOTc5NDdhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 639,
-            "height": 864,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMWMwYzIxNDctMzlhMy00Mjg5LTg1MDctMTNkNzUxODc5MDEwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 768,
-            "height": 949,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDIxYzVmOGMtMTlhZS00NmZkLWIyOGEtNGUwNWNhMjRmZjAzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 2457,
-            "height": 1572,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGFhMTJjZjQtYWQ4Yi00NDA2LTk3OTktYmY5ZWY0YWNjMTZkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 2457,
-            "height": 1578,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDEzODgyM2MtOGMyNi00N2ZlLTg4MzAtZWUzYzAzYzBjZTMwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 2457,
-            "height": 1537,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjYwYjc2ZTEtYTkxNi00NzZlLWE0ZTYtMWJkMmMzOTZlNTk2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 1965,
-            "height": 2385,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmQ4YWU3ZTItMzhhMy00MWJmLWIxZjYtNTM1NDFhNGIzZGQzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 2457,
-            "height": 1562,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjcwODc5ZjgtZmIxYy00NThlLTg3YzAtOWNiNzZlNTdkNmRjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 1609,
-            "height": 2385,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2E5MDcwNTgtZWY0NS00YzJjLTg5ODEtOTE2YWQyMDRjMDY5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 2457,
-            "height": 1930,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjA2ZjJkNTctYTU2Ni00MjdmLTlmOWYtM2JmMDE3Njc4ZmE1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Joseph L. Mankiewicz and Walter Wanger in Cleopatra (1963)",
-            "width": 2457,
-            "height": 1900,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTI5OWZhYjctMGIyOC00NTM3LWJmZTUtYTM3YTNmN2M1ZDllXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Joseph L. Mankiewicz, and Rex Harrison in Cleopatra (1963)",
-            "width": 1670,
-            "height": 2385,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzkyMGRiODUtOWVmNC00ZWFjLTg3M2YtNTA5YWRmN2ZhODAyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Joseph L. Mankiewicz and Rex Harrison in Cleopatra (1963)",
-            "width": 2425,
-            "height": 2385,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWMwYzM5NzQtYzc2YS00MjA1LTg4YzUtYjViYWFiN2FkNTEyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Joseph L. Mankiewicz, and Rex Harrison in Cleopatra (1963)",
-            "width": 2457,
-            "height": 1576,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDMyZmE5ZTEtNzVhOC00MTA2LThiODYtMWRhNGM1ZmE0MDkwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 814,
-            "height": 1024,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjQ5ZjcyNzYtOWQyOC00MDlmLTkxMzktNDA2ZDQxZTA5OWI2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 768,
-            "height": 962,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTdmNDkxMGItODU5ZS00ZTAwLWIzMWQtNWI3Nzg5N2M4MGY0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 1200,
-            "height": 951,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjdlYTUyMzAtNTM4OC00OWRhLThkNjktYTk3OTA1ODM0NWZjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 1000,
-            "height": 761,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjY3MDM5NWMtZjYxMS00M2ZkLWI2MTctYzUwOTYxYTQxYWQ5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 960,
-            "height": 640,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDUxZDE3ODQtM2NjNi00ZWFkLWI5ZmQtNGQxY2I4YzU4Y2NjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 832,
-            "height": 970,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNGYxZTE5MjktMTk3Zi00Y2U2LWIxN2ItOTgzZDM5YWJkMTdjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 736,
-            "height": 920,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTNkMjg2MTUtZjVmNS00N2MwLWI4MDQtOWFmNzcyZTJjNDRhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 493,
-            "height": 700,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTRlNGVlOGQtMmRiMS00NmNjLWE2ZjQtMzcxNzFmYTM4YWE5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 928,
-            "height": 1199,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjBiODA0ODktMjcwNC00ZDhlLTgxZjItN2ZmOTliOTk4OWVjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 500,
-            "height": 676,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMmM5ZTU4YzYtZjljZC00ZDdkLThmMjQtYWZiN2ZmN2Y2MmJlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Rex Harrison in Cleopatra (1963)",
-            "width": 1280,
-            "height": 1270,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2RlYzQ0NjMtN2FiZS00ZDY0LWFhNDQtYjk3ZWVkMTc4NmY0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Irene Sharaff in Cleopatra (1963)",
-            "width": 600,
-            "height": 350,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BY2ZmM2Y0N2EtMTA1NS00NWM1LTg5MDAtNjJjYzdkYTQzM2ViXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 936,
-            "height": 1200,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWJhNzA3YzYtY2VkYS00OWNjLWIyYzQtMWE2MjhiNDk1ZDVmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 429,
-            "height": 800,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGFlYWY3ZTAtYzRkYi00MDVmLTk5YzYtNjc0ODUwNTc2ZWZjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Martin Landau in Cleopatra (1963)",
-            "width": 344,
-            "height": 428,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTE0YzU2ZTMtMjFmOC00ZDYzLTk1NWUtN2NlZjhiODkwMGE1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 892,
-            "height": 1200,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZmY4ZTNiOGItYjU1MS00OGVlLWI4NDktYzc0OWE5ODI4MDE5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Isabel Cooley in Cleopatra (1963)",
-            "width": 936,
-            "height": 720,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMGQ5YWUyNmEtMDQyNi00Mjg2LWJlMDAtYzA0N2IxYzRmYjYyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Marie Devereux in Cleopatra (1963)",
-            "width": 632,
-            "height": 960,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMWFjZDViNWYtOWI1Yy00YTY3LWI4OGMtNGJmYzFlZDQxNTE1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1044,
-            "height": 1282,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjU4YjViMzQtNzBjOC00N2I5LWE4YTgtMmQzMGViMzk0MzZjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor, Liza Todd, and Christopher Edward Wilding in Cleopatra (1963)",
-            "width": 2027,
-            "height": 1375,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYmM2Y2IzMDktYTQ4MC00OWI4LWJlZTUtY2RmMGJmMDAwYzM2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1118,
-            "height": 1414,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BN2MxODdhNmMtMDM1Mi00NGU2LWE4YzUtOGUwMGI1NGY2ZWUyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1450,
-            "height": 1402,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTE1YmE0MGMtOWEwNy00MTE4LWE1ODItMWE5ZWIxMTVmYjFhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 1446,
-            "height": 1417,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzUxYjY5MzUtNGUyYy00OTc2LTlmOTItYjhhNGM4YzZkYTdjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 1878,
-            "height": 1393,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTc5MzQzY2UtNDgxYi00YTk5LTg5ZWYtY2Q1NzEwZjk2N2Y1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Leon Shamroy in Cleopatra (1963)",
-            "width": 734,
-            "height": 1360,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTgwODU1ZDYtMmFiNi00MzY4LWFiOTUtMWMwNTAyOTE5NGRjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Leon Shamroy in Cleopatra (1963)",
-            "width": 1152,
-            "height": 1419,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTljM2MxYzAtYWZmYS00NjBlLThiZDEtZjE0ZWMzYWUyNTI4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Joseph L. Mankiewicz and Leon Shamroy in Cleopatra (1963)",
-            "width": 1535,
-            "height": 1413,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTEzOTJmZmQtMWFhYi00OGI3LWJhNjAtZjc2MjdkYjYwOGNkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 1347,
-            "height": 1290,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMzQyYTc3MDUtZmM2ZC00NTU3LTk3NGItMmZkNmU4NWMyNDBmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Joseph L. Mankiewicz, Rex Harrison, Kenneth Haigh, and Michael Hordern in Cleopatra (1963)",
-            "width": 1719,
-            "height": 1257,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzE1YWMyMzAtYzIxMi00YjRkLTk1MGQtNzNlMDU1MThmODhlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1566,
-            "height": 1421,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOGUyNGNmNzEtZjQ0My00ZjY1LWI0NjgtOTM3NDFhZDAwNDhmXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 2048,
-            "height": 1366,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZWEwNWQ4N2YtOTI0Ni00Y2RjLTkwMDEtZTZmZjVhMjgxNGJiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Joseph L. Mankiewicz in Cleopatra (1963)",
-            "width": 454,
-            "height": 597,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2U2YmUwNzEtNDMwOS00YmQ4LWFjOTctM2ZlYmM4NTk3ODVlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 732,
-            "height": 1073,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjU5N2U2ZGEtMzllOC00ZTZkLTgxZmItNDhmMTAyMTllYWEyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1536,
-            "height": 1031,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjUyNmMxMDctMTE3NC00ZmI4LThlODktMjFkNTYyYmRkMmEyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1080,
-            "height": 844,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2IyMjhjZDMtYjE4ZS00NDE0LTk1YzMtNTM1YmNlNTc0NmFjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 2653,
-            "height": 3657,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYzAzODhmZDItZTI1Ny00YjE3LWJlZWEtZGYyMjMxYTNmZDBkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 2700,
-            "height": 3882,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZDZlNWE3ZDEtZWFkYy00YjM0LTk5NDUtMzBhNDRiOTRmYjE2XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 947,
-            "height": 1426,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYTc0YjAwNDgtNGMwMS00OTQ1LThlZTItNzBjYTg0YjdhYjY0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 493,
-            "height": 700,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZmM0MmU1ODgtYTY2Ni00YzE4LTlhYTYtYTM5MzQ4MTNmZTUzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 700,
-            "height": 493,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2Q0ODU4YjQtMzJiNC00NjYyLTk4NTgtMzg1MTFkZTAwMGQwXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Francesca Annis in Cleopatra (1963)",
-            "width": 702,
-            "height": 1024,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMjBiNTFmM2ItZTI5YS00MzA3LTk3ZWQtODAyMTdmOGEzMDYxXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 2464,
-            "height": 3498,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMWE3ZDc2NDctM2U3NC00OWYxLThjNWYtZTNhZGU3NTQyYjRlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1828,
-            "height": 2560,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNTNjMzJiNWItN2Q1Yi00OGYzLWI4NTQtMmNkNjAyYzZkN2YzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 393,
-            "height": 561,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjQ3MGQ4NTgtM2VjZS00OTg0LWI4MDktYjEwY2Q3ZDNmYWFlXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 759,
-            "height": 1024,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNDM0NzA2MTUtZTVhOC00MDYxLTk2MWMtNTY2ZjkyN2U5ZjM0XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 983,
-            "height": 1500,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYjdmZjRkNmQtNTI5My00OTQyLTgxMjAtOWM0OTBjZWJhNTE3XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1417,
-            "height": 1701,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTkwNzYwMTktZGQ3Ni00ODg2LWIzZjAtZDE4ZGU0NDhlODQ5XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 2302,
-            "height": 1536,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNjc1MzJiZTMtOGFjMy00Nzk2LThlNDQtNWI2NDQ0ZDllNTk4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1024,
-            "height": 716,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOWQ4Mjg4NzAtZWY2Yy00ODhlLWE2ZGUtMWFkODBmNmU1ZTBjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 981,
-            "height": 1500,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BNzgxYTZhNTAtNzc5Ni00ZDc3LWEyNTctMjAwNGY2ZmI5ODVhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 1792,
-            "height": 2496,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDJkMDRmMzgtMzMxMy00ZTViLWJjOTQtMTc3YTk1NTlkMWE4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1818,
-            "height": 2560,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZjI2MzlkODUtMDA1NS00MDAzLWI0ZGUtZGQ4ZWJmNzNkMDQyXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 1972,
-            "height": 3000,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYWFmMDEzZmEtZDkyMC00ZjI3LTg4NDktZTYyZDA4MTIwMzllXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 313,
-            "height": 600,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMTcyZjhmNWYtNWU0NC00ZjdjLWJhNWItZDhhMzFiMjYxMTc1XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 804,
-            "height": 1367,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZWUyMjI5MmItYmRlNC00MzRmLWI1OTAtYzIwODg2YWE0NWFhXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1044,
-            "height": 1297,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BM2U5YWJlZDUtZDE3YS00NWJkLWFkNzUtNDJjNjY5Yzg5MzIzXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor in Cleopatra (1963)",
-            "width": 839,
-            "height": 779,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BODhmZDgyMzEtZGJkYi00M2RmLTg5OTYtMjA1NjI3NmZmNjFkXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, and Rex Harrison in Cleopatra (1963)",
-            "width": 776,
-            "height": 2045,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BYWFhNjQ4OTUtOGEzMS00Mzk5LWIzNDktYjA1OWUxYmI5ODhiXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton, Elizabeth Taylor, Joseph L. Mankiewicz, and Rex Harrison in Cleopatra (1963)",
-            "width": 811,
-            "height": 909,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BMDZkYmFhMTUtMDRkNy00MDk3LTk3NzktZGZiMjk2YzI4MjQ4XkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Cleopatra (1963)",
-            "width": 1654,
-            "height": 1013,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BOTk3YzA4MmYtMTI4NC00OTUzLThiMDEtZjc4YzNhYjY4NzczXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Richard Burton and Elizabeth Taylor in Cleopatra (1963)",
-            "width": 3172,
-            "height": 1762,
-            "metadata": {
-                "source": "gallery_dom"
-            }
-        },
-        {
-            "url": "https://m.media-amazon.com/images/M/MV5BZTAyOTRjZjItOTVlNS00Mzc5LWI1ZDMtMTYxNzk0OTM3MGVjXkEyXkFqcGc@._V1_.jpg",
-            "type": "IMAGE",
-            "mimeType": "image/jpeg",
-            "title": "Elizabeth Taylor and Loris Loddi in Cleopatra (1963)",
-            "width": 1000,
-            "height": 1371,
+            "title": null,
+            "width": 140,
+            "height": 219,
             "metadata": {
                 "source": "gallery_dom"
             }
         }
     ],
-    "durationMs": 18974,
+    "durationMs": 7988,
     "strategyUsed": "NETWORK_SNIFFER",
-    "timestamp": 1792915457755
+    "timestamp": 1792919775339
 }
