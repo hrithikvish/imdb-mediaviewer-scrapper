@@ -207,14 +207,58 @@ def traverse_json_for_media(obj, results: list):
 # Core Playwright Scraper
 # ---------------------------------------------------------------------------
 
+def find_images_block(obj):
+    """Finds the main gallery images block with pageInfo and edges in Next.js state."""
+    # First, direct check in standard Next.js path: props.pageProps.contentData.data.(title|name).(all_images|images)
+    if isinstance(obj, dict):
+        try:
+            content_data = obj.get("props", {}).get("pageProps", {}).get("contentData", {}).get("data", {})
+            for entity_key in ("name", "title"):
+                entity = content_data.get(entity_key, {})
+                for img_key in ("all_images", "images"):
+                    blk = entity.get(img_key)
+                    if isinstance(blk, dict) and ("pageInfo" in blk or len(blk.get("edges", [])) > 1):
+                        return blk
+        except Exception:
+            pass
+
+    # Recursive fallback prioritizing blocks with pageInfo and multiple edges
+    candidates = []
+    def _search(o):
+        if isinstance(o, dict):
+            for k in ("all_images", "images"):
+                if k in o and isinstance(o[k], dict):
+                    blk = o[k]
+                    if "edges" in blk or "total" in blk:
+                        candidates.append(blk)
+            for v in o.values():
+                _search(v)
+        elif isinstance(o, list):
+            for item in o:
+                _search(item)
+
+    _search(obj)
+    # Pick the block with pageInfo and edges first
+    for c in candidates:
+        if "pageInfo" in c and len(c.get("edges", [])) > 1:
+            return c
+    for c in candidates:
+        if "pageInfo" in c:
+            return c
+    for c in candidates:
+        if len(c.get("edges", [])) > 1:
+            return c
+    return candidates[0] if candidates else None
+
 def scrape_single_title_gallery(
     context: BrowserContext,
     title_id: str,
     title_name: str,
-    timeout_ms: int = 35000
+    timeout_ms: int = 45000
 ) -> List[Dict]:
     """Scrapes all master images for a title or person using Playwright with GraphQL interception."""
     entity_type = "name" if title_id.startswith("nm") else "title"
+    is_person = title_id.startswith("nm")
     mediaindex_url = f"https://www.imdb.com/{entity_type}/{title_id}/mediaindex/"
     page = context.new_page()
 
@@ -227,7 +271,7 @@ def scrape_single_title_gallery(
                 data = res.json()
                 data_root = data.get("data", {})
                 entity_data = data_root.get(entity_type, {}) or data_root.get("title", {}) or data_root.get("name", {})
-                img_data = entity_data.get("images", {})
+                img_data = entity_data.get("all_images", {}) or entity_data.get("images", {})
                 if img_data.get("total"):
                     tracker["total"] = img_data["total"]
                 if "pageInfo" in img_data:
@@ -240,94 +284,166 @@ def scrape_single_title_gallery(
     page.on("response", on_response)
 
     try:
-        page.goto(mediaindex_url, wait_until="domcontentloaded", timeout=timeout_ms)
+        page.goto(mediaindex_url, wait_until="load", timeout=timeout_ms)
+        # Wait for page to settle past any AWS WAF challenge reload
+        for _ in range(20):
+            t = page.title()
+            if t and "verification" not in t.lower() and "challenge" not in t.lower() and ("photos" in t.lower() or "imdb" in t.lower()):
+                break
+            page.wait_for_timeout(1000)
+
         try:
             page.wait_for_selector(
-                "a[href*='/mediaviewer/rm'] img, [data-testid='sub-section-images'] img",
+                "a[href*='/mediaviewer/rm'] img, [data-testid='sub-section-images'] img, #__NEXT_DATA__",
                 state="attached",
-                timeout=10000
+                timeout=15000
             )
         except Exception:
             pass
 
-        # 1. Extract metadata from Next.js __NEXT_DATA__ (scoped strictly to gallery images block)
+        # 1. Extract metadata from Next.js __NEXT_DATA__ directly from DOM
         next_data_items = []
-        try:
-            static_res = context.request.get(mediaindex_url, timeout=15000)
-            m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', static_res.text(), re.DOTALL)
-            if m:
-                raw_data = json.loads(m.group(1))
+        images_block = None
+        for _ in range(5):
+            try:
+                raw_next_data = page.evaluate("() => { const el = document.getElementById('__NEXT_DATA__'); return el ? el.textContent : null; }")
+                if raw_next_data:
+                    raw_data = json.loads(raw_next_data)
+                    images_block = find_images_block(raw_data)
+                    if images_block:
+                        if images_block.get("total") and not tracker["total"]:
+                            tracker["total"] = int(images_block["total"])
+                            log(f"   ℹ️ Detected total photos from metadata: {tracker['total']}")
+                        traverse_json_for_media(images_block, next_data_items)
+                        break
+            except Exception:
+                page.wait_for_timeout(500)
 
-                # Locate the entity's images block only (ignoring 'More Like This' / recommendations)
-                def find_images_block(obj):
-                    if isinstance(obj, dict):
-                        if "images" in obj and isinstance(obj["images"], dict) and ("edges" in obj["images"] or "total" in obj["images"]):
-                            return obj["images"]
-                        for v in obj.values():
-                            found = find_images_block(v)
-                            if found:
-                                return found
-                    elif isinstance(obj, list):
-                        for item in obj:
-                            found = find_images_block(item)
-                            if found:
-                                return found
-                    return None
+        # 2. Fast in-page GraphQL pagination
+        page_info = images_block.get("pageInfo", {}) if images_block else {}
+        edges = images_block.get("edges", []) if images_block else []
+        last_cursor = edges[-1].get("cursor") if (edges and isinstance(edges[-1], dict)) else None
+        initial_cursor = page_info.get("endCursor") or last_cursor
+        has_next = page_info.get("hasNextPage") if "hasNextPage" in page_info else ((tracker.get("total") or 0) > len(edges))
 
-                images_block = find_images_block(raw_data)
-                if images_block:
-                    if images_block.get("total") and not tracker["total"]:
-                        tracker["total"] = int(images_block["total"])
-                        log(f"   ℹ️ Detected total photos from metadata: {tracker['total']}")
-                    traverse_json_for_media(images_block, next_data_items)
-        except Exception:
-            pass
+        if has_next and initial_cursor:
+            log(f"   🚀 Fast-paginating GraphQL API for {tracker['total'] or 'all'} photos...")
+            raw_gql = page.evaluate('''async (args) => {
+                const { isPerson, constId, initialCursor } = args;
+                let endCursor = initialCursor;
+                let hasNext = true;
+                const items = [];
+                const seen = new Set();
+                const operationName = isPerson ? 'NameMediaIndexPagination' : 'TitleMediaIndexPagination';
+                const sha256 = isPerson 
+                    ? '6590d686f516dbd5ec06eab4efa37b7f8c8ce40b9aacf9b80889969e90c9e826'
+                    : '8e72690e71c52fea1216d1c88c4c2d75d8051f2cd3e4d4eb62c169ed8a84e61e';
 
-        # 2. Smoothly scroll gallery to trigger pagination until all photos are loaded
-        last_count = 0
-        no_growth = 0
-        max_scroll_iterations = 250
-        for iteration in range(1, max_scroll_iterations + 1):
-            cur = page.evaluate("document.querySelectorAll(\"a[href*='/mediaviewer/rm'] img\").length")
-
-            if tracker["total"] and cur >= tracker["total"]:
-                log(f"   ✅ All {cur}/{tracker['total']} photos loaded from gallery.")
-                break
-
-            if not tracker["has_next"] and cur > 50:
-                log(f"   ✅ Reached end of gallery pagination ({cur} photos).")
-                break
-
-            if cur == last_count and cur > 0:
-                no_growth += 1
-                max_no_growth = 12 if (tracker["total"] and cur < tracker["total"]) else 7
-                if no_growth >= max_no_growth:
-                    log(f"   ℹ️ Pagination settled with {cur} photos.")
-                    break
-            else:
-                no_growth = 0
-                last_count = cur
-                if iteration % 5 == 0 or (tracker["total"] and cur >= tracker["total"] * 0.9):
-                    total_str = f" / {tracker['total']}" if tracker["total"] else ""
-                    log(f"   ... scrolling gallery: {cur}{total_str} photos loaded")
-
-            page.evaluate("""
-                // 1. Click any "Load More" / "See more" button if present
-                const buttons = Array.from(document.querySelectorAll("button, a"));
-                const loadBtn = buttons.find(b => {
-                    const txt = (b.innerText || b.textContent || '').trim().toLowerCase();
-                    return (txt.includes('load more') || txt.includes('see more') || txt === 'more') && b.offsetParent !== null;
-                });
-                if (loadBtn) {
-                    loadBtn.click();
+                let pages = 0;
+                while (hasNext && endCursor && pages < 150) {
+                    pages++;
+                    const variables = {
+                        after: endCursor,
+                        const: constId,
+                        filter: isPerson ? { galleryConstraints: {}, nameConstraints: {}, titleConstraints: {} } : { galleryConstraints: {}, nameConstraints: {} },
+                        first: 50,
+                        firstFacets: 250,
+                        locale: 'en-US',
+                        originalTitleText: false
+                    };
+                    const extensions = {
+                        persistedQuery: { sha256Hash: sha256, version: 1 }
+                    };
+                    const fetchUrl = 'https://caching.graphql.imdb.com/?operationName=' + operationName +
+                        '&variables=' + encodeURIComponent(JSON.stringify(variables)) +
+                        '&extensions=' + encodeURIComponent(JSON.stringify(extensions));
+                        
+                    try {
+                        const res = await fetch(fetchUrl, {
+                            headers: {
+                                'content-type': 'application/json',
+                                'x-imdb-client-name': 'imdb-web-next-localized',
+                                'x-imdb-user-country': 'US',
+                                'x-imdb-user-language': 'en-US'
+                            }
+                        });
+                        if (!res.ok) break;
+                        const json = await res.json();
+                        const imgData = json?.data?.title?.images || json?.data?.name?.images;
+                        if (!imgData || !imgData.edges || imgData.edges.length === 0) break;
+                        
+                        for (const edge of imgData.edges) {
+                            const node = edge?.node;
+                            if (!node || !node.url) continue;
+                            const url = node.url.replace(/\\._V1_.*(\\.[a-zA-Z]+)$/, '._V1_$1');
+                            if (seen.has(url)) continue;
+                            seen.add(url);
+                            items.push({
+                                url: url,
+                                caption: node.caption?.plainText || null,
+                                width: node.width || null,
+                                height: node.height || null
+                            });
+                        }
+                        endCursor = imgData.pageInfo?.endCursor;
+                        hasNext = imgData.pageInfo?.hasNextPage;
+                    } catch (err) {
+                        break;
+                    }
                 }
+                return items;
+            }''', {'isPerson': is_person, 'constId': title_id, 'initialCursor': initial_cursor})
 
-                // 2. Scroll pagination loader or window down
-                const loader = document.querySelector('.img_gallery_pagination_loader');
-                if (loader) loader.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                else window.scrollBy(0, window.innerHeight * 3);
-            """)
-            page.wait_for_timeout(500)
+            if raw_gql:
+                graphql_items.extend(raw_gql)
+                log(f"   ✨ Collected {len(next_data_items) + len(graphql_items)} photos via Next.js + GraphQL.")
+
+        # 3. Smoothly scroll gallery if we haven't reached the total yet
+        total_target = tracker["total"]
+        already_collected = len(next_data_items) + len(graphql_items)
+        if not total_target or already_collected < total_target:
+            last_count = 0
+            no_growth = 0
+            max_scroll_iterations = 250
+            for iteration in range(1, max_scroll_iterations + 1):
+                cur = page.evaluate("document.querySelectorAll(\"a[href*='/mediaviewer/rm'] img\").length")
+
+                if tracker["total"] and cur >= tracker["total"]:
+                    log(f"   ✅ All {cur}/{tracker['total']} photos loaded from gallery.")
+                    break
+
+                if not tracker["has_next"] and cur > 50:
+                    log(f"   ✅ Reached end of gallery pagination ({cur} photos).")
+                    break
+
+                if cur == last_count and cur > 0:
+                    no_growth += 1
+                    max_no_growth = 12 if (tracker["total"] and cur < tracker["total"]) else 7
+                    if no_growth >= max_no_growth:
+                        log(f"   ℹ️ Pagination settled with {cur} photos.")
+                        break
+                else:
+                    no_growth = 0
+                    last_count = cur
+                    if iteration % 5 == 0 or (tracker["total"] and cur >= tracker["total"] * 0.9):
+                        total_str = f" / {tracker['total']}" if tracker["total"] else ""
+                        log(f"   ... scrolling gallery: {cur}{total_str} photos loaded")
+
+                page.evaluate("""
+                    // 1. Click any "Load More" / "See more" button if present
+                    const buttons = Array.from(document.querySelectorAll("button, a"));
+                    const loadBtn = buttons.find(b => {
+                        const txt = (b.innerText || b.textContent || '').trim().toLowerCase();
+                        return (txt.includes('load more') || txt.includes('see more') || txt === 'more');
+                    });
+                    if (loadBtn) {
+                        loadBtn.click();
+                    }
+
+                    // 2. Scroll to bottom to trigger IntersectionObserver
+                    window.scrollTo(0, document.body.scrollHeight);
+                """)
+                page.wait_for_timeout(1000)
 
         # 3. Extract official gallery elements from DOM
         dom_elements = page.eval_on_selector_all(
