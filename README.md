@@ -15,7 +15,7 @@ The static web application is deployed to GitHub Pages and showcases extracted p
 
 ### Web Viewer Features:
 * **Per-Title Partitioned Galleries**: Title selector dropdown loads dedicated per-title JSON files (`docs/titles/{titleId}.json`) dynamically, keeping payloads lightweight even with thousands of photos.
-* **Bandwidth-Optimized $\le$ 720p Previews**: Dynamic on-the-fly CDN preview scaling keeps catalog strips and masonry grids ultra-fast and lightweight (~25KB per card), while preserving true master assets.
+* **Bandwidth-Optimized $\le$ 480p Thumbnails & $\le$ 720p Lightbox**: Dynamic on-the-fly CDN preview scaling keeps catalog strips and masonry grids ultra-fast and lightweight (constrained to $\le 480\text{p}$), with fullscreen carousel previews defaulting to $\le 720\text{p}$, while preserving true master assets.
 * **On-Demand Full-Res & Direct Master Download**: View full uncompressed 4K master images on demand (`Full-Res` button) or download the original high-resolution master asset directly (`Original` button).
 * **Light & Dark Theme Toggle**: Instant theme switcher in the top navigation bar, with user preference persisted in `localStorage`.
 * **Masonry Grid**: Responsive image grid with dimension badges and captions.

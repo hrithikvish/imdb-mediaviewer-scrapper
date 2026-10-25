@@ -118,7 +118,7 @@ To prevent photo cropping:
 ### Lightbox / Carousel
 - Click any photo to launch the full-screen carousel (`#lightbox`).
 - Supports keyboard navigation: `←` / `→` arrows, `Esc` to close, `Z` for full master resolution view, `C` to copy URL.
-- Previews default to $\le 720\text{p}$ via IMDb CDN on-the-fly resizing (`_UX720_` / `_UY720_`) for high performance; original master asset loads on demand.
+- Previews default to $\le 720\text{p}$ (and thumbnails $\le 480\text{p}$) via IMDb CDN on-the-fly resizing (`_UX720_` / `_UY720_` and `_UX480_` / `_UY480_`) for high performance; original master asset loads on demand.
 
 ---
 

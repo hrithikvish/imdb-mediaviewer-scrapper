@@ -340,16 +340,19 @@ let isCurrentFullRes = false;
 let currentImageLoadId = 0;
 
 /**
- * Returns a bandwidth-efficient preview URL constrained to maxDim (default 720p).
- * Uses IMDb / Amazon Media CDN's on-the-fly resizing engine (_V1_QL75_UX720_ / _V1_QL75_UY720_).
+ * Returns a bandwidth-efficient preview URL constrained to maxDim (default 480p for thumbnails).
+ * Uses IMDb / Amazon Media CDN's on-the-fly resizing engine (_V1_QL75_UX..._ / _V1_QL75_UY..._).
  * Original master uncompressed URL is preserved intact for downloading and full-res view.
  */
-function getPreviewImageUrl(url, width, height, maxDim = 720) {
+function getPreviewImageUrl(url, width, height, maxDim = 480) {
   if (!url || typeof url !== 'string') return url;
   if (!url.includes('m.media-amazon.com/images/M/')) return url;
-  if (width && height && width <= maxDim && height <= maxDim) return url;
 
-  const isPortrait = height && width && height > width;
+  const w = Number(width) || 0;
+  const h = Number(height) || 0;
+  if (w > 0 && h > 0 && w <= maxDim && h <= maxDim) return url;
+
+  const isPortrait = w > 0 && h > 0 && h > w;
   const resizeParam = isPortrait ? `UY${maxDim}` : `UX${maxDim}`;
 
   if (url.includes('._V1_')) {
@@ -1297,7 +1300,7 @@ function renderGrid() {
 
     const badge = getResolutionBadge(item);
     const caption = item.title || (selectedTitle ? (selectedTitle.name || selectedTitle.id) : 'IMDb Master Photo');
-    const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 720);
+    const previewUrl = getPreviewImageUrl(item.url, item.width, item.height, 480);
 
     // Staggered grid: fixed height, variable width matching image aspect ratio (no cropping)
     const width = Number(item.width) || 0;
