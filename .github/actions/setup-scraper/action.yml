@@ -1,0 +1,34 @@
+name: 'Setup Scraper Environment'
+description: 'Sets up Python 3.11, pip dependencies, and cached Playwright Chromium'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Cache Playwright Browsers
+      id: playwright-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-browsers-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          playwright-browsers-${{ runner.os }}-
+
+    - name: Install Python Dependencies
+      shell: bash
+      run: pip install -r requirements.txt
+
+    - name: Install Playwright Chromium with Dependencies
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: playwright install --with-deps chromium
+
+    - name: Install OS Dependencies Only (Cache Hit)
+      if: steps.playwright-cache.outputs.cache-hit == 'true'
+      shell: bash
+      run: playwright install-deps chromium

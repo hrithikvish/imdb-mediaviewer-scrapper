@@ -23,24 +23,14 @@ except ImportError:
     sync_playwright = None
     Browser = BrowserContext = Page = None
 
-# Force real-time unbuffered output in CI runners and terminals
-if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(line_buffering=True)
-if hasattr(sys.stderr, "reconfigure"):
-    sys.stderr.reconfigure(line_buffering=True)
-
-def log(msg: str = "", **kwargs):
-    """Outputs text immediately with automatic flushing."""
-    print(msg, flush=True, **kwargs)
-
-DOCS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "docs"))
-TITLES_DIR = os.path.join(DOCS_DIR, "titles")
-TITLES_JSON_PATH = os.path.join(DOCS_DIR, "titles.json")
-GALLERY_JSON_PATH = os.path.join(DOCS_DIR, "gallery.json")
-
-USER_AGENT = (
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+from common import (
+    DOCS_DIR,
+    TITLES_DIR,
+    TITLES_JSON_PATH,
+    GALLERY_JSON_PATH,
+    USER_AGENT,
+    log,
+    rebuild_titles_registry,
 )
 
 # ---------------------------------------------------------------------------
@@ -580,61 +570,6 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
         json.dump(gallery_payload, f, indent=2, ensure_ascii=False)
 
     log(f"💾 [SAVED] {title_name} ({len(items)} photos) -> {title_file}")
-
-def rebuild_titles_registry():
-    """Scans all docs/titles/*.json files and regenerates a synchronized docs/titles.json and docs/gallery.json."""
-    os.makedirs(TITLES_DIR, exist_ok=True)
-    os.makedirs(DOCS_DIR, exist_ok=True)
-
-    files = [f for f in os.listdir(TITLES_DIR) if f.endswith(".json")]
-    registry = []
-    latest_title_data = None
-    latest_timestamp = -1
-
-    for f in files:
-        file_path = os.path.join(TITLES_DIR, f)
-        try:
-            with open(file_path, "r", encoding="utf-8") as fp:
-                data = json.load(fp)
-                t_id = data.get("id")
-                if not t_id:
-                    continue
-                items = data.get("items", [])
-                poster_url = items[0]["url"] if items else None
-                ts = data.get("timestamp", 0)
-                name = data.get("name", t_id)
-                target_url = data.get("targetUrl", f"https://www.imdb.com/title/{t_id}/mediaindex/")
-                registry.append({
-                    "id": t_id,
-                    "name": name,
-                    "targetUrl": target_url,
-                    "itemCount": len(items),
-                    "posterUrl": poster_url,
-                    "file": f"titles/{t_id}.json",
-                    "lastUpdated": ts
-                })
-                if ts > latest_timestamp:
-                    latest_timestamp = ts
-                    latest_title_data = data
-        except Exception as e:
-            log(f"⚠️ Error reading {file_path} during registry rebuild: {e}")
-
-    registry.sort(key=lambda x: x.get("lastUpdated", 0), reverse=True)
-    with open(TITLES_JSON_PATH, "w", encoding="utf-8") as fp:
-        json.dump(registry, fp, indent=2, ensure_ascii=False)
-
-    if latest_title_data:
-        gallery_payload = {
-            "targetUrl": latest_title_data.get("targetUrl", ""),
-            "items": latest_title_data.get("items", []),
-            "durationMs": latest_title_data.get("durationMs", 0),
-            "strategyUsed": "NETWORK_SNIFFER",
-            "timestamp": latest_title_data.get("timestamp", 0)
-        }
-        with open(GALLERY_JSON_PATH, "w", encoding="utf-8") as fp:
-            json.dump(gallery_payload, fp, indent=2, ensure_ascii=False)
-
-    log(f"📋 [REGISTRY] Synchronized docs/titles.json with {len(registry)} titles.")
 
 # ---------------------------------------------------------------------------
 # Main Execution CLI

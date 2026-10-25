@@ -23,8 +23,12 @@ This repository is a Python scraper and static web application designed to extra
 ```
 imdb-mediaviewer-scrapper/
 ├── .github/
+│   ├── actions/
+│   │   └── setup-scraper/
+│   │       └── action.yml           # Shared environment setup composite action (Python, Playwright)
 │   └── workflows/
-│       └── deploy-pages.yml         # GitHub Actions CI/CD automation workflow
+│       ├── deploy-pages.yml         # GitHub Actions CI/CD IMDb scraper & deployment workflow
+│       └── sync-subreddits.yml      # GitHub Actions scheduled & manual subreddit sync workflow
 ├── docs/                             # GitHub Pages static website root
 │   ├── index.html                    # Single-page web viewer
 │   ├── app.js                        # Client-side routing, filtering, rendering, lightbox, Wallpaper Studio
@@ -34,10 +38,13 @@ imdb-mediaviewer-scrapper/
 │   ├── gallery.json                  # [data branch] Legacy single-title output (backwards compatibility)
 │   └── titles/                       # [data branch] Partitioned per-title JSON data
 │       ├── tt0056241.json
+│       ├── r_MoviePosterPorn.json
 │       └── ...                       # 500+ scraped title archives
+├── common.py                         # Shared registry synchronization & path constants (stdlib only)
 ├── data.sh                           # pull | publish gallery data to/from the `data` branch
-├── serve.py                          # Local preview server (data read from the `data` branch)
-├── scraper.py                        # Python Playwright scraper (local CLI & CI runner)
+├── serve.py                          # Local preview server (data read from local disk / data branch)
+├── scraper.py                        # Python Playwright scraper for IMDb
+├── reddit_scraper.py                 # Python scraper for subreddits (r/MoviePosterPorn, etc.)
 ├── requirements.txt                  # Python dependencies (playwright)
 ├── README.md                         # Public repository documentation
 └── AGENTS.md                         # Agent instructions & technical reference (this file)
@@ -165,6 +172,19 @@ python3 scraper.py --force --input movies.txt
 
 # Rebuild docs/titles.json registry from docs/titles/*.json
 python3 scraper.py --rebuild-index
+```
+
+### Reddit Scraper
+
+```bash
+# Incremental sync (fetch new posts since last run)
+python3 reddit_scraper.py --sync --subreddit MoviePosterPorn
+
+# Historical backfill (paginate backwards down to beginning or limit)
+python3 reddit_scraper.py --backfill --subreddit MoviePosterPorn --limit 2000
+
+# Multiple subreddits sequentially
+python3 reddit_scraper.py --sync --subreddits MoviePosterPorn CinemaPorn
 ```
 
 ### Gallery Data (`data` branch)

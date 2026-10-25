@@ -42,7 +42,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         path = self.path.split("?", 1)[0].lstrip("/")
         if not is_data_path(path):
             return super().do_GET()
-        # Read from git objects only; ".." is not resolved inside a <ref>:<path> lookup
+        # If local data file exists on disk (e.g. freshly scraped), serve it directly
+        local_file = os.path.join(DOCS, path)
+        if os.path.exists(local_file):
+            return super().do_GET()
+        # Otherwise read from git objects on data branch
         blob = git("show", f"{REF}:docs/{path}")
         if blob.returncode != 0:
             return self.send_error(404, f"{path} not on {REF}")

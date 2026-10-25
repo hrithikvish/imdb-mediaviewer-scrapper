@@ -1,0 +1,134 @@
+name: Sync Subreddits & Deploy to GitHub Pages
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC to incrementally fetch new subreddit poster submissions
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      subreddits:
+        description: 'Subreddit name(s) (space-separated, e.g. MoviePosterPorn CinemaPorn)'
+        required: true
+        type: string
+        default: 'MoviePosterPorn'
+      action:
+        description: "Scrape mode: 'sync' for new posts, 'backfill' for historical archive"
+        required: true
+        type: choice
+        options:
+          - sync
+          - backfill
+        default: sync
+      limit:
+        description: 'Maximum posts to fetch (optional, e.g. 500; empty for unlimited)'
+        required: false
+        type: string
+        default: ''
+      min_score:
+        description: 'Minimum upvote score (default: 0)'
+        required: false
+        type: string
+        default: '0'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-deployment
+  cancel-in-progress: false
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Pull Gallery Data
+        run: ./data.sh pull
+
+      - name: Snapshot Registry Before Sync
+        run: |
+          mkdir -p build
+          cp docs/titles.json build/registry_before.json
+
+      - name: Setup Scraper Environment
+        uses: ./.github/actions/setup-scraper
+
+      - name: Run Reddit Scraper
+        env:
+          INPUT_SUBS: ${{ github.event.inputs.subreddits || 'MoviePosterPorn' }}
+          INPUT_ACTION: ${{ github.event.inputs.action || 'sync' }}
+          INPUT_LIMIT: ${{ github.event.inputs.limit }}
+          INPUT_MIN_SCORE: ${{ github.event.inputs.min_score || '0' }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          MODE_FLAG="--sync"
+          if [ "$INPUT_ACTION" = "backfill" ]; then
+            MODE_FLAG="--backfill"
+          fi
+
+          LIMIT_FLAG=""
+          if [ -n "$INPUT_LIMIT" ]; then
+            LIMIT_FLAG="--limit $INPUT_LIMIT"
+          fi
+
+          SCORE_FLAG=""
+          if [ -n "$INPUT_MIN_SCORE" ] && [ "$INPUT_MIN_SCORE" != "0" ]; then
+            SCORE_FLAG="--min-score $INPUT_MIN_SCORE"
+          fi
+
+          echo "🚀 Running reddit_scraper.py ($MODE_FLAG) for: $INPUT_SUBS"
+          python3 -u reddit_scraper.py $MODE_FLAG --subreddits $INPUT_SUBS $LIMIT_FLAG $SCORE_FLAG
+
+      - name: Publish Gallery Data to data Branch
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          ./data.sh publish "chore: sync subreddit data [skip ci]"
+
+      - name: Summarize Changes
+        if: always()
+        run: |
+          python3 - <<'EOF'
+          import json
+          try:
+              before = {t["id"]: t for t in json.load(open("build/registry_before.json"))}
+          except Exception:
+              before = {}
+          after = json.load(open("docs/titles.json"))
+          added = [t for t in after if t["id"] not in before]
+          updated = [t for t in after if t["id"] in before and t.get("lastUpdated") != before[t["id"]].get("lastUpdated")]
+          line = lambda t: f"- **{t['name']}** ({t.get('itemCount', 0)} photos)"
+          out = ["### 🎨 Subreddit Sync Summary\n"]
+          if added:
+              out += [f"**Added {len(added)} archive(s):**"] + [line(t) for t in added] + [""]
+          if updated:
+              out += [f"**Updated {len(updated)} archive(s):**"] + [line(t) for t in updated] + [""]
+          if not added and not updated:
+              out += ["Subreddits are already up to date; no new posts discovered."]
+          open("build/changes.md", "w").write("\n".join(out) + "\n")
+          EOF
+          cat build/changes.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

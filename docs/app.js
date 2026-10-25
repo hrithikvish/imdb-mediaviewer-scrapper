@@ -371,7 +371,13 @@ function preloadImage(url) {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
+    img.onerror = () => {
+      // If CORS fails (e.g. non-Amazon hosts without CORS headers), fallback to non-CORS load
+      const fallback = new Image();
+      fallback.onload = () => resolve(fallback);
+      fallback.onerror = () => resolve(null);
+      fallback.src = url;
+    };
     img.src = url;
   });
 }
@@ -410,10 +416,13 @@ function stillsOf(items, titleName) {
   return stills.length ? stills : items.filter(it => it && it.url);
 }
 
-// Short stable id for a photo inside its title (chars 4-20 of the MV5B... id are unique per title)
+// Short stable id for a photo inside its title (IMDb MV5B... or filename hash)
 function photoKey(url) {
-  const m = /\/M\/([^.]+)\./.exec(url || '');
-  return m ? m[1].slice(4, 20) : '';
+  if (!url) return '';
+  const m = /\/M\/([^.]+)\./.exec(url);
+  if (m) return m[1].slice(4, 20);
+  const m2 = /([^/?#]+)\.[a-zA-Z]+(?:\?.*)?$/.exec(url);
+  return m2 ? m2[1].slice(0, 16) : '';
 }
 
 // ---------------------------------------------------------------------------
@@ -755,7 +764,9 @@ function renderCatalogView() {
     const titleName = title.name || title.id;
     const count = title.itemCount || 0;
     const isPerson = title.id.startsWith('nm');
-    const imdbLink = title.targetUrl || (isPerson ? `https://www.imdb.com/name/${title.id}/` : `https://www.imdb.com/title/${title.id}/`);
+    const isReddit = title.id.startsWith('r_');
+    const sourceLabel = isReddit ? 'Reddit' : 'IMDb';
+    const imdbLink = title.targetUrl || (isPerson ? `https://www.imdb.com/name/${title.id}/` : (isReddit ? `https://www.reddit.com/r/${title.id.replace(/^r_/, '')}/` : `https://www.imdb.com/title/${title.id}/`));
 
     const row = document.createElement('section');
     row.className = 'title-row';
@@ -769,13 +780,13 @@ function renderCatalogView() {
             <span class="title-row-name">${escapeHtml(titleName)}</span>
             <span class="title-row-count">${count.toLocaleString()} photos</span>
           </button>
-          <a href="${escapeHtml(imdbLink)}" target="_blank" rel="noopener noreferrer" class="title-row-imdb-link" title="Open ${escapeHtml(titleName)} on IMDb">
+          <a href="${escapeHtml(imdbLink)}" target="_blank" rel="noopener noreferrer" class="title-row-imdb-link" title="Open ${escapeHtml(titleName)} on ${sourceLabel}">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
               <polyline points="15 3 21 3 21 9"/>
               <line x1="10" y1="14" x2="21" y2="3"/>
             </svg>
-            <span>IMDb</span>
+            <span>${sourceLabel}</span>
           </a>
         </div>
         <div class="title-row-actions">
@@ -1061,12 +1072,13 @@ async function switchToGalleryView(titleId, updateHistory = true) {
   activeMovieName.textContent = displayName;
   activeMovieCount.textContent = `${(titleMeta ? titleMeta.itemCount || 0 : 0).toLocaleString()} photos`;
 
-  // Update IMDb external link
+  // Update IMDb / Reddit external link
   if (btnImdbLink) {
     const isPerson = titleId.startsWith('nm');
+    const isReddit = titleId.startsWith('r_');
     const entityType = isPerson ? 'name' : 'title';
-    btnImdbLink.href = titleMeta && titleMeta.targetUrl ? titleMeta.targetUrl : `https://www.imdb.com/${entityType}/${titleId}/`;
-    btnImdbLink.title = `View on IMDb`;
+    btnImdbLink.href = titleMeta && titleMeta.targetUrl ? titleMeta.targetUrl : (isReddit ? `https://www.reddit.com/r/${titleId.replace(/^r_/, '')}/` : `https://www.imdb.com/${entityType}/${titleId}/`);
+    btnImdbLink.title = isReddit ? `View on Reddit` : `View on IMDb`;
     btnImdbLink.style.display = 'flex';
   }
 
@@ -2941,9 +2953,10 @@ function titleYear(name) {
   return m ? Number(m[1]) : null;
 }
 
-// 1990 for "Heat (1995)", 'people' for person galleries
+// 1990 for "Heat (1995)", 'people' for person galleries, 'reddit' for subreddits
 function titleDecade(id, name) {
   if (id.startsWith('nm')) return 'people';
+  if (id.startsWith('r_')) return 'reddit';
   const year = titleYear(name);
   return year ? Math.floor(year / 10) * 10 : null;
 }
@@ -2957,16 +2970,18 @@ function renderCatalogFilters() {
     const d = titleDecade(t.id, t.name);
     if (d !== null) counts.set(d, (counts.get(d) || 0) + 1);
   });
-  const decades = [...counts.keys()].filter(d => d !== 'people').sort((a, b) => a - b);
+  const decades = [...counts.keys()].filter(d => d !== 'people' && d !== 'reddit').sort((a, b) => a - b);
   if (counts.has('people')) decades.push('people');
+  if (counts.has('reddit')) decades.push('reddit');
+  const chipLabel = d => d === 'people' ? 'People' : (d === 'reddit' ? 'Subreddits' : `${d}s`);
   decadeChips.innerHTML = [
     `<button type="button" class="filter-chip active" data-decade="">All</button>`,
-    ...decades.map(d => `<button type="button" class="filter-chip" data-decade="${d}">${d === 'people' ? 'People' : `${d}s`}<span class="chip-count">${counts.get(d)}</span></button>`),
+    ...decades.map(d => `<button type="button" class="filter-chip" data-decade="${d}">${chipLabel(d)}<span class="chip-count">${counts.get(d)}</span></button>`),
   ].join('');
   decadeChips.querySelectorAll('.filter-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       const v = chip.dataset.decade;
-      decadeFilter = v === '' || String(decadeFilter) === v ? null : (v === 'people' ? 'people' : Number(v));
+      decadeFilter = v === '' || String(decadeFilter) === v ? null : (isNaN(Number(v)) ? v : Number(v));
       decadeChips.querySelectorAll('.filter-chip').forEach(c => {
         c.classList.toggle('active', c.dataset.decade === (decadeFilter === null ? '' : String(decadeFilter)));
       });
