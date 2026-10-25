@@ -541,7 +541,7 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
     }
     title_file = os.path.join(TITLES_DIR, f"{title_id}.json")
     with open(title_file, "w", encoding="utf-8") as f:
-        json.dump(title_payload, f, indent=4, ensure_ascii=False)
+        json.dump(title_payload, f, indent=2, ensure_ascii=False)
 
     # 2. Update docs/titles.json registry
     existing_registry = []
@@ -566,7 +566,7 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
     # Prepend new entry, replace if existing
     updated_registry = [new_entry] + [t for t in existing_registry if t.get("id") != title_id]
     with open(TITLES_JSON_PATH, "w", encoding="utf-8") as f:
-        json.dump(updated_registry, f, indent=4, ensure_ascii=False)
+        json.dump(updated_registry, f, indent=2, ensure_ascii=False)
 
     # 3. Write legacy docs/gallery.json for backwards compatibility
     gallery_payload = {
@@ -577,7 +577,7 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
         "timestamp": timestamp
     }
     with open(GALLERY_JSON_PATH, "w", encoding="utf-8") as f:
-        json.dump(gallery_payload, f, indent=4, ensure_ascii=False)
+        json.dump(gallery_payload, f, indent=2, ensure_ascii=False)
 
     log(f"💾 [SAVED] {title_name} ({len(items)} photos) -> {title_file}")
 
@@ -621,7 +621,7 @@ def rebuild_titles_registry():
 
     registry.sort(key=lambda x: x.get("lastUpdated", 0), reverse=True)
     with open(TITLES_JSON_PATH, "w", encoding="utf-8") as fp:
-        json.dump(registry, fp, indent=4, ensure_ascii=False)
+        json.dump(registry, fp, indent=2, ensure_ascii=False)
 
     if latest_title_data:
         gallery_payload = {
@@ -632,7 +632,7 @@ def rebuild_titles_registry():
             "timestamp": latest_title_data.get("timestamp", 0)
         }
         with open(GALLERY_JSON_PATH, "w", encoding="utf-8") as fp:
-            json.dump(gallery_payload, fp, indent=4, ensure_ascii=False)
+            json.dump(gallery_payload, fp, indent=2, ensure_ascii=False)
 
     log(f"📋 [REGISTRY] Synchronized docs/titles.json with {len(registry)} titles.")
 
