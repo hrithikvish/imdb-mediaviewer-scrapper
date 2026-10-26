@@ -60,6 +60,8 @@ docs/                               # GitHub Pages site (vanilla HTML/CSS/JS, no
 1. **Flexible Free-Form Input & Parallel API Resolution**:
    * Accepts arbitrary text containing movie titles, IMDb URLs, IDs (`tt...`), or search URLs (`/find/?q=...`).
    * Queries IMDb's global Suggestion API in parallel (Python thread pool) to resolve canonical movie titles and release years (e.g. `Saving Private Ryan (1998)`), eliminating parsing misattribution.
+   * Streams each title into the scrape queue as soon as it resolves, so large lists (e.g. a 60k-row CSV) start scraping at once. Already-scraped IDs skip the lookup.
+   * Scrapes several titles at the same time (`--workers`, default 4). Each worker runs its own Chromium browser.
 
 2. **Complete Gallery Infinite Scroll**:
    * Targets `/mediaindex/` and scrolls `.img_gallery_pagination_loader` to extract the full gallery (e.g. 247+ photos) instead of only the first 30.
@@ -98,6 +100,9 @@ python3 scraper.py --input movies.txt
 
 # Force re-scraping of titles even if already present in docs/titles/
 python3 scraper.py --force --input movies.txt
+
+# Scrape 8 titles in parallel (default 4; more workers use more RAM and risk IMDb rate limits)
+python3 scraper.py --workers 8 --input movies.csv
 
 # Rebuild docs/titles.json from docs/titles/*.json (no Playwright needed)
 python3 scraper.py --rebuild-index

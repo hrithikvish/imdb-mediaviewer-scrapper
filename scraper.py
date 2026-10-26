@@ -13,6 +13,7 @@ import re
 import json
 import time
 import argparse
+import threading
 import urllib.request
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
@@ -577,6 +578,7 @@ def main():
     parser = argparse.ArgumentParser(description="IMDb MediaViewer Scraper (Python)")
     parser.add_argument("-i", "--input", help="Path to input text file containing IMDb links or queries")
     parser.add_argument("-f", "--force", action="store_true", help="Force re-scrape existing titles")
+    parser.add_argument("-w", "--workers", type=int, default=4, help="Titles scraped in parallel, one browser each (default: 4)")
     parser.add_argument("--rebuild-index", action="store_true", help="Rebuild docs/titles.json from all docs/titles/*.json")
     parser.add_argument("query", nargs="*", help="Optional free-text title name, URL, or IMDb ID")
     args = parser.parse_args()
@@ -612,65 +614,80 @@ def main():
     if not args.force and os.path.isdir(TITLES_DIR):
         skip_ids = {f[:-5] for f in os.listdir(TITLES_DIR) if f.endswith(".json") and is_scraped(f[:-5])}
 
-    titles = extract_imdb_titles_from_text(raw_input, skip_ids)
-    log("🔎 Identifying titles; each one is scraped as soon as it is identified...\n")
-    total_count = 0
-    skip_count = 0
-    success_count = 0
-    fail_count = 0
+    titles = enumerate(extract_imdb_titles_from_text(raw_input, skip_ids), start=1)
+    workers = max(1, args.workers)
+    log(f"🔎 Identifying titles; each one is scraped as soon as it is identified ({workers} worker(s))...\n")
+    lock = threading.Lock()
+    counts = {"total": 0, "skip": 0, "success": 0, "fail": 0}
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=True,
-            args=[
-                "--disable-blink-features=AutomationControlled",
-                "--no-sandbox",
-                "--disable-setuid-sandbox"
-            ]
-        )
-        try:
-            context = browser.new_context(
-                user_agent=USER_AGENT,
-                viewport={"width": 1440, "height": 900}
+    def count(key: str):
+        with lock:
+            counts[key] += 1
+
+    def worker():
+        # Playwright's sync API is bound to its thread, so every worker runs its own browser
+        with sync_playwright() as p:
+            browser = p.chromium.launch(
+                headless=True,
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox"
+                ]
             )
-            # Bypass navigator.webdriver detection for AWS WAF
-            context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            try:
+                context = browser.new_context(
+                    user_agent=USER_AGENT,
+                    viewport={"width": 1440, "height": 900}
+                )
+                # Bypass navigator.webdriver detection for AWS WAF
+                context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
-            for idx, (tid, name) in enumerate(titles, start=1):
-                total_count = idx
-                if not args.force and tid in skip_ids:
-                    log(f"⏩ [{idx}] [SKIP] {tid} already scraped.")
-                    skip_count += 1
-                    continue
-                log(f"🎬 [{idx}] Identified {tid} — {name}. Scraping gallery...")
-                start_time = time.time()
-                try:
-                    items = scrape_single_title_gallery(context, tid, name)
-                    duration_ms = int((time.time() - start_time) * 1000)
-                    if items:
-                        save_title_gallery(tid, name, items, duration_ms)
-                        success_count += 1
-                    else:
-                        log(f"⚠️ [{idx}] [EMPTY] No media images found for {name} ({tid})")
-                        fail_count += 1
-                except Exception as e:
-                    log(f"❌ [{idx}] [ERROR] Failed to scrape {name} ({tid}): {e}", file=sys.stderr)
-                    fail_count += 1
+                while True:
+                    # Generators are not thread-safe: pull the next title under the lock
+                    with lock:
+                        idx, (tid, name) = next(titles, (None, (None, None)))
+                        if idx is None:
+                            return
+                        counts["total"] = max(counts["total"], idx)
+                    if not args.force and tid in skip_ids:
+                        log(f"⏩ [{idx}] [SKIP] {tid} already scraped.")
+                        count("skip")
+                        continue
+                    log(f"🎬 [{idx}] Identified {tid} — {name}. Scraping gallery...")
+                    start_time = time.time()
+                    try:
+                        items = scrape_single_title_gallery(context, tid, name)
+                        duration_ms = int((time.time() - start_time) * 1000)
+                        if items:
+                            save_title_gallery(tid, name, items, duration_ms)
+                            count("success")
+                        else:
+                            log(f"⚠️ [{idx}] [EMPTY] No media images found for {name} ({tid})")
+                            count("fail")
+                    except Exception as e:
+                        log(f"❌ [{idx}] [ERROR] Failed to scrape {name} ({tid}): {e}", file=sys.stderr)
+                        count("fail")
 
-                # Polite pause between titles
-                time.sleep(0.3)
-        finally:
-            browser.close()
+                    # Polite pause between titles
+                    time.sleep(0.3)
+            finally:
+                browser.close()
 
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for f in [pool.submit(worker) for _ in range(workers)]:
+            f.result()
+
+    total_count = counts["total"]
     if not total_count:
         log("❌ No valid IMDb IDs, titles, or links found in input text!", file=sys.stderr)
         sys.exit(1)
 
     log("\n================================================================")
     log("🎉 Scraping Finished!")
-    log(f"   - Successfully scraped: {success_count} title(s)")
-    log(f"   - Already scraped:      {skip_count} title(s)")
-    log(f"   - Empty / Failed:       {fail_count} title(s)")
+    log(f"   - Successfully scraped: {counts['success']} title(s)")
+    log(f"   - Already scraped:      {counts['skip']} title(s)")
+    log(f"   - Empty / Failed:       {counts['fail']} title(s)")
     log(f"   - Total input titles:   {total_count}")
     log("================================================================")
 

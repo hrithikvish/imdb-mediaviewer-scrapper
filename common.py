@@ -29,7 +29,8 @@ USER_AGENT = (
 
 def log(msg: str = "", **kwargs):
     """Outputs text immediately with automatic flushing."""
-    print(msg, flush=True, **kwargs)
+    # One write per line, so lines from parallel scrape workers do not interleave
+    print(f"{msg}\n", end="", flush=True, **kwargs)
 
 def rebuild_titles_registry() -> int:
     """

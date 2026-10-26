@@ -170,6 +170,9 @@ python3 scraper.py --input movies.txt
 # Force re-scraping of titles even if already scraped
 python3 scraper.py --force --input movies.txt
 
+# Scrape titles in parallel (default 4 workers, one Chromium each); titles stream in as they resolve
+python3 scraper.py --workers 8 --input movies.csv
+
 # Rebuild docs/titles.json registry from docs/titles/*.json
 python3 scraper.py --rebuild-index
 ```
