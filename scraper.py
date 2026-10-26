@@ -510,6 +510,8 @@ def scrape_single_title_gallery(
 # Export & Manifest Updaters
 # ---------------------------------------------------------------------------
 
+_registry_lock = threading.Lock()
+
 def save_title_gallery(title_id: str, title_name: str, items: List[Dict], duration_ms: int):
     """Saves docs/titles/{title_id}.json and updates docs/titles.json and docs/gallery.json."""
     os.makedirs(TITLES_DIR, exist_ok=True)
@@ -532,6 +534,14 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
     with open(title_file, "w", encoding="utf-8") as f:
         json.dump(title_payload, f, indent=2, ensure_ascii=False)
 
+    # 2-3. Shared files: parallel workers must not read-modify-write them at the same time
+    with _registry_lock:
+        _update_shared_files(title_id, title_name, target_url, items, duration_ms, timestamp)
+
+    log(f"💾 [SAVED] {title_name} ({len(items)} photos) -> {title_file}")
+
+def _update_shared_files(title_id, title_name, target_url, items, duration_ms, timestamp):
+    """Updates docs/titles.json and docs/gallery.json. Caller must hold _registry_lock."""
     # 2. Update docs/titles.json registry
     existing_registry = []
     if os.path.exists(TITLES_JSON_PATH):
@@ -567,8 +577,6 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
     }
     with open(GALLERY_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(gallery_payload, f, indent=2, ensure_ascii=False)
-
-    log(f"💾 [SAVED] {title_name} ({len(items)} photos) -> {title_file}")
 
 # ---------------------------------------------------------------------------
 # Main Execution CLI
