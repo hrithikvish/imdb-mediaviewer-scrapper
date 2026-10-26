@@ -139,6 +139,15 @@ The repository includes a production-ready GitHub Actions workflow (`.github/wor
 3. Click **Run workflow**, paste any text containing 100+ IMDb URLs, movie titles, or search links, and run.
 4. The workflow batch-scrapes the photos, commits the new `docs/titles/{id}.json` files and updated `docs/titles.json` to the `data` branch, and deploys to your live GitHub Pages gallery automatically!
 
+### Bulk-scrape a large list (unattended)
+`.github/workflows/scrape-list.yml` scrapes a list file committed to the repo (default `inputs/rarbg_movies.csv`, ~63k IMDb IDs):
+
+* Splits the list into up to 20 parallel shard jobs (every Nth line). Each job scrapes for 4.5 hours and then publishes its titles to the `data` branch. Titles that are already scraped are skipped.
+* Runs every 6 hours on a cron, so each run continues where the last one stopped. One deploy runs at the end of each run.
+* Disables its own cron when a run adds no new titles. To scrape a new list, commit the file, enable the workflow in the Actions tab, and run it with that `list_file`.
+
+The Reddit sync workflow (`sync-subreddits.yml`) is manual only.
+
 ---
 
 ## 📜 License

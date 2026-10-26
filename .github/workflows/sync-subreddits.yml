@@ -1,9 +1,6 @@
 name: Sync Subreddits & Deploy to GitHub Pages
 
 on:
-  schedule:
-    # Run daily at 06:00 UTC to incrementally fetch new subreddit poster submissions
-    - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
       subreddits:

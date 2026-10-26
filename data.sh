@@ -10,10 +10,12 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 BRANCH=data
+# DATA_FETCH_DEPTH=1 (set in CI) fetches only the branch tip instead of its full history
+FETCH_DEPTH=(${DATA_FETCH_DEPTH:+--depth "$DATA_FETCH_DEPTH"})
 DATA_PATHS=(docs/titles docs/titles.json docs/gallery.json)
 
 pull() {
-  git fetch -q origin "$BRANCH"
+  git fetch -q ${FETCH_DEPTH[@]+"${FETCH_DEPTH[@]}"} origin "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"
   git archive "origin/$BRANCH" "${DATA_PATHS[@]}" | tar -x
   echo "Pulled $(git ls-tree -r --name-only "origin/$BRANCH" docs/titles | grep -c '\.json$') titles from origin/$BRANCH"
 }
@@ -32,7 +34,8 @@ def ts(path):
 os.makedirs(dst, exist_ok=True)
 for name in os.listdir(src):
     s, d = os.path.join(src, name), os.path.join(dst, name)
-    if name.endswith(".json") and (not os.path.exists(d) or ts(s) > ts(d)):
+    # ts(s) < 0: unreadable or half-written (a scrape is still writing it); the next publish picks it up
+    if name.endswith(".json") and ts(s) >= 0 and (not os.path.exists(d) or ts(s) > ts(d)):
         shutil.copy2(s, d)
 EOF
 }
@@ -43,10 +46,10 @@ publish() {
   wt="$(mktemp -d)"
   trap 'git worktree remove --force "$wt" >/dev/null 2>&1 || true' EXIT
 
-  git fetch -q origin "$BRANCH"
+  git fetch -q ${FETCH_DEPTH[@]+"${FETCH_DEPTH[@]}"} origin "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"
   git worktree add -q --detach "$wt" "origin/$BRANCH"
 
-  for attempt in 1 2 3 4 5; do
+  for attempt in 1 2 3 4 5 6 7 8 9 10; do
     # Bring in titles published elsewhere, then rebuild the registry over the union
     merge_newer_titles "$wt/docs/titles" docs/titles
     python3 scraper.py --rebuild-index
@@ -65,12 +68,13 @@ publish() {
     fi
 
     echo "Push rejected (attempt $attempt), syncing with origin/$BRANCH and retrying..."
-    sleep 3
-    git fetch -q origin "$BRANCH"
+    # Random backoff: parallel shard jobs that collide do not retry in lockstep
+    sleep $((RANDOM % 20 + 3))
+    git fetch -q ${FETCH_DEPTH[@]+"${FETCH_DEPTH[@]}"} origin "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"
     git -C "$wt" reset -q --hard "origin/$BRANCH"
   done
 
-  echo "Failed to publish gallery data after 5 attempts." >&2
+  echo "Failed to publish gallery data after 10 attempts." >&2
   return 1
 }
 

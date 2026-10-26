@@ -1,0 +1,147 @@
+name: Scrape Title List & Deploy to GitHub Pages
+
+# Bulk-scrapes a committed list file (any text/CSV containing IMDb IDs) across parallel shard jobs.
+# Already-scraped titles are skipped, so every run resumes where the last one stopped.
+# The cron keeps it going unattended; the workflow disables itself once a run adds no new titles.
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      list_file:
+        description: 'Path in the repo to the list file'
+        required: true
+        type: string
+        default: 'inputs/rarbg_movies.csv'
+      shards:
+        description: 'Parallel jobs (each takes every Nth line of the file)'
+        required: true
+        type: choice
+        options: ['1', '5', '10', '20']
+        default: '20'
+      workers:
+        description: 'Parallel browsers per job'
+        required: true
+        type: string
+        default: '4'
+
+permissions:
+  actions: write   # finish job disables the cron when the list is done
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+env:
+  # Scheduled runs have no inputs: fall back to the defaults
+  LIST_FILE: ${{ inputs.list_file || 'inputs/rarbg_movies.csv' }}
+  SHARDS: ${{ inputs.shards || '20' }}
+  WORKERS: ${{ inputs.workers || '4' }}
+  # data.sh: fetch only the tip of the data branch, not its full (multi-GB) history
+  DATA_FETCH_DEPTH: '1'
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      shards: ${{ steps.m.outputs.shards }}
+      before: ${{ steps.m.outputs.before }}
+    steps:
+      - id: m
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "shards=$(python3 -c "import json,sys; print(json.dumps(list(range(int(sys.argv[1])))))" "$SHARDS")" >> "$GITHUB_OUTPUT"
+          echo "before=$(gh api "repos/${{ github.repository }}/git/trees/data:docs/titles" --jq ".tree | length" 2>/dev/null || echo 0)" >> "$GITHUB_OUTPUT"
+
+  scrape:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.shards) }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Pull Gallery Data
+        run: ./data.sh pull
+
+      - name: Build Shard
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          mkdir -p build
+          awk -v n="$SHARDS" -v s="$SHARD" '(NR - 1) % n == s' "$LIST_FILE" > build/shard.txt
+          echo "Shard $SHARD/$SHARDS: $(wc -l < build/shard.txt) lines"
+
+      - name: Setup Scraper Environment
+        uses: ./.github/actions/setup-scraper
+
+      # Stop at 4.5h so publishing (merge, index rebuild, push retries) fits in the 6h job limit
+      - name: Run Python Scraper
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 270m python3 -u scraper.py --workers "$WORKERS" --input build/shard.txt || echo "Scraper stopped (exit $?)"
+
+      - name: Publish Gallery Data to data Branch
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          ./data.sh publish "chore: scrape list shard ${{ matrix.shard }} [skip ci]"
+
+  deploy:
+    needs: scrape
+    if: always()
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages-deployment
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Pull Gallery Data
+        run: ./data.sh pull
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Stop the cron once a run adds nothing: the list is done (or the rest has no photos / cannot be scraped)
+  finish:
+    needs: [plan, scrape]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE: ${{ needs.plan.outputs.before }}
+        run: |
+          AFTER=$(gh api "repos/${{ github.repository }}/git/trees/data:docs/titles" --jq ".tree | length")
+          echo "Titles on data branch: $BEFORE -> $AFTER" | tee -a "$GITHUB_STEP_SUMMARY"
+          if [ "$AFTER" -le "$BEFORE" ]; then
+            gh workflow disable scrape-list.yml --repo "${{ github.repository }}"
+            echo "No new titles: disabled the scrape-list cron." | tee -a "$GITHUB_STEP_SUMMARY"
+          fi
