@@ -1,0 +1,31 @@
+{
+  "id": "tt12354896",
+  "name": "My Favorite War (2020)",
+  "targetUrl": "https://www.imdb.com/title/tt12354896/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BY2NkYjllNDYtYzA0MC00Y2VlLTllMDAtNWNkZmRkYmQwNDQ0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "My Favorite War (2020)",
+      "width": 742,
+      "height": 927,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BODQwM2RjNDgtMGYyNS00ODUzLWI1ZTItMmRiZTE2NmI3NmQ4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "My Favorite War (2020)",
+      "width": 2000,
+      "height": 2828,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2423,
+  "timestamp": 1793034887471
+}

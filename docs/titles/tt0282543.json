@@ -1,0 +1,42 @@
+{
+  "id": "tt0282543",
+  "name": "Happy Hour (2003)",
+  "targetUrl": "https://www.imdb.com/title/tt0282543/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTI4NDg2Mjg1MF5BMl5BanBnXkFtZTYwMDM1ODg2._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Happy Hour (2003)",
+      "width": 450,
+      "height": 671,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTU2NjU2MzQ1M15BMl5BanBnXkFtZTcwNjIyMTcyMQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Happy Hour (2003)",
+      "width": 319,
+      "height": 475,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTU2MjYyODY2N15BMl5BanBnXkFtZTcwODc0MDIzMQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Happy Hour (2003)",
+      "width": 345,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2819,
+  "timestamp": 1793034371334
+}

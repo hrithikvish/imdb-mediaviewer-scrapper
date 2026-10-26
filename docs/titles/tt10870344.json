@@ -1,0 +1,42 @@
+{
+  "id": "tt10870344",
+  "name": "Night at the Hotel (2019)",
+  "targetUrl": "https://www.imdb.com/title/tt10870344/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTk3YTEyMDUtYzBmZS00NzU1LWI1NmUtMzUzNTEzMWM5MzljXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Night at the Hotel (2019)",
+      "width": 1144,
+      "height": 635,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTdhZDdlYWQtOGY0NC00MmVmLTg2OTktOTc2YThjNDY2MmUwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Night at the Hotel (2019)",
+      "width": 1080,
+      "height": 721,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjZlNzM5MWQtOWI1My00YjExLThiMWMtOTdkY2YzZDEzYjRjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Night at the Hotel (2019)",
+      "width": 7000,
+      "height": 12000,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 3341,
+  "timestamp": 1793034733064
+}
