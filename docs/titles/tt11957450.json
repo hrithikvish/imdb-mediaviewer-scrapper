@@ -1,0 +1,42 @@
+{
+  "id": "tt11957450",
+  "name": "Stalker (2020)",
+  "targetUrl": "https://www.imdb.com/title/tt11957450/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzYxYzg4YWQtMGE5Zi00ZDAzLWJhM2YtNDg1ZDQ4NmRlODhhXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Steve Sobel and Steph Barkley in Blinders (2020)",
+      "width": 2880,
+      "height": 1800,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNDAyZjQ3ZjQtMWY1Mi00MDdkLTk2NDAtOTJmM2M5ZWFlZGZjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Blinders (2020)",
+      "width": 700,
+      "height": 1043,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTZmYTliMDItOGQxOS00ZDE5LWI1MmYtYjFhOTRkMmQ2NmQ4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Blinders (2020)",
+      "width": 960,
+      "height": 1280,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2933,
+  "timestamp": 1793034994023
+}
