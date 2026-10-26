@@ -1,0 +1,31 @@
+{
+  "id": "tt0800228",
+  "name": "Swedish Auto (2006)",
+  "targetUrl": "https://www.imdb.com/title/tt0800228/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMWNiYTcxODItZjVhYy00ZjBkLTllNzUtNjBhMWRmNDY0OTU3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Swedish Auto (2006)",
+      "width": 800,
+      "height": 533,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNGY4YjBmZDYtMmRlMS00ODUzLWExYTctZGI3N2IyMjhiZmQwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Swedish Auto (2006)",
+      "width": 348,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2406,
+  "timestamp": 1793034581223
+}

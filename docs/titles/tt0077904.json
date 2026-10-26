@@ -1,0 +1,977 @@
+{
+  "id": "tt0077904",
+  "name": "The Manitou (1978)",
+  "targetUrl": "https://www.imdb.com/title/tt0077904/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTc3ODM3NDU2MV5BMl5BanBnXkFtZTYwMzc5Mjc4._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Video release poster, 1986, 1 sheet",
+      "width": 216,
+      "height": 343,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTI0Nzg4MzUzOV5BMl5BanBnXkFtZTcwNzMwODQ0MQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 355,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjI0ODg3YzktYmFmNS00ZDc1LTk4YTEtYzIyNjU1NDU2NmU0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Stella Stevens and Hugh Corcoran in The Manitou (1978)",
+      "width": 750,
+      "height": 487,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZWMyMzBlMzAtNTQwNy00Y2Q2LWFjZjMtZjZjMzY5ODM2MTZmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Stella Stevens in The Manitou (1978)",
+      "width": 750,
+      "height": 436,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTc0ZDIxYWEtNDA4Zi00OGZlLWJlMWMtMmU2ZDVjMmQxNTk3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg in The Manitou (1978)",
+      "width": 850,
+      "height": 366,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BODUwODgzNmItMGFjNS00YWZjLTk5MWYtYzA5MGIxMDk1MzIwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg in The Manitou (1978)",
+      "width": 850,
+      "height": 366,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZjczNWQ5ZGEtZjBhNy00NjA3LWE3MDItZjAyOGFmMGIxODhmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNTU1OGI3ZjQtYzY3MC00NjM5LWIxY2MtYjhmYTI2ZGU2ZTg3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZTBiNzdhMjAtMDk0OS00ODZmLWI2ZDctM2I5YTc1NWE1YjkxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZmNmOWE3NzUtM2RkNy00YzdjLWJmMjMtZmUzZDM2OGRhMzJlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BN2YyNTEyZGUtNDM2ZS00NGNlLTg0NzUtMjJmODk4YWIyMDRkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Michael Ansara in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMGIxMGJkMWUtNGE2My00ZGVhLWJjZDUtNDhmZDYyNDFlMzVkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Lurene Tuttle in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYTY4Y2QyNTMtNTQ2Ni00MDI1LWFiOGEtMDFiMzAwNGMzNjBmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjg3ZDFkYTUtNzQzMy00NTIyLWIxNWYtNDk0YzgwMThkNmZmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Michael Ansara in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOWJhMGRmNWEtNDhlZC00NGIyLWFlNTYtNDI3YmMyNmNjZDk1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Michael Ansara in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzFiMDQzYTItOTU2Ny00OTljLTkwN2UtYmJjMWNhNjMwYTAwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Stella Stevens in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMWE1NzMxZWEtMzBjYS00NDNiLThmZTctNDUwNGRjYWFkYjg3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNWQyYjM4YTQtZTk1OS00YmI0LWJkOGYtMWNjMGNjY2UzMTNkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis, Susan Strasberg, and Jon Cedar in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTcwMWE5YjctMjhjOC00ODA1LThkYjQtYWQxZDJmZGM2MDE1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Ann Sothern in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZDJkN2ZjZWUtYTQwMC00ZWQzLWIzMjAtMzcyNzU5ZWIzOTJjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYWNiNGZkY2EtNzNjMS00MTZmLWFiMGEtYjMxNmZiOGNmM2ZkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzZhZGViY2ItYmZhOC00ZWEwLTgwYjItM2QwOTliYWEwMzQ2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Michael Ansara in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzNiYjE5ZDAtNmI0ZS00YjZhLWJlODQtNTQxYzk4ZTU3YWQxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDMwMGFhMjktZWFmZi00NDA5LTgxNGEtYzAyMzMwZjU0MWUwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMWVmNmE3YWQtOGMxMC00NGRkLTk0ZmUtMWE2ODQ2Mzk5OTdjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzYwMzAxMWMtMWUzMC00OWNhLTk1MWMtZDgyNGM2NjJiYTQ5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNjhlZTU2ZjMtMTNmNS00Y2Q0LThmZDEtODJlZjgwZTViYjI2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Felix Silla in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNTNmOGVmYzEtMzJjNy00MzJiLWFhMGEtYTJhNmJkOGFjOTg0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Susan Strasberg in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BM2EyNzM5NjktNzZiYy00ODM2LTg3YzYtZTdiZWE4NTdmMjIwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Jeanette Nolan in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzY3YjJiYTUtNzFmZS00OWYwLWIzOWMtZTk4ZjUzYmM3MGQ2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNGY1YTYwYzQtZmUwNS00YzEyLWE3YzYtMDE2NDdiZTk2OTZlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Felix Silla in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BY2I0MGU2MTgtNTA5MS00OTA0LTk0MjctMDg0ZjdiNDFkYWMxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BM2I0MzNkYTgtOGI5ZC00YWQxLWEwYjgtZTBlMmI5ZWEwZTFiXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZTdhODJmZjMtYTc3Zi00NWJjLWI3ZjUtZTU2MGM4NDZhZmMzXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg and Jon Cedar in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNTU2NWZjMmEtYzg4NS00YjVjLWE0ZmItYTk1ZmM4Yzc0NmJlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDJlNWI4NTUtZTZjZC00MmIwLWFhMjUtYzI5MTJjYTFhMjhiXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZWY5NzNiN2EtMTY5MS00OTBkLThiMTQtODlkMGY4MzQ1NmI1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Jeanette Nolan in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BN2EyZjRmMDktYTM1YS00ZmFhLTg3ZTEtNzhkZDI0NjQyMzc5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Felix Silla in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNTlkYjlkYjQtOGY2YS00ODY2LWJkNjItMWQ1N2I1YzU0NDI5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzkxNzk1ZWEtNjQyYS00MzM2LWEzZWItOGI3M2Y0MTRmNGRmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis, Michael Ansara, and Anne Newman Bacal in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYWVhMjBiNGQtZDQxMy00MTg3LWJjNTItZjUxMTA0YzA1MWJmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Stella Stevens in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYWUzZmUzZTMtY2NmMC00MDNiLWJjMWYtNzc5YzZlYWMzOTNjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Lurene Tuttle in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNDQ4YTg1MTItODdhYy00MjBkLWFkMWItM2U3ZjZlMDg5NzFhXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Lurene Tuttle in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMmU0OGNkYzEtYTI3Yi00NzZiLWE3OGItOTEzMWIxZjkwYTk4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNDcxMDk0OGYtZDc0Yy00NjU2LTlhMzktODE4MzM2NjViNmExXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg in The Manitou (1978)",
+      "width": 1258,
+      "height": 546,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTIyYzEyYjYtYzNkNi00OTQxLWI3NWYtNDExYWVmOTMzNmE4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Stella Stevens and Burgess Meredith in The Manitou (1978)",
+      "width": 1439,
+      "height": 2167,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BM2NlNDFlYmQtOTI5Ny00ZWI3LThkOTItOTlmZGFhMTRhN2YyXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Jon Cedar in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzUzODQ2NTctM2M3My00NDAwLTllZDUtYjA5YzU0YjQwOGE5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Stella Stevens in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNWJkNzI2NDgtYzJkZi00NGVjLTllZmYtNzNhNjg2YTJiMmZlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Burgess Meredith in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzY5NjM3OTMtNTUyYi00MDRhLWJkZmItMTYzOWIwMjAxZmI5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Lurene Tuttle in The Manitou (1978)",
+      "width": 450,
+      "height": 307,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTRlMzBhODAtMTUyNC00NjM3LWJiN2UtN2NiMmE2MTEyYTU3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg in The Manitou (1978)",
+      "width": 1280,
+      "height": 720,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMzU5MTJmMzEtOTgzYy00OGRhLWE5NzktNWY5MTA1NGY1MDM3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis in The Manitou (1978)",
+      "width": 500,
+      "height": 213,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTZjNTY1ODgtZDI4MS00MWU5LTk4MDAtNmQ4ZDMxNjI0NzdiXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzA0ODZiZDgtNzA5My00NTJmLWJiNGUtOTZlYzYyMzE2MzhlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzNlMTY2OWEtNGRiMy00YWRmLWI1YjktMDVjYjE2M2QwMGEwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZmIxNWRmMzktMTA1Yy00ZThhLThiZTgtMTRlMzQzMzQ0MjVmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Lurene Tuttle in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNWI0MGRhNTQtMjBlOS00YTQ5LWE5NmYtMTkwZWFhM2VlMGVjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTZlYTg3ZWYtM2ZiZS00OWQyLTgyNGItNDhhZWJkOTU1MmRlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg and Felix Silla in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BM2JjYTBlZmUtYjczMC00ZTZlLWIwMTAtZWRhYTc1YTY0ZGVkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis, Stella Stevens, and Burgess Meredith in The Manitou (1978)",
+      "width": 450,
+      "height": 309,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTcyODgxOTAtNjIyYi00ODBjLThhNmMtNTVhY2E2YTliZGE1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg, Jon Cedar, and Paul Mantee in The Manitou (1978)",
+      "width": 450,
+      "height": 313,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZTc4ZjczNWEtYTkzOS00M2QwLWI2YTMtNDkxZDlmZmJkYjk0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Felix Silla in The Manitou (1978)",
+      "width": 650,
+      "height": 275,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYmU1NmM3OWMtYWFkNS00NjAzLTkwNzktZDJkNjExODgxYmY2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Michael Ansara in The Manitou (1978)",
+      "width": 959,
+      "height": 415,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYjM4ODhiYzctMDVlOS00ODNlLThkYmQtZjM4MGI5YTM2YzJhXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg and Joe Gieb in The Manitou (1978)",
+      "width": 650,
+      "height": 276,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZTM5Mzk5YmYtNTk2Yy00YzllLWE3ZmMtYmQ2OTdjZTA1ZTg2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg and Joe Gieb in The Manitou (1978)",
+      "width": 975,
+      "height": 548,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMmQ1NjYwNjgtYzE0My00ZjZiLTk2NWMtMTBmZTg3ZjE2MjEwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis and Michael Ansara in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZjI0OTZiZTUtMDhmMC00YjQ0LTk4MDMtNTFlZTM2MzBmMDYzXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis, Susan Strasberg, Michael Ansara, and Joe Gieb in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOWRiZjM3Y2ItODVhNS00MWUwLTk4NmItZTE4MTJiMzU4OWYwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Felix Silla in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMzk5ZWJiYjYtNDM0NC00NTU1LTk3MGMtYTAwMjU2NjBlMmE3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMzc4NDVlMzEtY2NhZi00YzBiLTkwNDMtZWJhMjg4YzYyZDU0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Susan Strasberg in The Manitou (1978)",
+      "width": 831,
+      "height": 366,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMzgwOWM5YzItMWUzOS00YjllLThhZDQtNmY5NzAyOWE5MGRjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Joe Gieb in The Manitou (1978)",
+      "width": 960,
+      "height": 540,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNTFlMjcxYmItMjQyNy00YzZhLTlhY2MtMDFhMDRjNWUzMDYwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Joe Gieb in The Manitou (1978)",
+      "width": 1268,
+      "height": 563,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMGM2ODM0OTUtOTRjMy00MDRlLWI5MjEtZjY5YTE0Y2UxY2NlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tony Curtis, Michael Ansara, and Joe Gieb in The Manitou (1978)",
+      "width": 1270,
+      "height": 563,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTA4OTE5NzIwNl5BMl5BanBnXkFtZTcwNTkxMDk0OA@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Joe Gieb in The Manitou (1978)",
+      "width": 400,
+      "height": 273,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BN2U0OTgxYjYtM2UxZi00MDA2LTk0ZWUtYWNmMTBlZDQ5OTc2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 4284,
+      "height": 5712,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDA4MDk4NDMtZTBlYy00MzQ3LWE2MWEtM2E2YjViYThkNGQxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1080,
+      "height": 827,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNmIwZDk3ZGUtNTQwYi00ZWJiLTk1MTAtYzBlMWZjNzZjOTE2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 621,
+      "height": 874,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNmZhNjBhMmItNDE3My00ZjRiLThkOTktYjEwMjU0ODI2N2NkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 600,
+      "height": 450,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZThmMDUyNjEtNjNkNC00MmU3LWJkZDgtYjZiODAzOWQyNGUzXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 828,
+      "height": 1200,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYTBhOTRmYjQtMzU2NS00ZWQ4LTkwZjAtNGY2MDljMDNmZDgxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 743,
+      "height": 1061,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDlmNGYxNWUtMzk4NC00ZjczLWFmNmYtZDNiYTk0OTQ4MGNhXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 805,
+      "height": 1079,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZWQ2NDc2NGUtNzBjMS00NDAyLWJhNjItN2Q1ODg4YmM2M2ZiXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 905,
+      "height": 1114,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BN2E0ZTM1NTUtZWJlYS00M2EzLTk5MjQtYmFhYWFmYzUyYTA2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 919,
+      "height": 1103,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzFhMTUzZTYtYjc0Yy00Y2MyLWJiMzYtZTUzNDUxNzdjOGQ1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 1694,
+      "height": 1995,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYWM4ODRhMTUtZDI3Yi00MmQyLWI4OGQtYzI0OTQzMTczYzhkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 600,
+      "height": 420,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzYzZjQ5MDAtNDdmMi00MDQ2LTlkNTMtNGE0MDdlZDNkOWY5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 600,
+      "height": 420,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNWQwMzhhMjQtNjhiMC00NTgyLTljNGEtM2U4YmZmMThmMTY0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 853,
+      "height": 576,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMmYyNjkxNTQtOGFmYS00MjUzLTlhNTgtZWVhZmNmMTdmNTlmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 596,
+      "height": 400,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMmI2NTBiNGMtMmEyNC00ZmZiLWI0MTMtZWJlZWE2NDRlMzM0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Manitou (1978)",
+      "width": 576,
+      "height": 521,
+      "metadata": {
+        "source": "graphql_intercept"
+      }
+    }
+  ],
+  "durationMs": 2970,
+  "timestamp": 1793033793448
+}

@@ -1,0 +1,31 @@
+{
+  "id": "tt0086110",
+  "name": "Pirate Tape (1983)",
+  "targetUrl": "https://www.imdb.com/title/tt0086110/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYjI5OTRjZTMtMWMwOC00MTAxLTk3MTgtOGQxOTRlMTJhZDJhXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "William S. Burroughs in Pirate Tape (1983)",
+      "width": 795,
+      "height": 444,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzg0ZDRlNzItOTZmYi00MDE0LTk0Y2YtOTBmYTg5OGU5Mjc0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Sloane Square: A Room of One's Own (1976)",
+      "width": 1200,
+      "height": 1398,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2975,
+  "timestamp": 1793033900861
+}

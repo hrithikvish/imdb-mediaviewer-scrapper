@@ -1,0 +1,31 @@
+{
+  "id": "tt10192704",
+  "name": "My True Fairytale (2021)",
+  "targetUrl": "https://www.imdb.com/title/tt10192704/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMWMxYzllZjItN2JhMi00MjJhLTk1MjctMzllNmI3NDFiNzdlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "My True Fairytale (2021)",
+      "width": 1000,
+      "height": 1342,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOWRkOTc4MDUtZGUwOS00MGY2LWE3ZjItMjJjNzczNzAzZDRhXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "My True Fairytale (2021)",
+      "width": 953,
+      "height": 1280,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 1910,
+  "timestamp": 1793034663330
+}

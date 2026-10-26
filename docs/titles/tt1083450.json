@@ -1,0 +1,31 @@
+{
+  "id": "tt1083450",
+  "name": "Dummy (2008)",
+  "targetUrl": "https://www.imdb.com/title/tt1083450/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTc0NjI5NTQ3OF5BMl5BanBnXkFtZTgwMTQ5NjcwMzE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Dummy (2008)",
+      "width": 333,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjE4MjUxMjUzOV5BMl5BanBnXkFtZTgwNDYwMjA2MDE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Dummy (2008)",
+      "width": 343,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2734,
+  "timestamp": 1793034747203
+}
