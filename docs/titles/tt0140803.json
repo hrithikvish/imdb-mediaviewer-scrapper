@@ -1,0 +1,31 @@
+{
+  "id": "tt0140803",
+  "name": "Amazon (1997)",
+  "targetUrl": "https://www.imdb.com/title/tt0140803/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTY5MTYwMjM4MF5BMl5BanBnXkFtZTgwNjE0MjgwMzE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Amazon (1997)",
+      "width": 353,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTkxMzk4MjIzNF5BMl5BanBnXkFtZTcwNzA1ODUyMQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Amazon (1997)",
+      "width": 353,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2471,
+  "timestamp": 1793034797001
+}
