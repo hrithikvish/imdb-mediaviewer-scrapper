@@ -1,0 +1,31 @@
+{
+  "id": "tt0874421",
+  "name": "Beijing Taxi (2010)",
+  "targetUrl": "https://www.imdb.com/title/tt0874421/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTYyNTQ3NDE5OV5BMl5BanBnXkFtZTcwNjk5MzIyMw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Beijing Taxi (2010)",
+      "width": 1800,
+      "height": 1200,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjE0NTA2NDg3OV5BMl5BanBnXkFtZTgwMDg4MjM3ODE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Beijing Taxi (2010)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 1972,
+  "timestamp": 1793034559354
+}

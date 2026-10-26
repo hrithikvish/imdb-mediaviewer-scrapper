@@ -1,0 +1,53 @@
+{
+  "id": "tt1014807",
+  "name": "Rule of Three (2008)",
+  "targetUrl": "https://www.imdb.com/title/tt1014807/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTcyMDAwMjYwM15BMl5BanBnXkFtZTcwNzQyODQxMw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Rule of Three (2008)",
+      "width": 4813,
+      "height": 7088,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjI3MDA4Mzg5MV5BMl5BanBnXkFtZTcwMjg0NTk5Mw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Rule of Three (2008)",
+      "width": 386,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMmY3NTc4NzktYTg3Ny00NWM2LThjNmYtNGFkYjdjN2UzMDkzXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Rule of Three (2008)",
+      "width": 1200,
+      "height": 1600,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNjA0Y2JlNTEtYzhjYy00YTZiLTgxYjMtNGJkZjgzNGViNDNlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Rule of Three (2008)",
+      "width": 679,
+      "height": 1000,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2250,
+  "timestamp": 1793034603246
+}

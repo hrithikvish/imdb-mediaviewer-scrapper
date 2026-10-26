@@ -1,0 +1,42 @@
+{
+  "id": "tt0108435",
+  "name": "1, 2, 3, Freeze (1993)",
+  "targetUrl": "https://www.imdb.com/title/tt0108435/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzUxNjQ0NDU5NV5BMl5BanBnXkFtZTcwNDM1MDYyMQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "1, 2, 3, Freeze (1993)",
+      "width": 354,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZTJiNzY1MzMtZWM5Zi00MDk2LTg0M2ItNWMzNzQyN2RhOWI4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "1, 2, 3, Freeze (1993)",
+      "width": 1080,
+      "height": 1505,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMGVhOGYzYTMtYjQ4ZS00NmEwLTg0YWUtOGI3NDI2ODZlZTI4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "1, 2, 3, Freeze (1993)",
+      "width": 600,
+      "height": 800,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2974,
+  "timestamp": 1793034153299
+}
