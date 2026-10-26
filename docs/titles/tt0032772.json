@@ -1,0 +1,31 @@
+{
+  "id": "tt0032772",
+  "name": "tt0032772",
+  "targetUrl": "https://www.imdb.com/title/tt0032772/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZWE0OTdiYzctMDY5Ny00YjQyLTgzNjQtYjcwNjZmYzI2MDkzXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Meet the Fleet (1940)",
+      "width": 1024,
+      "height": 768,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZTZhYzEzZGUtNjM3NS00MWZmLThkMDItNTczYmQ5Y2Q2MGJjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "George Reeves and Herbert Anderson in Meet the Fleet (1940)",
+      "width": 926,
+      "height": 645,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2387,
+  "timestamp": 1793032453349
+}

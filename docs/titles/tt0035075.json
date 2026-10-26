@@ -1,0 +1,42 @@
+{
+  "id": "tt0035075",
+  "name": "tt0035075",
+  "targetUrl": "https://www.imdb.com/title/tt0035075/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BN2ZkZWVjZWQtYzk3Ni00NGJlLThhY2UtOWQ1ZDUwOTYxZWFlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Monsieur La Souris (1942)",
+      "width": 1385,
+      "height": 1800,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZDFmZmVlOTYtNWM4OC00M2E2LWE4MWYtMGQ5NzJhNTc4NGVjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Raimu in Monsieur La Souris (1942)",
+      "width": 700,
+      "height": 1023,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzUzYzYwZDQtMGFlMC00ZjBlLTk2NDYtNDMwZGNmZjJjM2M2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Raimu in Monsieur La Souris (1942)",
+      "width": 663,
+      "height": 941,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 3025,
+  "timestamp": 1793032656615
+}

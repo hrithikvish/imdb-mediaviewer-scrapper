@@ -1,0 +1,31 @@
+{
+  "id": "tt0033146",
+  "name": "tt0033146",
+  "targetUrl": "https://www.imdb.com/title/tt0033146/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZDRiNDlmMzItYjA2ZS00OTg2LTg4MmEtYjEzYWVhYjY0ZWE4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "That Inferior Feeling (1940)",
+      "width": 300,
+      "height": 240,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOGVkOTc5NjAtYzljMC00ODdmLWE1NDctNjU4NTNkMGNiNDUyXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Robert Benchley in That Inferior Feeling (1940)",
+      "width": 572,
+      "height": 810,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2290,
+  "timestamp": 1793032488429
+}

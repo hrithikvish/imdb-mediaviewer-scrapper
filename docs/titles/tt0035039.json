@@ -1,0 +1,31 @@
+{
+  "id": "tt0035039",
+  "name": "tt0035039",
+  "targetUrl": "https://www.imdb.com/title/tt0035039/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDQzZDcyOTUtZGI1ZC00YWIzLWJhMTQtODU1NzUxNTQ0YzRiXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Claude Autant-Lara, Odette Joyeux, and André Luguet in Le mariage de Chiffon (1942)",
+      "width": 2048,
+      "height": 1504,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDBjZDg5ZDgtYmU1OC00NmZjLWExZWEtMDg3YjU1MWM0OWM5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Jacques Dumesnil, Odette Joyeux, and André Luguet in Le mariage de Chiffon (1942)",
+      "width": 681,
+      "height": 1032,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2397,
+  "timestamp": 1793032654663
+}

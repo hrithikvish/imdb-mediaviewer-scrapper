@@ -1,0 +1,42 @@
+{
+  "id": "tt0023855",
+  "name": "A Bundle of Blues (1933)",
+  "targetUrl": "https://www.imdb.com/title/tt0023855/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZDU1ZjcyZGQtOWUxYi00YTAzLWJkYWYtN2JiOTRhNzRjYjY0XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "A Bundle of Blues (1933)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOThkOWZiMzMtNzBlMy00MDNlLTljZTAtMTJmNjE1MGI2MjNjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Duke Ellington in A Bundle of Blues (1933)",
+      "width": 3593,
+      "height": 2736,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BY2Y5NDRlNDEtYWU4YS00YjM0LThhZDMtNmVkMjIxYmE1YmFjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Be Like Me (1933)",
+      "width": 1800,
+      "height": 2765,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 10321,
+  "timestamp": 1793031673657
+}

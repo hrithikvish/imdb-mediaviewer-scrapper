@@ -1,0 +1,42 @@
+{
+  "id": "tt0029686",
+  "name": "tt0029686",
+  "targetUrl": "https://www.imdb.com/title/tt0029686/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTQ0NDQ5MzY2NV5BMl5BanBnXkFtZTcwODI5MTM1Mg@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "A Colour Box (1935)",
+      "width": 355,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZGU1ZjExMjMtZmU0MC00M2NkLWJkZDUtZTZlZTRlN2FkZDNjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Trade Tattoo (1937)",
+      "width": 708,
+      "height": 535,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMzUxOWVjYmUtYjBjZi00ZTNlLWExNWQtOTdiOTljYWY1YTE1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Trade Tattoo (1937)",
+      "width": 562,
+      "height": 800,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2349,
+  "timestamp": 1793032196804
+}

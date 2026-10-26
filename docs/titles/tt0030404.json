@@ -1,0 +1,31 @@
+{
+  "id": "tt0030404",
+  "name": "tt0030404",
+  "targetUrl": "https://www.imdb.com/title/tt0030404/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDMwYzE0M2YtZmY0Ny00ZTJjLThmMTItOTg1Y2JiN2Q4N2NiXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Making Fashion (1938)",
+      "width": 768,
+      "height": 576,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMDkyZTgxZDQtZmU4Yi00MzhhLWI2Y2EtMmJhMjQwZTBjYTlkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Making Fashion (1938)",
+      "width": 383,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2307,
+  "timestamp": 1793032246394
+}

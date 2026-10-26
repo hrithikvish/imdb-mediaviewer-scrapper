@@ -1,0 +1,42 @@
+{
+  "id": "tt0031887",
+  "name": "tt0031887",
+  "targetUrl": "https://www.imdb.com/title/tt0031887/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNWNjYzIyOTUtYzExNS00MmE1LWIzZWQtZjVlYjc3YTI5OWJkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Sabotage (1939)",
+      "width": 530,
+      "height": 800,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYTM0YTliMzctZDgyNS00N2E5LWE5ZWQtZTkwMzkzMGVkZWZmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Gordon Oliver and Arleen Whelan in Sabotage (1939)",
+      "width": 960,
+      "height": 1440,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYWY5ZDZlYzUtMjJkMy00ZmNlLWE5MWMtOTYyMDFjNTViNzZjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Sabotage (1939)",
+      "width": 550,
+      "height": 772,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2432,
+  "timestamp": 1793032362920
+}

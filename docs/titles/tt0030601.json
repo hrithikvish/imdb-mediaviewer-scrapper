@@ -1,0 +1,53 @@
+{
+  "id": "tt0030601",
+  "name": "tt0030601",
+  "targetUrl": "https://www.imdb.com/title/tt0030601/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BY2VlZDlmODAtNGE5MS00NzA3LTk2OTUtMjYzNzhlODUzNDZjXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Porky & Daffy (1938)",
+      "width": 1920,
+      "height": 1080,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZWUyN2JjYmQtY2RiMy00Yzc1LWFiZjItNjVhZjhhM2M2ZTk5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Porky & Daffy (1938)",
+      "width": 1899,
+      "height": 2898,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZDBiOTk0MDItNjE2Yy00ZmQ0LWFhOWMtNDJmY2U0MTMzMTU5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Porky & Daffy (1938)",
+      "width": 957,
+      "height": 777,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOGM4MWVhN2EtNmY4ZC00MzJlLWJiZGEtMzc4MmY0NmVhOGU3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Porky & Daffy (1938)",
+      "width": 750,
+      "height": 680,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2999,
+  "timestamp": 1793032258320
+}

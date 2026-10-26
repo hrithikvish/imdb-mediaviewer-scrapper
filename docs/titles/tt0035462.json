@@ -1,0 +1,31 @@
+{
+  "id": "tt0035462",
+  "name": "tt0035462",
+  "targetUrl": "https://www.imdb.com/title/tt0035462/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjkxYmRlMDQtY2ZlNi00Y2VhLTk0ZTEtNDE0OGE0N2QyODI4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Tower of Terror (1941)",
+      "width": 2520,
+      "height": 3564,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZGVmNGE4ZDctZWE5NS00Y2YyLWIyMWMtY2ViMTMyYzc0MmRhXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Wilfrid Lawson in Tower of Terror (1941)",
+      "width": 2448,
+      "height": 3264,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2320,
+  "timestamp": 1793032696725
+}

@@ -1,0 +1,31 @@
+{
+  "id": "tt0034875",
+  "name": "tt0034875",
+  "targetUrl": "https://www.imdb.com/title/tt0034875/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNDczZjFhM2YtZDY0My00OThiLTkyNTQtZDFmM2Q0YWJiNGJkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "How to Swim (1942)",
+      "width": 1000,
+      "height": 1500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BODNjNmZiYzgtZjA1Zi00OTEwLTlkNTgtNzc0M2NlOTQ5ZTgxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "How to Swim (1942)",
+      "width": 400,
+      "height": 615,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2036,
+  "timestamp": 1793032641267
+}

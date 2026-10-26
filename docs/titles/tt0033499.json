@@ -1,0 +1,31 @@
+{
+  "id": "tt0033499",
+  "name": "tt0033499",
+  "targetUrl": "https://www.imdb.com/title/tt0033499/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYTRjNTQwYjktNDNjNy00ZGVlLWEyY2YtOGE0MjhhZjRhYzlmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Crime Control (1941)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BODJiZjM3YTgtYWE0Yi00YjVmLTk1ZTUtZTRiMGZkYWJkYjlkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Crime Control (1941)",
+      "width": 1444,
+      "height": 1080,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2404,
+  "timestamp": 1793032521522
+}
