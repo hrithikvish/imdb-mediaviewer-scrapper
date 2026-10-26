@@ -16,7 +16,7 @@ import argparse
 import urllib.request
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
-from typing import List, Dict, Optional, Tuple, Set
+from typing import List, Dict, Optional, Tuple, Set, Iterator
 try:
     from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page
 except ImportError:
@@ -87,11 +87,12 @@ def resolve_title_from_query(query: str) -> Optional[Tuple[str, str]]:
         pass
     return None
 
-def extract_imdb_titles_from_text(raw_text: str) -> List[Tuple[str, str]]:
+def extract_imdb_titles_from_text(raw_text: str, skip_ids: Set[str] = frozenset()) -> Iterator[Tuple[str, str]]:
     """
-    Extracts all unique IMDb IDs and titles from arbitrary text, file content, or query strings.
+    Yields unique IMDb IDs and titles from arbitrary text, file content, or query strings, in input order.
     Supports both movies/series (tt...) and persons/actors (nm...).
-    Resolves canonical names and release years concurrently using a thread pool.
+    Resolves canonical names and release years concurrently using a thread pool; each title is
+    yielded as soon as it resolves. IDs in skip_ids are yielded without a network lookup.
     """
     token_pattern = re.compile(r'(https?://[^\s,"\'<>]+|\b(?:tt|nm)\d{7,8}\b)')
     id_pattern = re.compile(r"((?:tt|nm)\d{7,8})")
@@ -127,29 +128,26 @@ def extract_imdb_titles_from_text(raw_text: str) -> List[Tuple[str, str]]:
                 tasks.append(("query", line))
 
     if not tasks:
-        return []
+        return
 
     def resolve_task(task):
         t_type, t_val = task
         if t_type == "id":
+            if t_val in skip_ids:
+                return (t_val, t_val)
             name = resolve_title_by_id(t_val) or t_val
             return (t_val, name)
         elif t_type == "query":
             return resolve_title_from_query(t_val)
         return None
 
-    # Resolve all titles in parallel (100 titles in < 1 second)
-    with ThreadPoolExecutor(max_workers=20) as executor:
-        resolved_items = list(executor.map(resolve_task, tasks))
-
-    results = []
+    # Resolve in parallel; executor.map yields each result as soon as it (and those before it) are ready
     seen_ids = set()
-    for item in resolved_items:
-        if item and item[0] not in seen_ids:
-            seen_ids.add(item[0])
-            results.append(item)
-
-    return results
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        for item in executor.map(resolve_task, tasks):
+            if item and item[0] not in seen_ids:
+                seen_ids.add(item[0])
+                yield item
 
 # ---------------------------------------------------------------------------
 # Deep JSON Traversal for High-Res Media & True Captions
@@ -606,33 +604,18 @@ def main():
     else:
         raw_input = "https://www.imdb.com/title/tt0038650/"
 
-    extracted_titles = extract_imdb_titles_from_text(raw_input)
-    if not extracted_titles:
-        log("❌ No valid IMDb IDs, titles, or links found in input text!", file=sys.stderr)
-        sys.exit(1)
-
-    log("\n================================================================")
-    log(f"📋 Discovered {len(extracted_titles)} Unique IMDb Titles from Input:")
-    log("================================================================")
-    for idx, (tid, name) in enumerate(extracted_titles, start=1):
-        log(f" [{idx:3d}] {tid} — {name}")
-    log("================================================================\n")
-
-    # Filter out already scraped titles unless --force is set
-    titles_to_scrape = []
-    for tid, name in extracted_titles:
+    def is_scraped(tid: str) -> bool:
         title_file = os.path.join(TITLES_DIR, f"{tid}.json")
-        if not args.force and os.path.exists(title_file) and os.path.getsize(title_file) > 500:
-            log(f"⏩ [SKIP] {name} ({tid}) already scraped.")
-        else:
-            titles_to_scrape.append((tid, name))
+        return os.path.exists(title_file) and os.path.getsize(title_file) > 500
 
-    if not titles_to_scrape:
-        log("\n✨ All titles are already scraped and up-to-date!")
-        log("💡 Pass --force to re-scrape.")
-        sys.exit(0)
+    skip_ids = set()
+    if not args.force and os.path.isdir(TITLES_DIR):
+        skip_ids = {f[:-5] for f in os.listdir(TITLES_DIR) if f.endswith(".json") and is_scraped(f[:-5])}
 
-    log(f"⚡ Starting scrape for {len(titles_to_scrape)} title(s)...\n")
+    titles = extract_imdb_titles_from_text(raw_input, skip_ids)
+    log("🔎 Identifying titles; each one is scraped as soon as it is identified...\n")
+    total_count = 0
+    skip_count = 0
     success_count = 0
     fail_count = 0
 
@@ -653,8 +636,13 @@ def main():
             # Bypass navigator.webdriver detection for AWS WAF
             context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
-            for idx, (tid, name) in enumerate(titles_to_scrape, start=1):
-                log(f"🎬 [{idx}/{len(titles_to_scrape)}] Scraping gallery for {name} ({tid})...")
+            for idx, (tid, name) in enumerate(titles, start=1):
+                total_count = idx
+                if not args.force and tid in skip_ids:
+                    log(f"⏩ [{idx}] [SKIP] {tid} already scraped.")
+                    skip_count += 1
+                    continue
+                log(f"🎬 [{idx}] Identified {tid} — {name}. Scraping gallery...")
                 start_time = time.time()
                 try:
                     items = scrape_single_title_gallery(context, tid, name)
@@ -663,10 +651,10 @@ def main():
                         save_title_gallery(tid, name, items, duration_ms)
                         success_count += 1
                     else:
-                        log(f"⚠️ [{idx}/{len(titles_to_scrape)}] [EMPTY] No media images found for {name} ({tid})")
+                        log(f"⚠️ [{idx}] [EMPTY] No media images found for {name} ({tid})")
                         fail_count += 1
                 except Exception as e:
-                    log(f"❌ [{idx}/{len(titles_to_scrape)}] [ERROR] Failed to scrape {name} ({tid}): {e}", file=sys.stderr)
+                    log(f"❌ [{idx}] [ERROR] Failed to scrape {name} ({tid}): {e}", file=sys.stderr)
                     fail_count += 1
 
                 # Polite pause between titles
@@ -674,11 +662,16 @@ def main():
         finally:
             browser.close()
 
+    if not total_count:
+        log("❌ No valid IMDb IDs, titles, or links found in input text!", file=sys.stderr)
+        sys.exit(1)
+
     log("\n================================================================")
     log("🎉 Scraping Finished!")
     log(f"   - Successfully scraped: {success_count} title(s)")
-    log(f"   - Skipped / Failed:     {fail_count} title(s)")
-    log(f"   - Total input titles:   {len(extracted_titles)}")
+    log(f"   - Already scraped:      {skip_count} title(s)")
+    log(f"   - Empty / Failed:       {fail_count} title(s)")
+    log(f"   - Total input titles:   {total_count}")
     log("================================================================")
 
 if __name__ == "__main__":
