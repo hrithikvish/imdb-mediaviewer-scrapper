@@ -1,0 +1,31 @@
+{
+  "id": "tt1392982",
+  "name": "tt1392982",
+  "targetUrl": "https://www.imdb.com/title/tt1392982/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjY0OTQxNjAyMV5BMl5BanBnXkFtZTcwMDIwNDk5Mw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Speed of Glory (2010)",
+      "width": 847,
+      "height": 1200,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNjJkMTYyOTctNDkzYy00MzQ4LThiMTMtYjcxYmMzODE2YWUwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Speed of Glory (2010)",
+      "width": 1200,
+      "height": 1600,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2221,
+  "timestamp": 1793034910526
+}

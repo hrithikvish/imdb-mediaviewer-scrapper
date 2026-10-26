@@ -1,0 +1,31 @@
+{
+  "id": "tt1336253",
+  "name": "tt1336253",
+  "targetUrl": "https://www.imdb.com/title/tt1336253/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjAyOTIzNTIzOV5BMl5BanBnXkFtZTcwMzQzMDUxMw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Travellers (2011)",
+      "width": 424,
+      "height": 600,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTk4Mzg2NzI1MV5BMl5BanBnXkFtZTcwMDA4NjMxMw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Travellers (2011)",
+      "width": 675,
+      "height": 955,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2376,
+  "timestamp": 1793034859410
+}

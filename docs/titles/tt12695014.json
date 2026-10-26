@@ -1,0 +1,31 @@
+{
+  "id": "tt12695014",
+  "name": "tt12695014",
+  "targetUrl": "https://www.imdb.com/title/tt12695014/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzA2ZjhmYmQtYjQ0MC00MmI5LWI3YzEtMDM4NmExYTM1MTYxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Charlie's Movie (2021)",
+      "width": 1200,
+      "height": 1600,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzA1NDk2N2UtMTcyMS00ZjUwLWFhMWUtNzkzNjFkY2I3MTVkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Joey Mangano in Charlie's Movie (2021)",
+      "width": 1200,
+      "height": 1600,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2382,
+  "timestamp": 1793034793804
+}

@@ -1,0 +1,42 @@
+{
+  "id": "tt1124215",
+  "name": "Queen Sized (2008)",
+  "targetUrl": "https://www.imdb.com/title/tt1124215/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjg4NzkxNDU4OF5BMl5BanBnXkFtZTgwMDcwNjcwMzE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Queen Sized (2008)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzc1MDE0Mzg1NV5BMl5BanBnXkFtZTcwOTg1MDE4MQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Queen Sized (2008)",
+      "width": 358,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTc4NTQyOTMxOV5BMl5BanBnXkFtZTcwNjk3Mjk1OQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Queen Sized",
+      "width": 638,
+      "height": 317,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 3097,
+  "timestamp": 1793034649943
+}

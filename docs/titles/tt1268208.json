@@ -1,0 +1,42 @@
+{
+  "id": "tt1268208",
+  "name": "tt1268208",
+  "targetUrl": "https://www.imdb.com/title/tt1268208/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNDYzMDAzNDA1MV5BMl5BanBnXkFtZTgwOTQ2MjcwMzE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Gnaw (2008)",
+      "width": 354,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjE1NTIxOTAzOF5BMl5BanBnXkFtZTcwMTg2OTczMw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Gnaw (2008)",
+      "width": 350,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTc1MzE5ODUxMl5BMl5BanBnXkFtZTcwMjQzMDI0Mg@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Gnaw (2008)",
+      "width": 391,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2495,
+  "timestamp": 1793034793469
+}

@@ -1,0 +1,31 @@
+{
+  "id": "tt1149606",
+  "name": "tt1149606",
+  "targetUrl": "https://www.imdb.com/title/tt1149606/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjIxNjcwOTc4Ml5BMl5BanBnXkFtZTgwNTE0NjcwMzE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Nightmare at the End of the Hall (2008)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTk4NzQ2NTc5Ml5BMl5BanBnXkFtZTgwNDYyMjA2MDE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Sara Rue and Jacqueline MacInnes Wood in Nightmare at the End of the Hall (2008)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2300,
+  "timestamp": 1793034677607
+}

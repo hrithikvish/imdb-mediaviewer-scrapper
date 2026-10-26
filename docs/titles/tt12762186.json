@@ -1,0 +1,31 @@
+{
+  "id": "tt12762186",
+  "name": "tt12762186",
+  "targetUrl": "https://www.imdb.com/title/tt12762186/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNTkyOWNhOWItMTdmOS00NzcxLTlkOTItYWMxZmMyNDhjMDQwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Hiroshimai: 75 Years Later (2020)",
+      "width": 500,
+      "height": 750,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjE0ZDIwNDYtNzQ1MS00YTkzLWFmOTYtYWQ5MTRhMjliNTQ4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Hiroshimai: 75 Years Later (2020)",
+      "width": 1440,
+      "height": 2160,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2305,
+  "timestamp": 1793034799708
+}

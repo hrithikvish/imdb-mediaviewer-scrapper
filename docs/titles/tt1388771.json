@@ -1,0 +1,31 @@
+{
+  "id": "tt1388771",
+  "name": "tt1388771",
+  "targetUrl": "https://www.imdb.com/title/tt1388771/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZGQ0YmY5NWQtZTMxYy00NjhjLThhNjAtOTM3MWU5OTg0ZDg1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Lou Reed: Transformer (2001)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjQzNjc1MTA3Ml5BMl5BanBnXkFtZTgwMTM0ODAwNzE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Lou Reed: Transformer (2001)",
+      "width": 354,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2346,
+  "timestamp": 1793034906809
+}

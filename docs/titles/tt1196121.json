@@ -1,0 +1,31 @@
+{
+  "id": "tt1196121",
+  "name": "tt1196121",
+  "targetUrl": "https://www.imdb.com/title/tt1196121/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjI3MzM3NTgzMF5BMl5BanBnXkFtZTgwMzUwMTA1MTE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Black Roots (1970)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BODk4ZTUzYTYtMDcxOC00YzU4LWJkYTctMjI4ODcyMDBlYTllXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Florynce Kennedy in Black Roots (1970)",
+      "width": 968,
+      "height": 1139,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2849,
+  "timestamp": 1793034719787
+}
