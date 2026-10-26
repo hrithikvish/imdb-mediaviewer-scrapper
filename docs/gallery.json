@@ -1,41 +1,85 @@
 {
-  "targetUrl": "https://www.imdb.com/title/tt14686516/mediaindex/",
+  "targetUrl": "https://www.imdb.com/title/tt0261408/mediaindex/",
   "items": [
     {
-      "url": "https://m.media-amazon.com/images/M/MV5BOTBiZDc4Y2QtMDJiMC00YzEwLTg0NzEtZjJhOGE5NDg1YzMwXkEyXkFqcGc@._V1_.jpg",
+      "url": "https://m.media-amazon.com/images/M/MV5BNDE3ZWM0N2ItOGVmYS00ZDczLThjZjMtYjhkOGJiOThiOWQ4XkEyXkFqcGc@._V1_.jpg",
       "type": "IMAGE",
       "mimeType": "image/jpeg",
-      "title": "Rosemary West and Fred West in Rose West: Born Evil? (2021)",
-      "width": 1920,
-      "height": 1080,
+      "title": "The Wicked Die Slow (1968)",
+      "width": 2970,
+      "height": 2377,
       "metadata": {
         "source": "gallery_dom"
       }
     },
     {
-      "url": "https://m.media-amazon.com/images/M/MV5BOGM0M2ExYjMtM2ZmZS00NGM5LWExZWMtNThhMzFiMjNkN2UzXkEyXkFqcGc@._V1_.jpg",
+      "url": "https://m.media-amazon.com/images/M/MV5BNTE5ZjJjM2QtNzU3YS00ZDhjLWE2NTctYmNiODIzMTAzZmJkXkEyXkFqcGc@._V1_.jpg",
       "type": "IMAGE",
       "mimeType": "image/jpeg",
-      "title": "Rosemary West in Rose West: Born Evil? (2021)",
-      "width": 780,
-      "height": 1170,
+      "title": "Gary Allen, Jeff Kanew, and Yolanda Signorelli in The Wicked Die Slow (1968)",
+      "width": 2228,
+      "height": 2955,
       "metadata": {
         "source": "gallery_dom"
       }
     },
     {
-      "url": "https://m.media-amazon.com/images/M/MV5BNDcyNDFhYjktYTIxOC00MGU1LWFiOGMtNDBmNjkyZmVjMGM2XkEyXkFqcGc@._V1_.jpg",
+      "url": "https://m.media-amazon.com/images/M/MV5BMThmYzVmNWYtYzMyZi00ZTY2LWJmYjctYWMxZTVmZmMzNzYxXkEyXkFqcGc@._V1_.jpg",
       "type": "IMAGE",
       "mimeType": "image/jpeg",
-      "title": "Rosemary West in Rose West: Born Evil? (2021)",
-      "width": 400,
-      "height": 600,
+      "title": "The Wicked Die Slow (1968)",
+      "width": 900,
+      "height": 1297,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNjI4MWRlMjUtMjQ4My00MmY0LWI5NWMtNWFhY2U1N2ZiMWNmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Wicked Die Slow (1968)",
+      "width": 368,
+      "height": 565,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYjA3ZWY0ODgtNjczYi00ZDg5LTgyM2EtYjY1MzUwMjA3NzM4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Wicked Die Slow (1968)",
+      "width": 1103,
+      "height": 1558,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzZkMTMxMmEtMjIwNC00YTAwLTkzOTUtODQwMWExNTYyZDcyXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Wicked Die Slow (1968)",
+      "width": 1017,
+      "height": 765,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYTUwNGYwNGItYjQ4OS00NDcxLWIwMzMtZWQyMDJkYmIwZWQ1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Wicked Die Slow (1968)",
+      "width": 278,
+      "height": 420,
       "metadata": {
         "source": "gallery_dom"
       }
     }
   ],
-  "durationMs": 2478,
+  "durationMs": 2906,
   "strategyUsed": "NETWORK_SNIFFER",
-  "timestamp": 1793034977524
+  "timestamp": 1793035015962
 }
