@@ -1,0 +1,42 @@
+{
+  "id": "tt10951528",
+  "name": "tt10951528",
+  "targetUrl": "https://www.imdb.com/title/tt10951528/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzUzN2EzMDUtYzA0Yy00NTRiLWExNmItMmRjODMyZTYyYzQ1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Neil Patrick Harris and Keegan-Michael Key in Star Wars Galaxy's Edge: Adventure Awaits (2019)",
+      "width": 800,
+      "height": 532,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYmE3OTAwNjctNmFhNC00NmM5LWJjNWItOTVlOTY2ZDE2MDAxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Neil Patrick Harris in Star Wars Galaxy's Edge: Adventure Awaits (2019)",
+      "width": 1280,
+      "height": 720,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BODQyNTBiMmMtZDdkMC00OTU1LTk5NTktZjc3MTQ1YzE1Mjc3XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Star Wars Galaxy's Edge: Adventure Awaits (2019)",
+      "width": 400,
+      "height": 600,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 2935,
+  "timestamp": 1793034865326
+}

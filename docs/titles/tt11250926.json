@@ -1,0 +1,42 @@
+{
+  "id": "tt11250926",
+  "name": "tt11250926",
+  "targetUrl": "https://www.imdb.com/title/tt11250926/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzE0YjM3ZWYtMGVlMC00MTE0LThjOGItYTA3YTJkNDhiMDNlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Jimmy O. Yang: Good Deal (2020)",
+      "width": 1920,
+      "height": 2560,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjNiZDA0ZDYtNDE1Ny00ZGM2LTg3MTUtODhiMWEzZDNlZDNiXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Jimmy O. Yang: Good Deal (2020)",
+      "width": 1000,
+      "height": 1500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BN2U0OTE0MzAtMWI4Yy00NmEzLTg3ZTctNjQ4MDRhNzcwODYxXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Jimmy O. Yang: Good Deal (2020)",
+      "width": 2560,
+      "height": 1920,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 5632,
+  "timestamp": 1793034909581
+}

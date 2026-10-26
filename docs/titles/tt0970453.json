@@ -1,0 +1,31 @@
+{
+  "id": "tt0970453",
+  "name": "Spike (2008)",
+  "targetUrl": "https://www.imdb.com/title/tt0970453/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTU0NjE0NTgxNV5BMl5BanBnXkFtZTcwNjY4MjA4Mg@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Spike (2008)",
+      "width": 450,
+      "height": 670,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjExOTM2MTMyMl5BMl5BanBnXkFtZTcwMjc2NTk5Mw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Spike (2008)",
+      "width": 349,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 3602,
+  "timestamp": 1793034716785
+}

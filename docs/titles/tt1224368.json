@@ -1,0 +1,42 @@
+{
+  "id": "tt1224368",
+  "name": "tt1224368",
+  "targetUrl": "https://www.imdb.com/title/tt1224368/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjQ0YjA1ODgtZDhkMS00NDExLWI4MmEtOGJmMmUyN2YyOGVkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Ladies of the House (2008)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTkzMjgxMjA4NV5BMl5BanBnXkFtZTcwODk5MjQyMw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Pam Grier, Florence Henderson, and Donna Mills in Ladies of the House (2008)",
+      "width": 307,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZTgyOGJkYWItODNhOS00OTA0LThlMDUtYzQ0NTIyODFjNmRkXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Pam Grier, Florence Henderson, and Donna Mills in Ladies of the House (2008)",
+      "width": 1595,
+      "height": 1946,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 4621,
+  "timestamp": 1793035037407
+}

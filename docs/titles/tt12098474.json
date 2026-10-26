@@ -1,0 +1,31 @@
+{
+  "id": "tt12098474",
+  "name": "tt12098474",
+  "targetUrl": "https://www.imdb.com/title/tt12098474/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZjdlMjU4M2MtMWJiMi00ZmQ1LWJlNGEtNTc1NGRkNTMxMWQ2XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Strong: The Destry Abbott Story (2019)",
+      "width": 4096,
+      "height": 2160,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNzRiNjlmYzUtZTE5Mi00ZTFmLWFhNmItM2Y3YzA2NDhlZDJhXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Cuyler Ruskin in Strong: The Destry Abbott Story (2019)",
+      "width": 1400,
+      "height": 2100,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 4012,
+  "timestamp": 1793035020941
+}

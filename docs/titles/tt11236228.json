@@ -1,0 +1,31 @@
+{
+  "id": "tt11236228",
+  "name": "tt11236228",
+  "targetUrl": "https://www.imdb.com/title/tt11236228/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNGI4MzdmMjktM2FiNi00NzdhLWI0ZWItYWIxMjY2ZTc0NzZlXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Alika Autran and Mark Camacho in Peace by Chocolate (2021)",
+      "width": 1920,
+      "height": 1080,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BNDhhNDdhMTMtNzk2Yy00ZmI5LTlmZmMtNjZhOWMwMDY1OTYwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Peace by Chocolate (2021)",
+      "width": 2025,
+      "height": 3000,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 4060,
+  "timestamp": 1793034904294
+}

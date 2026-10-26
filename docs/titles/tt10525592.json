@@ -1,0 +1,31 @@
+{
+  "id": "tt10525592",
+  "name": "The Armstrong Tapes (2019)",
+  "targetUrl": "https://www.imdb.com/title/tt10525592/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZjk0NzkwMjEtMDg3YS00Y2NiLWEyOTEtMzgwMGI2MjU0MTA5XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Armstrong Tapes (2019)",
+      "width": 1000,
+      "height": 1500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYzZlYWFkNDQtN2MyYy00MjljLThhODktZWMyNzRhY2Y5YTczXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "The Armstrong Tapes (2019)",
+      "width": 761,
+      "height": 284,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 3986,
+  "timestamp": 1793034807375
+}

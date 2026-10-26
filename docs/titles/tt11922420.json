@@ -1,0 +1,31 @@
+{
+  "id": "tt11922420",
+  "name": "tt11922420",
+  "targetUrl": "https://www.imdb.com/title/tt11922420/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BOTM0ZGE1ODQtYTUyZS00NjBkLWFmM2EtMjU1MTVlYTRkOTg1XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Michelle Obama in Michelle Obama: Life After the White House (2020)",
+      "width": 3000,
+      "height": 2000,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZWI4N2I4MjMtMDE1Yi00YTNmLTk1MWEtYTRiOGYxOWFkMDllXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Michelle Obama in Michelle Obama: Life After the White House (2020)",
+      "width": 2000,
+      "height": 3000,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 4285,
+  "timestamp": 1793035002952
+}

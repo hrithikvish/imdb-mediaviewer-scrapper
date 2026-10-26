@@ -1,0 +1,31 @@
+{
+  "id": "tt11563110",
+  "name": "tt11563110",
+  "targetUrl": "https://www.imdb.com/title/tt11563110/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BYmYyNmMyZjMtZGQ5YS00MmFkLWE2MDUtNDY3YmY1ZDc4Yzg4XkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Coffee Kart (2019)",
+      "width": 1280,
+      "height": 714,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BZWQ5OWI1YjktYWE4YS00ZmU5LTk3OWQtM2U1MjVmYjBlNDBmXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Robin Bjerke and Rachel Magana in Coffee Kart (2019)",
+      "width": 1200,
+      "height": 1600,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 8601,
+  "timestamp": 1793034956008
+}

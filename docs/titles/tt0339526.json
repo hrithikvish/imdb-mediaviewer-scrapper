@@ -1,0 +1,31 @@
+{
+  "id": "tt0339526",
+  "name": "Shooting Gallery (2005)",
+  "targetUrl": "https://www.imdb.com/title/tt0339526/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjA1NDYyNjU0N15BMl5BanBnXkFtZTgwMjM4NTAwNzE@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Shooting Gallery (2005)",
+      "width": 375,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTY0MTM3NjkxNF5BMl5BanBnXkFtZTcwOTE1NjYzMQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Shooting Gallery (2005)",
+      "width": 346,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 3920,
+  "timestamp": 1793034478491
+}
