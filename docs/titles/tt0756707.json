@@ -1,0 +1,42 @@
+{
+  "id": "tt0756707",
+  "name": "Fight Night (2008)",
+  "targetUrl": "https://www.imdb.com/title/tt0756707/mediaindex/",
+  "items": [
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMjEwOTg2OTk0NF5BMl5BanBnXkFtZTcwMzMwOTA1MQ@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Fight Night (2008)",
+      "width": 450,
+      "height": 683,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTcxNTczMzMwMl5BMl5BanBnXkFtZTcwMjk4MjQ4Mw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Fight Night (2008)",
+      "width": 353,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BMTMzOTA0ODY5N15BMl5BanBnXkFtZTcwNjk3MjQ4Mw@@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "Fight Night (2008)",
+      "width": 405,
+      "height": 500,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    }
+  ],
+  "durationMs": 4280,
+  "timestamp": 1793034586162
+}
