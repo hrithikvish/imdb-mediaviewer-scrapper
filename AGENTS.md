@@ -28,7 +28,6 @@ imdb-mediaviewer-scrapper/
 │   │       └── action.yml           # Shared environment setup composite action (Python, Playwright)
 │   └── workflows/
 │       ├── deploy-pages.yml         # GitHub Actions CI/CD IMDb scraper & deployment workflow
-│       ├── scrape-list.yml          # Cron bulk scrape of a committed list in parallel shards; disables itself when done
 │       └── sync-subreddits.yml      # GitHub Actions manual subreddit sync workflow
 ├── docs/                             # GitHub Pages static website root
 │   ├── index.html                    # Single-page web viewer
@@ -41,7 +40,6 @@ imdb-mediaviewer-scrapper/
 │       ├── tt0056241.json
 │       ├── r_MoviePosterPorn.json
 │       └── ...                       # 500+ scraped title archives
-├── inputs/                         # Committed scrape lists for scrape-list.yml (e.g. rarbg_movies.csv)
 ├── common.py                         # Shared registry synchronization & path constants (stdlib only)
 ├── data.sh                           # pull | publish gallery data to/from the `data` branch
 ├── serve.py                          # Local preview server (data read from local disk / data branch)
