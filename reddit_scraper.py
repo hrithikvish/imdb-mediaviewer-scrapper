@@ -168,7 +168,7 @@ def save_subreddit_archive(data: Dict):
     file_path = os.path.join(TITLES_DIR, f"{subreddit_id}.json")
     data["timestamp"] = int(time.time() * 1000)
     with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+        json.dump(data, f, separators=(",", ":"), ensure_ascii=False)
     log(f"💾 Saved {len(data['items'])} items to {file_path}")
 
 # ---------------------------------------------------------------------------

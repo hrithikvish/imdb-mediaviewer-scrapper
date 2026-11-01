@@ -532,7 +532,7 @@ def save_title_gallery(title_id: str, title_name: str, items: List[Dict], durati
     }
     title_file = os.path.join(TITLES_DIR, f"{title_id}.json")
     with open(title_file, "w", encoding="utf-8") as f:
-        json.dump(title_payload, f, indent=2, ensure_ascii=False)
+        json.dump(title_payload, f, separators=(",", ":"), ensure_ascii=False)
 
     # 2-3. Shared files: parallel workers must not read-modify-write them at the same time
     with _registry_lock:
@@ -565,7 +565,7 @@ def _update_shared_files(title_id, title_name, target_url, items, duration_ms, t
     # Prepend new entry, replace if existing
     updated_registry = [new_entry] + [t for t in existing_registry if t.get("id") != title_id]
     with open(TITLES_JSON_PATH, "w", encoding="utf-8") as f:
-        json.dump(updated_registry, f, indent=2, ensure_ascii=False)
+        json.dump(updated_registry, f, separators=(",", ":"), ensure_ascii=False)
 
     # 3. Write legacy docs/gallery.json for backwards compatibility
     gallery_payload = {
@@ -576,7 +576,7 @@ def _update_shared_files(title_id, title_name, target_url, items, duration_ms, t
         "timestamp": timestamp
     }
     with open(GALLERY_JSON_PATH, "w", encoding="utf-8") as f:
-        json.dump(gallery_payload, f, indent=2, ensure_ascii=False)
+        json.dump(gallery_payload, f, separators=(",", ":"), ensure_ascii=False)
 
 # ---------------------------------------------------------------------------
 # Main Execution CLI

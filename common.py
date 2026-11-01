@@ -75,7 +75,7 @@ def rebuild_titles_registry() -> int:
 
     registry.sort(key=lambda x: x.get("lastUpdated", 0), reverse=True)
     with open(TITLES_JSON_PATH, "w", encoding="utf-8") as fp:
-        json.dump(registry, fp, indent=2, ensure_ascii=False)
+        json.dump(registry, fp, separators=(",", ":"), ensure_ascii=False)
 
     if latest_title_data:
         gallery_payload = {
@@ -86,7 +86,7 @@ def rebuild_titles_registry() -> int:
             "timestamp": latest_title_data.get("timestamp", 0)
         }
         with open(GALLERY_JSON_PATH, "w", encoding="utf-8") as fp:
-            json.dump(gallery_payload, fp, indent=2, ensure_ascii=False)
+            json.dump(gallery_payload, fp, separators=(",", ":"), ensure_ascii=False)
 
     log(f"📋 [REGISTRY] Synchronized docs/titles.json with {len(registry)} titles.")
     return len(registry)
