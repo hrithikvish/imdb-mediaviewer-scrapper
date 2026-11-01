@@ -11,9 +11,10 @@ on:
   workflow_dispatch:
     inputs:
       imdb_input:
-        description: 'Paste any text containing IMDb URLs, movie titles, or search links'
-        required: true
+        description: 'Optional: paste IMDb URLs/titles to scrape before deploying (leave blank to just re-deploy)'
+        required: false
         type: string
+        default: ''
       force_rescrape:
         description: 'Re-scrape title(s) even if already scraped'
         required: false
@@ -71,8 +72,14 @@ jobs:
           mkdir -p build
           case "$GITHUB_EVENT_NAME" in
             workflow_dispatch)
-              printf "%s\n" "$DISPATCH_INPUT" > build/input_text.txt
-              FORCE="$DISPATCH_FORCE"
+              if printf "%s" "$DISPATCH_INPUT" | grep -q '[^[:space:]]'; then
+                printf "%s\n" "$DISPATCH_INPUT" > build/input_text.txt
+                FORCE="$DISPATCH_FORCE"
+              else
+                echo "Deploy-only run requested (no IMDb input provided)."
+                echo "scrape=false" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
               ;;
             issues)
               # Body holds the titles/URLs; fall back to the title text after the "[scrape]" tag
