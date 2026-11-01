@@ -1,30 +1,41 @@
 {
-  "targetUrl": "https://www.imdb.com/title/tt15300538/mediaindex/",
+  "targetUrl": "https://www.imdb.com/title/tt0031391/mediaindex/",
   "items": [
     {
-      "url": "https://m.media-amazon.com/images/M/MV5BYzYyMWJmYjUtYzdkMi00MzU5LTk3NzQtNTk5NDAwZTNjNTBlXkEyXkFqcGc@._V1_.jpg",
+      "url": "https://m.media-amazon.com/images/M/MV5BNjRmOWMyNDAtOThhNy00YjU3LTlkMGMtMTY4ZTc5MWExN2I2XkEyXkFqcGc@._V1_.jpg",
       "type": "IMAGE",
       "mimeType": "image/jpeg",
-      "title": "Tom (2022)",
-      "width": 675,
-      "height": 1000,
+      "title": "I grandi magazzini (1939)",
+      "width": 500,
+      "height": 770,
       "metadata": {
         "source": "gallery_dom"
       }
     },
     {
-      "url": "https://m.media-amazon.com/images/M/MV5BYWNhYTA4NzAtN2NkYi00ZTcyLWEyNGYtNTNhZDY0MTRiZTJiXkEyXkFqcGc@._V1_.jpg",
+      "url": "https://m.media-amazon.com/images/M/MV5BZDY3MTQ4M2EtNTZmMC00ZTk0LTk0MWMtMTNhMjk1YmQxNDUwXkEyXkFqcGc@._V1_.jpg",
       "type": "IMAGE",
       "mimeType": "image/jpeg",
-      "title": "Bram Zwingli, Landon Sheetz, Joey Loboda, Don Tjernagel, Matt Lee Ingebritson, Greg Holt, and Clint Boevers in Tom (2022)",
-      "width": 810,
-      "height": 1200,
+      "title": "I grandi magazzini (1939)",
+      "width": 405,
+      "height": 599,
+      "metadata": {
+        "source": "gallery_dom"
+      }
+    },
+    {
+      "url": "https://m.media-amazon.com/images/M/MV5BN2ZlZTYyYzItMjI5ZC00MDkzLWFlOTEtY2ExNWQ2MzEwYTAwXkEyXkFqcGc@._V1_.jpg",
+      "type": "IMAGE",
+      "mimeType": "image/jpeg",
+      "title": "I grandi magazzini (1939)",
+      "width": 1139,
+      "height": 1546,
       "metadata": {
         "source": "gallery_dom"
       }
     }
   ],
-  "durationMs": 2985,
+  "durationMs": 2266,
   "strategyUsed": "NETWORK_SNIFFER",
-  "timestamp": 1793035121731
+  "timestamp": 1793527031639
 }
